@@ -65,7 +65,7 @@ def fct_polynomial_features(X, degree, interaction_only, order):
 def allow_configuration(n_obs, n_feature, degree, interaction_only, order):
     if n_obs <= 100:
         return True
-    if nfeat >= 50 and degree >= 4:
+    if n_feature >= 50 and degree >= 4:
         return False
     return True
 
