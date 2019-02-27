@@ -1,0 +1,9 @@
+PR13290
+=======
+
+`PR13290 <https://github.com/scikit-learn/scikit-learn/pull/13290>`_:
+implements faster polynomial features for dense matrices
+
+.. image:: bench_polynomial_features.png
+
+.. literalinclude:: bench_polynomial_features.csv
