@@ -65,12 +65,13 @@ def fct_polynomial_features(X, degree, interaction_only, order):
 def allow_configuration(n_obs, n_feature, degree, interaction_only, order):
     if n_obs <= 100:
         return True
-    if n_feature >= 50 and degree >= 4:
+    if n_feature >= 40 and degree >= 4:
+        return False
+    if n_obs >= 10000 and degree >= 4:
         return False
     return True
 
 
-# @ignore_warnings(category=DeprecatedWarning)
 def bench(n_obs, n_features, degrees, interactions_only, orders,
           repeat=10, verbose=False):
     res = []
