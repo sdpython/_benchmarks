@@ -65,6 +65,10 @@ def fct_polynomial_features(X, degree, interaction_only, order):
 def allow_configuration(n_obs, n_feature, degree, interaction_only, order):
     if n_obs <= 100:
         return True
+    if n_feature >= 80 and degree >= 4 and n_obs < 100:
+        return False
+    if n_feature >= 80 and degree >= 3 and n_obs >= 100:
+        return False
     if n_feature >= 40 and degree >= 4:
         return False
     if n_obs >= 10000 and degree >= 4:
@@ -150,7 +154,7 @@ def plot_results(df, verbose=False):
                     a.set_ylabel("Time (s) degree={}".format(degree),
                                  fontsize='x-small')
 
-                for color, nfeat in zip('brgy', sorted(set(df.nfeat))):
+                for color, nfeat in zip('brgyc', sorted(set(df.nfeat))):
                     subset = df[(df.degree == degree) & (df.nfeat == nfeat) &
                                 (df.interaction_only == interaction_only) &
                                 (df.order == order)]
@@ -175,7 +179,7 @@ def plot_results(df, verbose=False):
 
 def run_bench(repeat=100, verbose=False):
     n_obs = [1, 10, 100, 1000, 10000, 100000]
-    n_features = [10, 20, 40]
+    n_features = [10, 20, 40, 80]
     degrees = [2, 3, 4]
     interactions_only = [False, True]
     orders = ['C', 'F']
