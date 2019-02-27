@@ -132,7 +132,8 @@ def bench(n_obs, n_features, degrees, interactions_only, orders,
                             print("bench", len(res), ":", obs)
 
                         # checks that both produce the same outputs
-                        assert_almost_equal(p1, p2)
+                        if n <= 10000:
+                            assert_almost_equal(p1, p2)
     return res
 
 
