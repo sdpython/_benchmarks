@@ -73,6 +73,8 @@ def allow_configuration(n_obs, n_feature, degree, interaction_only, order):
         return False
     if n_obs >= 10000 and degree >= 4:
         return False
+    if n_obs >= 100000 and degree >= 3 and n_feature >= 40:
+        return False
     return True
 
 
