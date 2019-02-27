@@ -62,6 +62,13 @@ def fct_polynomial_features(X, degree, interaction_only, order):
 # Benchmarks
 ##############################
 
+def allow_configuration(n_obs, n_feature, degree, interaction_only, order):
+    if n_obs <= 100:
+        return True
+    if nfeat >= 50 and degree >= 4:
+        return False
+    return True
+
 
 # @ignore_warnings(category=DeprecatedWarning)
 def bench(n_obs, n_features, degrees, interactions_only, orders,
@@ -74,6 +81,9 @@ def bench(n_obs, n_features, degrees, interactions_only, orders,
                 X[:, :] = rand(n, nfeat)[:, :]
                 for degree in degrees:
                     for interaction_only in interactions_only:
+                        if not allow_configuration(n, nfeat,
+                            degree, interaction_only, order):
+                            continue
 
                         obs = dict(n=n, nfeat=nfeat, order=order,
                                    interaction_only=interaction_only,
