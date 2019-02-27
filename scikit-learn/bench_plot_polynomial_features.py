@@ -5,6 +5,8 @@ implemented in 0.20.2 against implementation from PR #13290.
 """
 # Authors: Xavier Dupré (benchmark)
 # License: MIT
+import matplotlib
+matplotlib.use('Agg')
 
 from time import time
 from itertools import combinations, chain
@@ -160,6 +162,8 @@ def plot_results(df, verbose=False):
                     subset = df[(df.degree == degree) & (df.nfeat == nfeat) &
                                 (df.interaction_only == interaction_only) &
                                 (df.order == order)]
+                    if subset.shape[0] == 0:
+                        continue
                     subset = subset.sort_values("n")
                     if verbose:
                         print(subset)
