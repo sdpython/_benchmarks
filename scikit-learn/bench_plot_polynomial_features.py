@@ -112,7 +112,7 @@ def bench(n_obs, n_features, degrees, interactions_only, orders,
                         end = time()
                         obs["time_current"] = (end - st) / r
                         res.append(obs)
-                        if verbose and (len(res) % 10 == 0 or n >= 10000):
+                        if verbose and (len(res) % 1 == 0 or n >= 10000):
                             print("bench", len(res), ":", obs)
 
                         # checks that both produce the same outputs
