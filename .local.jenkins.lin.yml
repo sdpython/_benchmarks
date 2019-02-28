@@ -13,3 +13,4 @@ before_script:
 
 script:
   - { CMD: "echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features.py", NAME: "POLYF", TIMEOUT: 3600 }
+  - { CMD: "from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])", NAME: "UT"}
