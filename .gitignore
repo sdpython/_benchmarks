@@ -1,5 +1,5 @@
 build
 dist
-onnruntime/*.png
-onnruntime/*.csv
-onnruntime/*.onnx
+onnxruntime/*.png
+onnxruntime/*.csv
+onnxruntime/*.onnx
