@@ -1,0 +1,214 @@
+# coding: utf-8
+"""
+Benchmark of onnxruntime on RandomForest.
+"""
+# Authors: Xavier Dupré (benchmark)
+# License: MIT
+import matplotlib
+matplotlib.use('Agg')
+
+from io import BytesIO
+from time import perf_counter as time
+from itertools import combinations, chain
+from itertools import combinations_with_replacement as combinations_w_r
+
+import numpy as np
+from numpy.random import rand
+from numpy.testing import assert_almost_equal
+import matplotlib.pyplot as plt
+import pandas
+from sklearn.ensemble import RandomForestClassifier
+from skl2onnx import convert_sklearn
+from skl2onnx.common.data_types import FloatTensorType
+from onnxruntime import InferenceSession
+
+
+
+##############################
+# Implementations to benchmark.
+##############################
+
+def fcts_model(X, y, max_depth, n_estimators, method):
+    "RandomForestClassifier."
+    rf = RandomForestClassifier(max_depth=max_depth, n_estimators=n_estimators)
+    rf.fit(X, y)
+    
+    initial_types = [('X', FloatTensorType([1, X.shape[1]]))]
+    onx = convert_sklearn(rf, initial_types=initial_types)
+    f = BytesIO()
+    f.write(onx.SerializeToString())
+    content = f.getvalue()
+    sess = InferenceSession(content)
+
+    def predict_skl_predict(X, model=rf):
+        return rf.predict(X)
+
+    def predict_skl_predict_proba(X, model=rf):
+        return rf.predict_proba(X)
+        
+    def predict_onnxrt_predict(X, sess=sess):
+        return sess.run(None, {'X': X.astype(np.float32)})[0]
+
+    def predict_onnxrt_predict_proba(X, sess=sess):
+        df = pandas.DataFrame(sess.run(None, {'X': X.astype(np.float32)})[1])
+        return df[[0, 1]].values
+
+    if method == "predict":
+        return predict_skl_predict, predict_onnxrt_predict
+    elif method == "predict_proba":
+        return predict_skl_predict_proba, predict_onnxrt_predict_proba
+    else:
+        raise ValueError("Unknown method: '{0}'.".format(method))
+
+
+##############################
+# Benchmarks
+##############################
+
+def allow_configuration(**kwargs):
+    return True
+
+
+def bench(n_obs, n_features, max_depths, n_estimatorss, methods,
+          repeat=10, verbose=False):
+    res = []
+    for n in n_obs:
+        for nfeat in n_features:
+            
+            ntrain = 100000
+            X_train = np.empty((ntrain, nfeat))
+            X_train[:, :] = rand(ntrain, nfeat)[:, :]
+            X_trainsum = X_train.sum(axis=1) 
+            eps = rand(ntrain) - 0.5
+            X_trainsum_ = X_trainsum + eps
+            y_train = (X_trainsum_ >= X_trainsum).ravel().astype(int)
+            
+            for method in methods:                
+                for max_depth in max_depths:                
+                    for n_estimators in n_estimatorss:
+                        if not allow_configuration(n=n, nfeat=nfeat,
+                            max_depth=max_depth, n_estimator=n_estimators):
+                            continue
+
+                        obs = dict(n_obs=n, nfeat=nfeat, max_depth=max_depth,
+                                   n_estimators=n_estimators, method=method)
+                                   
+                        fct1, fct2 = fcts_model(X_train, y_train, max_depth, n_estimators, method)
+
+                        # creates different inputs to avoid caching in any ways
+                        Xs = []
+                        for r in range(repeat):
+                            x = np.empty((n, nfeat))
+                            x[:, :] = rand(n, nfeat)[:, :]
+                            Xs.append(x)
+
+                        # measures the baseline
+                        st = time()
+                        r = 0
+                        for X in Xs:
+                            p1 = fct1(X)
+                            r += 1
+                            if time() - st >= 1:
+                                break  # stops if longer than a second
+                        end = time()
+                        obs["time_skl"] = (end - st) / r
+
+                        # measures the new implementation
+                        st = time()
+                        r2 = 0
+                        for X in Xs:
+                            p2 = fct2(X)
+                            r2 += 1
+                            if r2 >= r:
+                                break
+                        end = time()
+                        obs["time_ort"] = (end - st) / r
+                        res.append(obs)
+                        if verbose and (len(res) % 1 == 0 or n >= 10000):
+                            print("bench", len(res), ":", obs)
+
+                        # checks that both produce the same outputs
+                        if n <= 10000:
+                            assert_almost_equal(p1, p2)
+    return res
+
+
+##############################
+# Plots.
+##############################
+
+def plot_results(df, verbose=False):
+    nrows = len(set(df.max_depth)) * len(set(df.n_obs))
+    ncols = len(set(df.method))
+    fig, ax = plt.subplots(max(nrows, 2), max(ncols, 2),
+                           figsize=(nrows * 4, ncols * 4))
+    pos = 0
+
+    row = 0
+    for n_obs in sorted(set(df.n_obs)):
+        for max_depth in sorted(set(df.max_depth)):
+            pos = 0
+            for method in sorted(set(df.method)):
+                a = ax[row, pos]
+                if row == ax.shape[0] - 1:
+                    a.set_xlabel("N features", fontsize='x-small')
+                if pos == 0:
+                    a.set_ylabel("Time (s) n_obs={}\nmax_depth={}".format(n_obs, max_depth),
+                                 fontsize='x-small')
+
+                for color, n_estimators in zip('brgyc', sorted(set(df.n_estimators))):
+                    subset = df[(df.method == method) & (df.n_obs == n_obs) &
+                                (df.max_depth == max_depth) &
+                                (df.n_estimators == n_estimators)]
+                    if subset.shape[0] == 0:
+                        continue
+                    subset = subset.sort_values("nfeat")
+                    if verbose:
+                        print(subset)
+                    label = "skl ne={}".format(n_estimators)
+                    subset.plot(x="nfeat", y="time_skl", label=label, ax=a,
+                                logx=True, logy=True, c=color, style='--')
+                    label = "ort ne={}".format(n_estimators)
+                    subset.plot(x="nfeat", y="time_ort", label=label, ax=a,
+                                logx=True, logy=True, c=color)
+
+                a.legend(loc=0, fontsize='x-small')
+                if row == 0:
+                    a.set_title("method={}".format(method), fontsize='x-small')
+                pos += 1
+            row += 1
+
+    plt.suptitle("Benchmark for RandomForest sklearn/onnxruntime", fontsize=16)
+
+
+def run_bench(repeat=100, verbose=False):
+    n_obs = [1, 2, 5]
+    n_features = [1, 2, 5, 10, 20, 50, 100, 200]
+    methods = ['predict', 'predict_proba']
+    max_depths = [2, 4, 6, 8, 10, 20]
+    n_estimatorss = [1, 10, 100]
+
+    start = time()
+    results = bench(n_obs, n_features, max_depths, n_estimatorss, methods,
+                    repeat=repeat, verbose=verbose)
+    end = time()
+
+    results_df = pandas.DataFrame(results)
+    print("Total time = %0.3f sec\n" % (end - start))
+
+    # plot the results
+    plot_results(results_df, verbose=verbose)
+    return results_df
+
+
+if __name__ == '__main__':
+    import sklearn, numpy, onnx, onnxruntime, skl2onnx
+    print("numpy:", numpy.__version__)
+    print("scikit-learn:", sklearn.__version__)
+    print("onnx:", onnx.__version__)
+    print("onnxruntime:", onnxruntime.__version__)
+    print("skl2onnx:", skl2onnx.__version__)
+    df = run_bench(verbose=True)
+    plt.savefig("bench_polynomial_features.png")
+    df.to_csv("bench_polynomial_features.csv", index=False)
+    # plt.show()

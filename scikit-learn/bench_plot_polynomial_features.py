@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Benchmarks of polynomial features for dense matrices
+Benchmark of polynomial features for dense matrices
 implemented in 0.20.2 against implementation from PR #13290.
 """
 # Authors: Xavier Dupré (benchmark)
@@ -144,7 +144,8 @@ def bench(n_obs, n_features, degrees, interactions_only, orders,
 ##############################
 
 def plot_results(df, verbose=False):
-    fig, ax = plt.subplots(3, 4, figsize=(16, 12))
+    nrows = len(set(df.degree))
+    fig, ax = plt.subplots(nrows, 4, figsize=(16, 12))
     pos = 0
 
     for di, degree in enumerate(sorted(set(df.degree))):
