@@ -3,3 +3,8 @@ dist
 onnxruntime/*.png
 onnxruntime/*.csv
 onnxruntime/*.onnx
+scikit-learn/*.txt
+scikit-learn/*.png
+scikit-learn/*.csv
+scikit-learn/*.onnx
+
