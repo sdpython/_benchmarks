@@ -152,28 +152,28 @@ def bench(n_obs, n_features, repeat=1000, verbose=False, profiles=None):
                         fct(X, y)
 
                 sres = doprofile(lambda X, y: repeat_fct(fct1, X, y),
-                                 "fct1_%d_%d.txt" % (n, nfeat), Xpolys[0])
+                                 "fct1_%d_%d.prof" % (n, nfeat), Xpolys[0])
                 if verbose:
-                    print("---- fct1_%d_%d.txt" % (n, nfeat))
+                    print("---- fct1_%d_%d.prof" % (n, nfeat))
                     print(sres)
 
                 sres = doprofile(lambda X, y: repeat_fct(fct2, X, y),
-                                 "fct2_%d_%d.txt" % (n, nfeat), Xs[0])
+                                 "fct2_%d_%d.prof" % (n, nfeat), Xs[0])
                 if verbose:
-                    print("---- fct2_%d_%d.txt" % (n, nfeat))
+                    print("---- fct2_%d_%d.prof" % (n, nfeat))
                     print(sres)
                     
 
                 sres = doprofile(lambda X, y: repeat_fct(fct3, X, y),
-                                 "fct3_%d_%d.txt" % (n, nfeat), Xs[0])
+                                 "fct3_%d_%d.prof" % (n, nfeat), Xs[0])
                 if verbose:
-                    print("---- fct3_%d_%d.txt" % (n, nfeat))
+                    print("---- fct3_%d_%d.prof" % (n, nfeat))
                     print(sres)
 
                 sres = doprofile(lambda X, y: repeat_fct(fct4, X, y),
-                                 "fct4_%d_%d.txt" % (n, nfeat), Xs[0])
+                                 "fct4_%d_%d.prof" % (n, nfeat), Xs[0])
                 if verbose:
-                    print("---- fct4_%d_%d.txt" % (n, nfeat))
+                    print("---- fct4_%d_%d.prof" % (n, nfeat))
                     print(sres)                
 
             if verbose and (len(res) % 1 == 0 or n >= 10000):
