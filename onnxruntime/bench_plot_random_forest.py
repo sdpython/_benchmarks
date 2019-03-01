@@ -23,7 +23,6 @@ from skl2onnx.common.data_types import FloatTensorType
 from onnxruntime import InferenceSession
 
 
-
 ##############################
 # Implementations to benchmark.
 ##############################
@@ -32,7 +31,7 @@ def fcts_model(X, y, max_depth, n_estimators, method):
     "RandomForestClassifier."
     rf = RandomForestClassifier(max_depth=max_depth, n_estimators=n_estimators)
     rf.fit(X, y)
-    
+
     initial_types = [('X', FloatTensorType([1, X.shape[1]]))]
     onx = convert_sklearn(rf, initial_types=initial_types)
     f = BytesIO()
@@ -45,7 +44,7 @@ def fcts_model(X, y, max_depth, n_estimators, method):
 
     def predict_skl_predict_proba(X, model=rf):
         return rf.predict_proba(X)
-        
+
     def predict_onnxrt_predict(X, sess=sess):
         return sess.run(None, {'X': X.astype(np.float32)})[0]
 
@@ -74,26 +73,27 @@ def bench(n_obs, n_features, max_depths, n_estimatorss, methods,
     res = []
     for n in n_obs:
         for nfeat in n_features:
-            
+
             ntrain = 100000
             X_train = np.empty((ntrain, nfeat))
             X_train[:, :] = rand(ntrain, nfeat)[:, :]
-            X_trainsum = X_train.sum(axis=1) 
+            X_trainsum = X_train.sum(axis=1)
             eps = rand(ntrain) - 0.5
             X_trainsum_ = X_trainsum + eps
             y_train = (X_trainsum_ >= X_trainsum).ravel().astype(int)
-            
-            for method in methods:                
-                for max_depth in max_depths:                
+
+            for method in methods:
+                for max_depth in max_depths:
                     for n_estimators in n_estimatorss:
                         if not allow_configuration(n=n, nfeat=nfeat,
-                            max_depth=max_depth, n_estimator=n_estimators):
+                                                   max_depth=max_depth, n_estimator=n_estimators):
                             continue
 
                         obs = dict(n_obs=n, nfeat=nfeat, max_depth=max_depth,
                                    n_estimators=n_estimators, method=method)
-                                   
-                        fct1, fct2 = fcts_model(X_train, y_train, max_depth, n_estimators, method)
+
+                        fct1, fct2 = fcts_model(
+                            X_train, y_train, max_depth, n_estimators, method)
 
                         # creates different inputs to avoid caching in any ways
                         Xs = []
@@ -202,7 +202,11 @@ def run_bench(repeat=100, verbose=False):
 
 
 if __name__ == '__main__':
-    import sklearn, numpy, onnx, onnxruntime, skl2onnx
+    import sklearn
+    import numpy
+    import onnx
+    import onnxruntime
+    import skl2onnx
     print("numpy:", numpy.__version__)
     print("scikit-learn:", sklearn.__version__)
     print("onnx:", onnx.__version__)

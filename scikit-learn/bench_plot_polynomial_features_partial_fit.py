@@ -29,13 +29,12 @@ from sklearn.utils.testing import ignore_warnings
 from mlinsights.mlmodel import ExtendedFeatures
 
 
-
 ##############################
 # Implementations to benchmark.
 ##############################
 
 def fcts_model(X, y):
-    
+
     model1 = SGDClassifier()
     model2 = make_pipeline(PolynomialFeatures(), SGDClassifier())
     model3 = make_pipeline(ExtendedFeatures(kind='poly'), SGDClassifier())
@@ -45,18 +44,18 @@ def fcts_model(X, y):
     model2.fit(X, y)
     model3.fit(X, y)
     model4.fit(X, y)
-    
+
     def partial_fit_model1(X, y, model=model1):
         return model.partial_fit(X, y)
-    
+
     def partial_fit_model2(X, y, model=model2):
         X2 = model.steps[0][1].transform(X)
         return model.steps[1][1].partial_fit(X2, y)
-    
+
     def partial_fit_model3(X, y, model=model3):
         X2 = model.steps[0][1].transform(X)
         return model.steps[1][1].partial_fit(X2, y)
-    
+
     def partial_fit_model4(X, y, model=model4):
         X2 = model.steps[0][1].transform(X)
         return model.steps[1][1].partial_fit(X2, y)
@@ -71,7 +70,7 @@ def fcts_model(X, y):
 def build_x_y(ntrain, nfeat):
     X_train = np.empty((ntrain, nfeat))
     X_train[:, :] = rand(ntrain, nfeat)[:, :]
-    X_trainsum = X_train.sum(axis=1) 
+    X_trainsum = X_train.sum(axis=1)
     eps = rand(ntrain) - 0.5
     X_trainsum_ = X_trainsum + eps
     y_train = (X_trainsum_ >= X_trainsum).ravel().astype(int)
@@ -98,11 +97,11 @@ def bench(n_obs, n_features, repeat=1000, verbose=False, profiles=None):
     res = []
     for n in n_obs:
         for nfeat in n_features:
-            
+
             X_train, y_train = build_x_y(1000, nfeat)
-            
+
             obs = dict(n_obs=n, nfeat=nfeat)
-                                   
+
             fct1, fct2, fct3, fct4 = fcts_model(X_train, y_train)
 
             # creates different inputs to avoid caching in any ways
@@ -145,7 +144,7 @@ def bench(n_obs, n_features, repeat=1000, verbose=False, profiles=None):
             end = time()
             obs["time_pipe_slow"] = (end - st) / r
             res.append(obs)
-            
+
             if profiles and (n, nfeat) in profiles:
                 def repeat_fct(fct, X, y):
                     for r in range(1000):
@@ -162,7 +161,6 @@ def bench(n_obs, n_features, repeat=1000, verbose=False, profiles=None):
                 if verbose:
                     print("---- fct2_%d_%d.prof" % (n, nfeat))
                     print(sres)
-                    
 
                 sres = doprofile(lambda X, y: repeat_fct(fct3, X, y),
                                  "fct3_%d_%d.prof" % (n, nfeat), Xs[0])
@@ -174,7 +172,7 @@ def bench(n_obs, n_features, repeat=1000, verbose=False, profiles=None):
                                  "fct4_%d_%d.prof" % (n, nfeat), Xs[0])
                 if verbose:
                     print("---- fct4_%d_%d.prof" % (n, nfeat))
-                    print(sres)                
+                    print(sres)
 
             if verbose and (len(res) % 1 == 0 or n >= 10000):
                 print("bench", len(res), ":", obs)
@@ -250,7 +248,11 @@ def run_bench(repeat=100, verbose=False):
 
 
 if __name__ == '__main__':
-    import sklearn, numpy, onnx, onnxruntime, skl2onnx
+    import sklearn
+    import numpy
+    import onnx
+    import onnxruntime
+    import skl2onnx
     print("numpy:", numpy.__version__)
     print("scikit-learn:", sklearn.__version__)
     print("onnx:", onnx.__version__)

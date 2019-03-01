@@ -89,7 +89,7 @@ def bench(n_obs, n_features, degrees, interactions_only, orders,
                 for degree in degrees:
                     for interaction_only in interactions_only:
                         if not allow_configuration(n, nfeat,
-                            degree, interaction_only, order):
+                                                   degree, interaction_only, order):
                             continue
 
                         obs = dict(n=n, nfeat=nfeat, order=order,
@@ -145,7 +145,7 @@ def bench(n_obs, n_features, degrees, interactions_only, orders,
 
 def plot_results(df, verbose=False):
     nrows = len(set(df.degree))
-    fig, ax = plt.subplots(nrows, 4, figsize=(nrows*4, 12))
+    fig, ax = plt.subplots(nrows, 4, figsize=(nrows * 4, 12))
     pos = 0
 
     for di, degree in enumerate(sorted(set(df.degree))):
@@ -205,7 +205,8 @@ def run_bench(repeat=100, verbose=False):
 
 
 if __name__ == '__main__':
-    import sklearn, numpy
+    import sklearn
+    import numpy
     print("numpy:", numpy.__version__)
     print("scikit-learn:", sklearn.__version__)
     df = run_bench(verbose=True)

@@ -91,9 +91,8 @@ Raw results
 
 :download:`bench_polynomial_features.csv <../../scikit-learn/results/bench_polynomial_features.csv>`
 
-
 .. plot::
-    
+
     import matplotlib.pyplot as plt
     import pandas
     name = "../../scikit-learn/results/bench_polynomial_features.csv"
@@ -153,4 +152,3 @@ Never transpose
 
 .. image:: ../../scikit-learn/results/bench_polynomial_features_notranspose.png
     :width: 800
-
