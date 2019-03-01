@@ -37,6 +37,14 @@ extensions = [
     "pyquickhelper.sphinxext.sphinx_epkg_extension",
 ]
 
+try:
+    import matplotlib.sphinxext
+    assert matplotlib.sphinxext is not None
+    extensions.append('matplotlib.sphinxext.plot_directive')
+except ImportError:
+    # matplotlib is not installed.
+    pass
+
 templates_path = ['_templates']
 source_suffix = ['.rst']
 
