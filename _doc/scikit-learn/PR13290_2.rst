@@ -12,7 +12,6 @@ method `partial_fit <https://scikit-learn.org/stable/modules/generated/sklearn.l
 .. contents::
     :local:
 
-
 Graphs
 ++++++
 

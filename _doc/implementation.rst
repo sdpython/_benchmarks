@@ -10,4 +10,3 @@ of the same algorithm.
 
     scikit-learn/PR13290
     scikit-learn/PR13290_2
-

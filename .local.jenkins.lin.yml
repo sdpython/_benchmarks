@@ -13,5 +13,6 @@ before_script:
 
 script:
   - { CMD: "echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features.py", NAME: "SKL_POLYF", TIMEOUT: 3600 }
+  - { CMD: "echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features_partial_fit.py", NAME: "SKL_POLYFPF", TIMEOUT: 3600 }
   - { CMD: "echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u onnxruntime/bench_plot_random_forest.py", NAME: "ORT_RF", TIMEOUT: 3600 }
   - { CMD: "from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])", NAME: "UT"}
