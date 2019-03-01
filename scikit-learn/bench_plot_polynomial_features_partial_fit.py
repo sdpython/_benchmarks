@@ -250,14 +250,8 @@ def run_bench(repeat=100, verbose=False):
 if __name__ == '__main__':
     import sklearn
     import numpy
-    import onnx
-    import onnxruntime
-    import skl2onnx
     print("numpy:", numpy.__version__)
     print("scikit-learn:", sklearn.__version__)
-    print("onnx:", onnx.__version__)
-    print("onnxruntime:", onnxruntime.__version__)
-    print("skl2onnx:", skl2onnx.__version__)
     df = run_bench(verbose=True)
     plt.savefig("bench_plot_polynomial_features_partial_fit.png")
     df.to_csv("bench_plot_polynomial_features_partial_fit.csv", index=False)

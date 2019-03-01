@@ -9,3 +9,5 @@ of the same algorithm.
     :maxdepth: 1
 
     scikit-learn/PR13290
+    scikit-learn/PR13290_2
+

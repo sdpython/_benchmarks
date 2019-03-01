@@ -7,4 +7,4 @@ scikit-learn/*.txt
 scikit-learn/*.png
 scikit-learn/*.csv
 scikit-learn/*.onnx
-
+scikit-learn/*.prof

@@ -1,8 +1,10 @@
 
-.. index:: polynomial features, scikit-learn
+.. _l-PR13290:
 
 PR13290 - Faster Polynomial Features
 ====================================
+
+.. index:: polynomial features, scikit-learn
 
 .. contents::
     :local:
@@ -134,8 +136,8 @@ Benchmark code
 .. literalinclude:: ../../scikit-learn/bench_plot_polynomial_features.py
     :language: python
 
-Variances
-+++++++++
+Alternatives
+++++++++++++
 
 Transpose if order=='C' and size < 10e7
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
