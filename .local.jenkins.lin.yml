@@ -2,6 +2,7 @@
 language: python
 
 python:
+  - { PATH: "{{Python36}}", VERSION: 3.6, DIST: std, PYINT: python3.6 }
   - { PATH: "{{Python37}}", VERSION: 3.7, DIST: std, PYINT: python3.7 }
   
 virtualenv:
@@ -12,7 +13,23 @@ before_script:
   -  $PYINT -c "from pip._internal import main;main(\"install --no-cache-dir --no-deps --index http://localhost:8067/simple/ pyquickhelper jyquickhelper --extra-index-url=https://pypi.python.org/simple/\".split())"
 
 script:
-  - { CMD: "echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features.py", NAME: "SKL_POLYF", TIMEOUT: 3600 }
-  - { CMD: "echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features_partial_fit.py", NAME: "SKL_POLYFPF", TIMEOUT: 3600 }
-  - { CMD: "echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u onnxruntime/bench_plot_random_forest.py", NAME: "ORT_RF", TIMEOUT: 3600 }
-  - { CMD: "from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])", NAME: "UT"}
+  - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
+      then 
+        --CMD="echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features.py;"
+        --NAME=SKL_POLYF;
+      fi
+  - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
+      then 
+        --CMD="echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features_partial_fit.py;"
+        --NAME=SKL_POLYF;
+      fi
+  - if [ ${VERSION} == "3.6" and ${DIST} == "std" ]
+      then 
+        --CMD="echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_random_forest.py;"
+        --NAME=SKL_POLYF;
+      fi
+  - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
+      then 
+        --CMD="$PYINT -c \"from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])\""
+        --NAME=UT;
+      fi
