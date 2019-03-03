@@ -76,7 +76,11 @@ sphinx_gallery_conf = {
 # -- shortcuts ---------------------------------------------------------------
 
 epkg_dictionary = {
+    'onnx': 'https://github.com/onnx/onnx',
+    'ONNX': 'https://onnx.ai/',
+    'onnxruntime': 'https://github.com/Microsoft/onnxruntime',
     'PolynomialFeatures': 'https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html',
+    'Python': 'https://www.python.org/',
     'scikit-learn': 'https://scikit-learn.org/stable/',
 }
 

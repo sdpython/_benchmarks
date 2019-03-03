@@ -101,7 +101,6 @@ Raw results
     df = pandas.read_csv(name)
     df['speedup'] = df['time_0_20_2'] / df['time_current']
     plt.close('all')
-    plt.style.use('ggplot')
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 4))
     for color, degree in zip('rgby', sorted(set(df.degree))):
         subdf = df[df.degree == degree]
@@ -129,7 +128,6 @@ number of observations.
     df = df[df.degree == 2].copy()
     df['speedup'] = df['time_0_20_2'] / df['time_current']
     plt.close('all')
-    plt.style.use('ggplot')
     fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
 
     for color, nf in zip('rgby', sorted(set(df.nfeat))):

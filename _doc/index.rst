@@ -13,8 +13,9 @@ or models.
 .. toctree::
     :maxdepth: 2
 
-    libraries
     implementation
+    onnx
+    technical
 
 *Links:*
 
