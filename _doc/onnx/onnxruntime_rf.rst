@@ -12,7 +12,6 @@ related to *one-off* prediction: predictions are computed
 for one observations at a time which is the standard
 scenario in a webservice.
 
-
 .. contents::
     :local:
 

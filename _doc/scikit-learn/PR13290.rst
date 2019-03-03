@@ -131,7 +131,7 @@ number of observations.
     plt.close('all')
     plt.style.use('ggplot')
     fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
-    
+
     for color, nf in zip('rgby', sorted(set(df.nfeat))):
         subdf = df[df.nfeat == nf]
         subdf.plot(x="time_0_20_2", y="speedup", logx=True, logy=True,
@@ -145,7 +145,7 @@ number of observations.
     ax[0].plot([df.time_0_20_2.min(), df.time_0_20_2.max()], [1, 1],
                "-", c="black", label="1x")
     ax[0].legend()
-    
+
     for color, n in zip('rgbycm', sorted(set(df.n))):
         subdf = df[df.n == n]
         subdf.plot(x="time_0_20_2", y="speedup", logx=True, logy=True,
@@ -210,14 +210,14 @@ the number of features.
 .. runpython::
     :showcode:
     :warningout: RuntimeWarning
-    
+
     import pandas
     from sklearn.linear_model import LinearRegression
-    
+
     name = os.path.join(__WD__, "../../scikit-learn/results/bench_polynomial_features.csv")
     df = pandas.read_csv(name)
     df.columns = "degree interaction_only n f order of time_0_20_2 time_current".split()
-    
+
     degrees = list(sorted(set(df.degree)))
     ionlys = list(sorted(set(df.interaction_only)))
     orders = list(sorted(set(df.order)))
@@ -233,12 +233,12 @@ the number of features.
                 X['f^2'] = X["f"] * X['f']
                 X['f^3'] = X["f^2"] * X['f']
                 X['f^4'] = X["f^2"] * X['f^2']
-                
+
                 X = X.copy()
                 y = (subset['of']).copy()
                 reg = LinearRegression(fit_intercept=False)
                 reg.fit(X, y)
-                
+
                 # number of output features
                 names = ["cst"] + list(X.columns)
                 coefs = [reg.intercept_] + list(reg.coef_)

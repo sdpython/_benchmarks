@@ -38,7 +38,7 @@ def fcts_model(X, y, max_depth, n_estimators):
     f.write(onx.SerializeToString())
     content = f.getvalue()
     sess = InferenceSession(content)
-    
+
     outputs = [o.name for o in sess.get_outputs()]
 
     def predict_skl_predict(X, model=rf):
@@ -63,7 +63,7 @@ def fcts_model(X, y, max_depth, n_estimators):
     return {'predict': (predict_skl_predict,
                         predict_onnxrt_predict),
             'predict_proba': (predict_skl_predict_proba,
-                             predict_onnxrt_predict_proba)}
+                              predict_onnxrt_predict_proba)}
 
 
 ##############################
@@ -93,13 +93,13 @@ def bench(n_obs, n_features, max_depths, n_estimatorss, methods,
 
                 for n in n_obs:
                     for method in methods:
-                        
+
                         fct1, fct2 = fcts[method]
 
                         if not allow_configuration(n=n, nfeat=nfeat,
                                                    max_depth=max_depth, n_estimator=n_estimators):
                             continue
-                            
+
                         obs = dict(n_obs=n, nfeat=nfeat, max_depth=max_depth,
                                    n_estimators=n_estimators, method=method)
 
@@ -166,9 +166,9 @@ def plot_results(df, verbose=False):
                                  fontsize='x-small')
 
                 for color, n_estimators in zip('brgyc', sorted(set(df.n_estimators))):
-                    subset = df[(df.method == method) & (df.n_obs == n_obs) &
-                                (df.max_depth == max_depth) &
-                                (df.n_estimators == n_estimators)]
+                    subset = df[(df.method == method) & (df.n_obs == n_obs)
+                                & (df.max_depth == max_depth)
+                                & (df.n_estimators == n_estimators)]
                     if subset.shape[0] == 0:
                         continue
                     subset = subset.sort_values("nfeat")
