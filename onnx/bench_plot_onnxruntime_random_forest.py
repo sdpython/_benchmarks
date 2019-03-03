@@ -27,7 +27,7 @@ from onnxruntime import InferenceSession
 # Implementations to benchmark.
 ##############################
 
-def fcts_model(X, y, max_depth, n_estimators, method):
+def fcts_model(X, y, max_depth, n_estimators):
     "RandomForestClassifier."
     rf = RandomForestClassifier(max_depth=max_depth, n_estimators=n_estimators)
     rf.fit(X, y)
@@ -38,6 +38,8 @@ def fcts_model(X, y, max_depth, n_estimators, method):
     f.write(onx.SerializeToString())
     content = f.getvalue()
     sess = InferenceSession(content)
+    
+    outputs = [o.name for o in sess.get_outputs()]
 
     def predict_skl_predict(X, model=rf):
         return rf.predict(X)
@@ -46,18 +48,22 @@ def fcts_model(X, y, max_depth, n_estimators, method):
         return rf.predict_proba(X)
 
     def predict_onnxrt_predict(X, sess=sess):
-        return sess.run(None, {'X': X.astype(np.float32)})[0]
+        return numpy.array(sess.run(outputs[:1], {'X': X.astype(np.float32)}))
 
     def predict_onnxrt_predict_proba(X, sess=sess):
-        df = pandas.DataFrame(sess.run(None, {'X': X.astype(np.float32)})[1])
-        return df[[0, 1]].values
+        res = sess.run(outputs[1:], {'X': X.astype(np.float32)})[0]
+        # do not use DataFrame to convert the output into array,
+        # it takes too much time
+        out = numpy.empty((len(res), len(res[0])), dtype=numpy.float32)
+        for i, row in enumerate(res):
+            for k, v in row.items():
+                out[i, k] = v
+        return out
 
-    if method == "predict":
-        return predict_skl_predict, predict_onnxrt_predict
-    elif method == "predict_proba":
-        return predict_skl_predict_proba, predict_onnxrt_predict_proba
-    else:
-        raise ValueError("Unknown method: '{0}'.".format(method))
+    return {'predict': (predict_skl_predict,
+                        predict_onnxrt_predict),
+            'predict_proba': (predict_skl_predict_proba,
+                             predict_onnxrt_predict_proba)}
 
 
 ##############################
@@ -71,29 +77,31 @@ def allow_configuration(**kwargs):
 def bench(n_obs, n_features, max_depths, n_estimatorss, methods,
           repeat=10, verbose=False):
     res = []
-    for n in n_obs:
-        for nfeat in n_features:
+    for nfeat in n_features:
 
-            ntrain = 100000
-            X_train = np.empty((ntrain, nfeat))
-            X_train[:, :] = rand(ntrain, nfeat)[:, :]
-            X_trainsum = X_train.sum(axis=1)
-            eps = rand(ntrain) - 0.5
-            X_trainsum_ = X_trainsum + eps
-            y_train = (X_trainsum_ >= X_trainsum).ravel().astype(int)
+        ntrain = 100000
+        X_train = np.empty((ntrain, nfeat))
+        X_train[:, :] = rand(ntrain, nfeat)[:, :]
+        X_trainsum = X_train.sum(axis=1)
+        eps = rand(ntrain) - 0.5
+        X_trainsum_ = X_trainsum + eps
+        y_train = (X_trainsum_ >= X_trainsum).ravel().astype(int)
 
-            for method in methods:
-                for max_depth in max_depths:
-                    for n_estimators in n_estimatorss:
+        for max_depth in max_depths:
+            for n_estimators in n_estimatorss:
+                fcts = fcts_model(X_train, y_train, max_depth, n_estimators)
+
+                for n in n_obs:
+                    for method in methods:
+                        
+                        fct1, fct2 = fcts[method]
+
                         if not allow_configuration(n=n, nfeat=nfeat,
                                                    max_depth=max_depth, n_estimator=n_estimators):
                             continue
-
+                            
                         obs = dict(n_obs=n, nfeat=nfeat, max_depth=max_depth,
                                    n_estimators=n_estimators, method=method)
-
-                        fct1, fct2 = fcts_model(
-                            X_train, y_train, max_depth, n_estimators, method)
 
                         # creates different inputs to avoid caching in any ways
                         Xs = []
@@ -129,7 +137,9 @@ def bench(n_obs, n_features, max_depths, n_estimatorss, methods,
 
                         # checks that both produce the same outputs
                         if n <= 10000:
-                            assert_almost_equal(p1, p2)
+                            if len(p1.shape) == 1 and len(p2.shape) == 2:
+                                p2 = p2.ravel()
+                            assert_almost_equal(p1, p2, decimal=5)
     return res
 
 
@@ -138,12 +148,11 @@ def bench(n_obs, n_features, max_depths, n_estimatorss, methods,
 ##############################
 
 def plot_results(df, verbose=False):
-    nrows = len(set(df.max_depth)) * len(set(df.n_obs))
-    ncols = len(set(df.method))
-    fig, ax = plt.subplots(max(nrows, 2), max(ncols, 2),
-                           figsize=(nrows * 4, ncols * 4))
+    nrows = max(len(set(df.max_depth)) * len(set(df.n_obs)), 2)
+    ncols = max(len(set(df.method)), 2)
+    fig, ax = plt.subplots(nrows, ncols,
+                           figsize=(ncols * 4, nrows * 4))
     pos = 0
-
     row = 0
     for n_obs in sorted(set(df.n_obs)):
         for max_depth in sorted(set(df.max_depth)):
@@ -182,10 +191,10 @@ def plot_results(df, verbose=False):
 
 
 def run_bench(repeat=100, verbose=False):
-    n_obs = [1, 2, 5]
-    n_features = [1, 2, 5, 10, 20, 50, 100, 200]
+    n_obs = [1, 100]
     methods = ['predict', 'predict_proba']
-    max_depths = [2, 4, 6, 8, 10, 20]
+    n_features = [1, 5, 10, 20, 50, 100]
+    max_depths = [2, 5, 10]
     n_estimatorss = [1, 10, 100]
 
     start = time()
@@ -213,6 +222,6 @@ if __name__ == '__main__':
     print("onnxruntime:", onnxruntime.__version__)
     print("skl2onnx:", skl2onnx.__version__)
     df = run_bench(verbose=True)
-    plt.savefig("bench_polynomial_features.png")
-    df.to_csv("bench_polynomial_features.csv", index=False)
+    plt.savefig("bench_plot_random_forest.png")
+    df.to_csv("bench_plot_random_forest.csv", index=False)
     # plt.show()
