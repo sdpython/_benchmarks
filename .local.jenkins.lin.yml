@@ -21,12 +21,12 @@ script:
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
         --CMD=$PYINT -u scikit-learn/bench_plot_polynomial_features_partial_fit.py;
-        --NAME=SKL_POLYF;
+        --NAME=SKL_POLYF_PF;
       fi
   - if [ ${VERSION} == "3.6" and ${DIST} == "std" ]
       then 
-        --CMD=$PYINT -u scikit-learn/bench_plot_random_forest.py;
-        --NAME=SKL_POLYF;
+        --CMD=$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py;
+        --NAME=ORT_RF;
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
