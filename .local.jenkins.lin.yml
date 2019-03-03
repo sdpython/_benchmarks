@@ -15,21 +15,21 @@ before_script:
 script:
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
-        --CMD="echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features.py;"
+        --CMD=echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features.py;
         --NAME=SKL_POLYF;
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
-        --CMD="echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features_partial_fit.py;"
+        --CMD=echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_polynomial_features_partial_fit.py;
         --NAME=SKL_POLYF;
       fi
   - if [ ${VERSION} == "3.6" and ${DIST} == "std" ]
       then 
-        --CMD="echo \"backend: Agg\" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_random_forest.py;"
+        --CMD=echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc;$PYINT -u scikit-learn/bench_plot_random_forest.py;
         --NAME=SKL_POLYF;
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
-        --CMD="$PYINT -c \"from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])\""
+        --CMD=$PYINT -c "from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])
         --NAME=UT;
       fi
