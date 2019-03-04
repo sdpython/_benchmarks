@@ -178,4 +178,3 @@ Configuration
     name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree.time.csv")
     df = pandas.read_csv(name)
     print(df2rst(df, number_format=4))
-

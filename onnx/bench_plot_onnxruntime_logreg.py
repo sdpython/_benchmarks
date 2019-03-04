@@ -98,7 +98,8 @@ def bench(n_obs, n_features, fit_intercepts, methods,
                     if not allow_configuration(n=n, nfeat=nfeat, fit_intercept=fit_intercept):
                         continue
 
-                    obs = dict(n_obs=n, nfeat=nfeat, fit_intercept=fit_intercept, method=method)
+                    obs = dict(n_obs=n, nfeat=nfeat,
+                               fit_intercept=fit_intercept, method=method)
 
                     # creates different inputs to avoid caching in any ways
                     Xs = []
@@ -163,8 +164,8 @@ def plot_results(df, verbose=False):
                                  fontsize='x-small')
 
                 color = 'b'
-                subset = df[(df.method == method) & (df.n_obs == n_obs)
-                            & (df.fit_intercept == fit_intercept)]
+                subset = df[(df.method == method) & (df.n_obs == n_obs) &
+                            (df.fit_intercept == fit_intercept)]
                 if subset.shape[0] == 0:
                     continue
                 subset = subset.sort_values("nfeat")
@@ -183,7 +184,8 @@ def plot_results(df, verbose=False):
                 pos += 1
             row += 1
 
-    plt.suptitle("Benchmark for LogisticRegression sklearn/onnxruntime", fontsize=16)
+    plt.suptitle(
+        "Benchmark for LogisticRegression sklearn/onnxruntime", fontsize=16)
 
 
 def run_bench(repeat=100, verbose=False):

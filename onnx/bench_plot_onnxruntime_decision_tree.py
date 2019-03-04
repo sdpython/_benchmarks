@@ -98,7 +98,8 @@ def bench(n_obs, n_features, max_depths, methods,
                     if not allow_configuration(n=n, nfeat=nfeat, max_depth=max_depth):
                         continue
 
-                    obs = dict(n_obs=n, nfeat=nfeat, max_depth=max_depth, method=method)
+                    obs = dict(n_obs=n, nfeat=nfeat,
+                               max_depth=max_depth, method=method)
 
                     # creates different inputs to avoid caching in any ways
                     Xs = []
@@ -163,8 +164,8 @@ def plot_results(df, verbose=False):
                                  fontsize='x-small')
 
                 color = 'b'
-                subset = df[(df.method == method) & (df.n_obs == n_obs)
-                            & (df.max_depth == max_depth)]
+                subset = df[(df.method == method) & (df.n_obs == n_obs) &
+                            (df.max_depth == max_depth)]
                 if subset.shape[0] == 0:
                     continue
                 subset = subset.sort_values("nfeat")
