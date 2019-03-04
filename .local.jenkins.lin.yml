@@ -6,7 +6,7 @@ python:
       VERSION: 3.6,
       DIST: std, PYINT: python3.6,
       LD_LIBRARY_PATH: /usr/local/Python-3.6.8,
-      PYTHONPATH: /usr/local/lib/python3.6/ }
+      PYTHONPATH: /home/dupre/xadupre/onnxruntime/build/debian36/Release/ }
   - { PATH: "{{Python37}}",
       VERSION: 3.7,
       DIST: std,
@@ -36,10 +36,15 @@ script:
         --CMD=$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py;;
         --NAME=ORT_RF_CUSTOM;;
       fi
-  - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
+  - if [ ${VERSION} == "3.6" and ${DIST} == "std" ]
       then 
         --CMD=$PYINT -u onnx/bench_plot_onnxruntime_decision_tree.py;;
         --NAME=ORT_DT;;
+      fi
+  - if [ ${VERSION} == "3.6" and ${DIST} == "std" ]
+      then 
+        --CMD=$PYINT -u onnx/bench_plot_onnxruntime_logreg.py;;
+        --NAME=ORT_LR;;
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
