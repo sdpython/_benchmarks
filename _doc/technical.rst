@@ -34,3 +34,9 @@ This is due to a feature which requests to be able to interpret
 <https://pybind11.readthedocs.io/en/stable/compiling.html#embedding-the-python-interpreter>`_.
 Then the environment variable ``LD_LIBRARY_PATH`` must be set to
 the location of the shard libraries, ``/opt/bin`` in the previous example.
+The following issue might appear:
+
+::
+
+    UserWarning: Cannot load onnxruntime.capi.
+    Error: 'libnnvm_compiler.so: cannot open shared object file: No such file or directory'
