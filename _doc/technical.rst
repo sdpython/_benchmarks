@@ -40,3 +40,13 @@ The following issue might appear:
 
     UserWarning: Cannot load onnxruntime.capi.
     Error: 'libnnvm_compiler.so: cannot open shared object file: No such file or directory'
+
+To build :epkg:`onnxruntime`:
+
+::
+
+    git clone https://github.com/Microsoft/onnxruntime.git --recursive
+    export LD_LIBRARY_PATH=/usr/local/Python-3.6.8
+    python3.6 ./onnxruntime/tools/ci_build/build.py --build_dir ./onnxruntime/build/debian36 --config Release --enable_pybind --build_wheel --use_mkldnn --use_openmp --build_shared_lib
+    export LD_LIBRARY_PATH=/usr/local/Python-3.7.2
+    python3.7 ./onnxruntime/tools/ci_build/build.py --build_dir ./onnxruntime/build/debian37 --config Release --enable_pybind --build_wheel --use_mkldnn --use_openmp --build_shared_lib
