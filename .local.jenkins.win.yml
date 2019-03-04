@@ -15,21 +15,21 @@ install:
 script:
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
-        --CMD=python -u scikit-learn/bench_plot_polynomial_features.py;
-        --NAME=SKL_POLYF;
+        --CMD=python -u scikit-learn/bench_plot_polynomial_features.py;;
+        --NAME=SKL_POLYF;;
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
-        --CMD=python -u scikit-learn/bench_plot_polynomial_features_partial_fit.py;
-        --NAME=SKL_POLYF_PF;
+        --CMD=python -u scikit-learn/bench_plot_polynomial_features_partial_fit.py;;
+        --NAME=SKL_POLYF_PF;;
       fi
   - if [ ${VERSION} == "3.6" and ${DIST} == "std" ]
       then 
-        --CMD=python -u onnx/bench_plot_onnxruntime_random_forest.py;
-        --NAME=ORT_RF;
+        --CMD=python -u onnx/bench_plot_onnxruntime_random_forest.py;;
+        --NAME=ORT_RF;;
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
-        --CMD=python -c "from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])"
-        --NAME=UT;
+        --CMD=python -c "from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])";;
+        --NAME=UT;;
       fi

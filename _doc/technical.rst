@@ -50,3 +50,11 @@ To build :epkg:`onnxruntime`:
     python3.6 ./onnxruntime/tools/ci_build/build.py --build_dir ./onnxruntime/build/debian36 --config Release --enable_pybind --build_wheel --use_mkldnn --use_openmp --build_shared_lib
     export LD_LIBRARY_PATH=/usr/local/Python-3.7.2
     python3.7 ./onnxruntime/tools/ci_build/build.py --build_dir ./onnxruntime/build/debian37 --config Release --enable_pybind --build_wheel --use_mkldnn --use_openmp --build_shared_lib
+
+If the wheel then, it is possible to just copy the files
+into the *python* distribution:
+
+::
+
+    cp -r ./onnxruntime/build/debian36/Release/onnxruntime /usr/local/lib/python3.6/site-packages/
+    cp -r ./onnxruntime/build/debian37/Release/onnxruntime /usr/local/lib/python3.7/site-packages/
