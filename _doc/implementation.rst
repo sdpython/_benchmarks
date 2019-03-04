@@ -5,6 +5,9 @@ Comparing implementations
 The following benchmarks compares different implementations
 of the same algorithm.
 
+Pull Requests
+=============
+
 .. toctree::
     :maxdepth: 1
 

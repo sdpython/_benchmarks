@@ -1,10 +1,10 @@
 
-.. _l-onnxruntime-rf:
+.. _l-onnxruntime-lr:
 
-Prediction time scikit-learn / onnxruntime: random forest
-=========================================================
+Prediction time scikit-learn / onnxruntime: logistic regression
+===============================================================
 
-.. index:: onnxruntime, random forest
+.. index:: onnxruntime, logistic regression
 
 .. contents::
     :local:
@@ -12,7 +12,7 @@ Prediction time scikit-learn / onnxruntime: random forest
 Code
 ++++
 
-`bench_plot_onnxruntime_random_forest.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_random_forest.py>`_
+`bench_plot_onnxruntime_logreg.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_logreg.py>`_
 
 Overview
 ++++++++
@@ -21,7 +21,7 @@ Overview
 
     import matplotlib.pyplot as plt
     import pandas
-    name = "../../onnx/results/bench_plot_onnxruntime_random_forest.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_logreg.csv"
     df = pandas.read_csv(name)
     df['speedup'] = df['time_skl'] / df['time_ort']
     plt.close('all')
@@ -38,30 +38,26 @@ Overview
                "-", c="black", label="1x")
     ax[0, 0].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[0, 0].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[0, 0].legend()
 
-    # estimators
-    for color, n_estimators in zip('rgbymc', sorted(set(df.n_estimators))):
-        subdf = df[df.n_estimators == n_estimators]
+    # nobs
+    for color, n_obs in zip('rgbymc', sorted(set(df.n_obs))):
+        subdf = df[df.n_obs == n_obs]
         subdf.plot(x="time_skl", y="speedup", logx=True, logy=True,
-                   kind="scatter", ax=ax[0, 1], label="n_est=%d" % n_estimators,
+                   kind="scatter", ax=ax[0, 1], label="n_obs=%d" % n_obs,
                    c=color)
-    ax[0, 1].set_title("Acceleration / original time")
+    ax[0, 1].set_ylabel("Speed up compare to scikit-learn")
     ax[0, 1].plot([df.time_skl.min(), df.time_skl.max()], [1, 1],
                "-", c="black", label="1x")
     ax[0, 1].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[0, 1].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[0, 1].legend()
 
-    # depth
-    for color, max_depth in zip('rgbymc', sorted(set(df.max_depth))):
-        subdf = df[df.max_depth == max_depth]
+    # fit_intercept
+    for color, fit_intercept in zip('rgbymc', sorted(set(df.fit_intercept))):
+        subdf = df[df.fit_intercept == fit_intercept]
         subdf.plot(x="time_skl", y="speedup", logx=True, logy=True,
-                   kind="scatter", ax=ax[1, 1], label="mdepth=%d" % max_depth,
+                   kind="scatter", ax=ax[1, 1], label="fi=%d" % fit_intercept,
                    c=color)
     ax[1, 1].set_xlabel("Time(s) of scikit-learn\n.")
     ax[1, 1].set_ylabel("Speed up compare to scikit-learn")
@@ -69,8 +65,6 @@ Overview
                "-", c="black", label="1x")
     ax[1, 1].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[1, 1].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[1, 1].legend()
 
     # features
@@ -84,8 +78,6 @@ Overview
                "-", c="black", label="1x")
     ax[1, 0].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[1, 0].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[1, 0].legend()
 
     plt.suptitle("Acceleration onnxruntime / scikit-learn for RandomForest")
@@ -96,7 +88,7 @@ Overview
 Raw results
 +++++++++++
 
-:download:`bench_plot_onnxruntime_random_forest.csv <../../onnx/results/bench_plot_onnxruntime_random_forest.csv>`
+:download:`bench_plot_onnxruntime_logreg.csv <../../onnx/results/bench_plot_onnxruntime_logreg.csv>`
 
 .. runpython::
     :rst:
@@ -105,7 +97,7 @@ Raw results
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_random_forest.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_logreg.csv")
     df = pandas.read_csv(name)
     df['speedup'] = df['time_skl'] / df['time_ort']
     print(df2rst(df, number_format=4))
@@ -117,40 +109,39 @@ Detailed graphs
 
     import matplotlib.pyplot as plt
     import pandas
-    name = "../../onnx/results/bench_plot_onnxruntime_random_forest.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_logreg.csv"
     df = pandas.read_csv(name)
     plt.close('all')
 
-    nrows = max(len(set(df.max_depth)) * len(set(df.n_obs)), 2)
+    nrows = max(len(set(df.fit_intercept)) * len(set(df.n_obs)), 2)
     ncols = max(len(set(df.method)), 2)
     fig, ax = plt.subplots(nrows, ncols,
                            figsize=(ncols * 4, nrows * 4))
     pos = 0
     row = 0
     for n_obs in sorted(set(df.n_obs)):
-        for max_depth in sorted(set(df.max_depth)):
+        for fit_intercept in sorted(set(df.fit_intercept)):
             pos = 0
             for method in sorted(set(df.method)):
                 a = ax[row, pos]
                 if row == ax.shape[0] - 1:
                     a.set_xlabel("N features", fontsize='x-small')
                 if pos == 0:
-                    a.set_ylabel("Time (s) n_obs={}\nmax_depth={}".format(n_obs, max_depth),
+                    a.set_ylabel("Time (s) n_obs={}\nfit_intercept={}".format(n_obs, fit_intercept),
                                  fontsize='x-small')
 
-                for color, n_estimators in zip('rgbymc', sorted(set(df.n_estimators))):
-                    subset = df[(df.method == method) & (df.n_obs == n_obs)
-                                & (df.max_depth == max_depth)
-                                & (df.n_estimators == n_estimators)]
-                    if subset.shape[0] == 0:
-                        continue
-                    subset = subset.sort_values("nfeat")
-                    label = "skl ne={}".format(n_estimators)
-                    subset.plot(x="nfeat", y="time_skl", label=label, ax=a,
-                                logx=True, logy=True, c=color, style='--')
-                    label = "ort ne={}".format(n_estimators)
-                    subset.plot(x="nfeat", y="time_ort", label=label, ax=a,
-                                logx=True, logy=True, c=color)
+                color = 'b'
+                subset = df[(df.method == method) & (df.n_obs == n_obs)
+                            & (df.fit_intercept == fit_intercept)]
+                if subset.shape[0] == 0:
+                    continue
+                subset = subset.sort_values("nfeat")
+                label = "skl"
+                subset.plot(x="nfeat", y="time_skl", label=label, ax=a,
+                            logx=True, logy=True, c=color, style='--')
+                label = "ort"
+                subset.plot(x="nfeat", y="time_ort", label=label, ax=a,
+                            logx=True, logy=True, c=color)
 
                 a.legend(loc=0, fontsize='x-small')
                 if row == 0:
@@ -158,12 +149,12 @@ Detailed graphs
                 pos += 1
             row += 1
 
-    plt.suptitle("Benchmark for RandomForest sklearn/onnxruntime", fontsize=16)
+    plt.suptitle("Benchmark for LogisticRegression sklearn/onnxruntime", fontsize=16)
 
 Benchmark code
 ++++++++++++++
 
-.. literalinclude:: ../../onnx/bench_plot_onnxruntime_random_forest.py
+.. literalinclude:: ../../onnx/bench_plot_onnxruntime_logreg.py
     :language: python
 
 Configuration
@@ -176,6 +167,6 @@ Configuration
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_random_forest.time.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_logreg.time.csv")
     df = pandas.read_csv(name)
     print(df2rst(df, number_format=4))

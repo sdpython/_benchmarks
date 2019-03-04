@@ -1,10 +1,10 @@
 
-.. _l-onnxruntime-rf:
+.. _l-onnxruntime-dt:
 
-Prediction time scikit-learn / onnxruntime: random forest
+Prediction time scikit-learn / onnxruntime: decision tree
 =========================================================
 
-.. index:: onnxruntime, random forest
+.. index:: onnxruntime, decision tree
 
 .. contents::
     :local:
@@ -12,7 +12,7 @@ Prediction time scikit-learn / onnxruntime: random forest
 Code
 ++++
 
-`bench_plot_onnxruntime_random_forest.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_random_forest.py>`_
+`bench_plot_onnxruntime_decision_tree.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_decision_tree.py>`_
 
 Overview
 ++++++++
@@ -21,7 +21,7 @@ Overview
 
     import matplotlib.pyplot as plt
     import pandas
-    name = "../../onnx/results/bench_plot_onnxruntime_random_forest.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree.csv"
     df = pandas.read_csv(name)
     df['speedup'] = df['time_skl'] / df['time_ort']
     plt.close('all')
@@ -34,27 +34,27 @@ Overview
                    kind="scatter", ax=ax[0, 0], label=method,
                    c=color)
     ax[0, 0].set_xlabel("Time(s) of scikit-learn\n.")
+    ax[0, 0].plot([df.time_skl.min(), df.time_skl.max()], [0.5, 0.5],
+               "--", c="black", label="1/2x")
     ax[0, 0].plot([df.time_skl.min(), df.time_skl.max()], [1, 1],
                "-", c="black", label="1x")
     ax[0, 0].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[0, 0].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[0, 0].legend()
 
-    # estimators
-    for color, n_estimators in zip('rgbymc', sorted(set(df.n_estimators))):
-        subdf = df[df.n_estimators == n_estimators]
+    # nobs
+    for color, n_obs in zip('rgbymc', sorted(set(df.n_obs))):
+        subdf = df[df.n_obs == n_obs]
         subdf.plot(x="time_skl", y="speedup", logx=True, logy=True,
-                   kind="scatter", ax=ax[0, 1], label="n_est=%d" % n_estimators,
+                   kind="scatter", ax=ax[0, 1], label="n_obs=%d" % n_obs,
                    c=color)
-    ax[0, 1].set_title("Acceleration / original time")
+    ax[0, 1].set_ylabel("Speed up compare to scikit-learn")
+    ax[0, 1].plot([df.time_skl.min(), df.time_skl.max()], [0.5, 0.5],
+               "--", c="black", label="1/2x")
     ax[0, 1].plot([df.time_skl.min(), df.time_skl.max()], [1, 1],
                "-", c="black", label="1x")
     ax[0, 1].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[0, 1].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[0, 1].legend()
 
     # depth
@@ -65,12 +65,12 @@ Overview
                    c=color)
     ax[1, 1].set_xlabel("Time(s) of scikit-learn\n.")
     ax[1, 1].set_ylabel("Speed up compare to scikit-learn")
+    ax[1, 1].plot([df.time_skl.min(), df.time_skl.max()], [0.5, 0.5],
+               "--", c="black", label="1/2x")
     ax[1, 1].plot([df.time_skl.min(), df.time_skl.max()], [1, 1],
                "-", c="black", label="1x")
     ax[1, 1].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[1, 1].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[1, 1].legend()
 
     # features
@@ -80,12 +80,12 @@ Overview
                    kind="scatter", ax=ax[1, 0], label="nfeat=%d" % nfeat,
                    c=color)
     ax[1, 0].set_ylabel("Speed up compare to scikit-learn")
+    ax[1, 0].plot([df.time_skl.min(), df.time_skl.max()], [0.5, 0.5],
+               "--", c="black", label="1/2x")
     ax[1, 0].plot([df.time_skl.min(), df.time_skl.max()], [1, 1],
                "-", c="black", label="1x")
     ax[1, 0].plot([df.time_skl.min(), df.time_skl.max()], [2, 2],
                "--", c="black", label="2x")
-    ax[1, 0].plot([df.time_skl.min(), df.time_skl.max()], [10, 10],
-               "--", c="black", label="10x")
     ax[1, 0].legend()
 
     plt.suptitle("Acceleration onnxruntime / scikit-learn for RandomForest")
@@ -96,7 +96,7 @@ Overview
 Raw results
 +++++++++++
 
-:download:`bench_plot_onnxruntime_random_forest.csv <../../onnx/results/bench_plot_onnxruntime_random_forest.csv>`
+:download:`bench_plot_onnxruntime_decision_tree.csv <../../onnx/results/bench_plot_onnxruntime_decision_tree.csv>`
 
 .. runpython::
     :rst:
@@ -105,7 +105,7 @@ Raw results
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_random_forest.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree.csv")
     df = pandas.read_csv(name)
     df['speedup'] = df['time_skl'] / df['time_ort']
     print(df2rst(df, number_format=4))
@@ -117,7 +117,7 @@ Detailed graphs
 
     import matplotlib.pyplot as plt
     import pandas
-    name = "../../onnx/results/bench_plot_onnxruntime_random_forest.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree.csv"
     df = pandas.read_csv(name)
     plt.close('all')
 
@@ -138,19 +138,18 @@ Detailed graphs
                     a.set_ylabel("Time (s) n_obs={}\nmax_depth={}".format(n_obs, max_depth),
                                  fontsize='x-small')
 
-                for color, n_estimators in zip('rgbymc', sorted(set(df.n_estimators))):
-                    subset = df[(df.method == method) & (df.n_obs == n_obs)
-                                & (df.max_depth == max_depth)
-                                & (df.n_estimators == n_estimators)]
-                    if subset.shape[0] == 0:
-                        continue
-                    subset = subset.sort_values("nfeat")
-                    label = "skl ne={}".format(n_estimators)
-                    subset.plot(x="nfeat", y="time_skl", label=label, ax=a,
-                                logx=True, logy=True, c=color, style='--')
-                    label = "ort ne={}".format(n_estimators)
-                    subset.plot(x="nfeat", y="time_ort", label=label, ax=a,
-                                logx=True, logy=True, c=color)
+                color = 'b'
+                subset = df[(df.method == method) & (df.n_obs == n_obs)
+                            & (df.max_depth == max_depth)]
+                if subset.shape[0] == 0:
+                    continue
+                subset = subset.sort_values("nfeat")
+                label = "skl"
+                subset.plot(x="nfeat", y="time_skl", label=label, ax=a,
+                            logx=True, logy=True, c=color, style='--')
+                label = "ort"
+                subset.plot(x="nfeat", y="time_ort", label=label, ax=a,
+                            logx=True, logy=True, c=color)
 
                 a.legend(loc=0, fontsize='x-small')
                 if row == 0:
@@ -158,12 +157,12 @@ Detailed graphs
                 pos += 1
             row += 1
 
-    plt.suptitle("Benchmark for RandomForest sklearn/onnxruntime", fontsize=16)
+    plt.suptitle("Benchmark for DecisionTree sklearn/onnxruntime", fontsize=16)
 
 Benchmark code
 ++++++++++++++
 
-.. literalinclude:: ../../onnx/bench_plot_onnxruntime_random_forest.py
+.. literalinclude:: ../../onnx/bench_plot_onnxruntime_decision_tree.py
     :language: python
 
 Configuration
@@ -176,6 +175,7 @@ Configuration
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_random_forest.time.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree.time.csv")
     df = pandas.read_csv(name)
     print(df2rst(df, number_format=4))
+

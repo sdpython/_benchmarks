@@ -38,8 +38,8 @@ script:
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
-        --CMD=$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py;;
-        --NAME=ORT_RF;;
+        --CMD=$PYINT -u onnx/bench_plot_onnxruntime_decision_tree.py;;
+        --NAME=ORT_DT;;
       fi
   - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
       then 
