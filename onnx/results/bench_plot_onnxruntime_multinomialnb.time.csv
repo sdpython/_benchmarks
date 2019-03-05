@@ -1,0 +1,14 @@
+name,version
+date,2019-03-05 11:17:30.230384
+numpy,1.16.2
+scikit-learn,0.21.dev0
+onnx,1.4.1
+onnxruntime,0.2.2
+skl2onnx,1.4.3
+python,"3.7.2 (tags/v3.7.2:9a3ffc0492, Dec 23 2018, 23:09:28) [MSC v.1916 64 bit (AMD64)]"
+platform,win32
+OS,Windows-10-10.0.17134-SP0
+machine,AMD64
+processor,"Intel64 Family 6 Model 78 Stepping 3, GenuineIntel"
+release,10
+architecture,"('64bit', 'WindowsPE')"

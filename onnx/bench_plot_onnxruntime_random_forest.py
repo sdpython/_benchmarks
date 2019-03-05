@@ -211,6 +211,8 @@ def run_bench(repeat=100, verbose=False):
 
 
 if __name__ == '__main__':
+    import sys
+    import platform
     from datetime import datetime
     import sklearn
     import numpy
@@ -224,9 +226,17 @@ if __name__ == '__main__':
         {"name": "onnx", "version": onnx.__version__},
         {"name": "onnxruntime", "version": onnxruntime.__version__},
         {"name": "skl2onnx", "version": skl2onnx.__version__},
+        {"name": "python", "version": sys.version},
+        {"name": "platform", "version": sys.platform},
+        {"name": "OS", "version": platform.platform()},
+        {"name": "machine", "version": platform.machine()},
+        {"name": "processor", "version": platform.processor()},
+        {"name": "release", "version": platform.release()},
+        {"name": "architecture", "version": platform.architecture()},
     ])
     df.to_csv("bench_plot_onnxruntime_decision_tree.time.csv", index=False)
     print(df)
+
     df = run_bench(verbose=True)
     plt.savefig("bench_plot_onnxruntime_random_forest.png")
     df.to_csv("bench_plot_onnxruntime_random_forest.csv", index=False)

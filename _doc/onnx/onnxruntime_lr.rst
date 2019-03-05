@@ -1,10 +1,10 @@
 
 .. _l-bench-plot-onnxruntime-logreg:
 
-Prediction time scikit-learn / onnxruntime: logistic regression
-===============================================================
+Prediction time scikit-learn / onnxruntime: LogisticRegression
+==============================================================
 
-.. index:: onnxruntime, logistic regression
+.. index:: onnxruntime, LogisticRegression
 
 .. contents::
     :local:

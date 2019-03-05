@@ -1,10 +1,10 @@
 
 .. _l-bench-plot-onnxruntime-decision-tree:
 
-Prediction time scikit-learn / onnxruntime: decision tree
-=========================================================
+Prediction time scikit-learn / onnxruntime: DecisionTreeClassifier
+==================================================================
 
-.. index:: onnxruntime, decision tree
+.. index:: onnxruntime, DecisionTreeClassifier
 
 .. contents::
     :local:

@@ -21,9 +21,10 @@ Median Prediction Time
     import matplotlib.pyplot as plt
 
     renamed = {
-        'bench_plot_onnxruntime_logreg': 'Logistic Regression',
-        'bench_plot_onnxruntime_decision_tree': 'Decision Tree',
-        'bench_plot_onnxruntime_random_forest': 'Random Forest',
+        'bench_plot_onnxruntime_logreg': 'LogisticRegression',
+        'bench_plot_onnxruntime_decision_tree': 'DecisionTreeClassifier',
+        'bench_plot_onnxruntime_random_forest': 'RandomForestClassifier',
+        'bench_plot_onnxruntime_multinomialnb': 'MultinomialNB',
     }
 
     folder = "../../onnx/results"
@@ -83,9 +84,10 @@ for each number of features.
     from pyquickhelper.pandashelper import df2rst
 
     renamed = {
-        'bench_plot_onnxruntime_logreg': 'Logistic Regression',
-        'bench_plot_onnxruntime_decision_tree': 'Decision Tree',
-        'bench_plot_onnxruntime_random_forest': 'Random Forest',
+        'bench_plot_onnxruntime_logreg': 'LogisticRegression',
+        'bench_plot_onnxruntime_decision_tree': 'DecisionTreeClassifier',
+        'bench_plot_onnxruntime_random_forest': 'RandomForestClassifier',
+        'bench_plot_onnxruntime_multinomialnb': 'MultinomialNB',
     }
 
     folder = os.path.join(__WD__, "../../onnx/results")
@@ -136,9 +138,10 @@ for each number of features.
     from pyquickhelper.pandashelper import df2rst
 
     renamed = {
-        'bench_plot_onnxruntime_logreg': 'Logistic Regression',
-        'bench_plot_onnxruntime_decision_tree': 'Decision Tree',
-        'bench_plot_onnxruntime_random_forest': 'Random Forest',
+        'bench_plot_onnxruntime_logreg': 'LogisticRegression',
+        'bench_plot_onnxruntime_decision_tree': 'DecisionTreeClassifier',
+        'bench_plot_onnxruntime_random_forest': 'RandomForestClassifier',
+        'bench_plot_onnxruntime_multinomialnb': 'MultinomialNB',
     }
 
     folder = os.path.join(__WD__, "../../onnx/results")
