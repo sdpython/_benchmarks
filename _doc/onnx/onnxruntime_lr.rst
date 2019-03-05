@@ -1,5 +1,5 @@
 
-.. _l-onnxruntime-lr:
+.. _l-bench-plot-onnxruntime-logreg:
 
 Prediction time scikit-learn / onnxruntime: logistic regression
 ===============================================================

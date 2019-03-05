@@ -1,5 +1,5 @@
 
-.. _l-onnxruntime-rf:
+.. _l-bench-plot-onnxruntime-random-forest:
 
 Prediction time scikit-learn / onnxruntime: random forest
 =========================================================

@@ -20,6 +20,7 @@ usually tested for small batches (like 10 observations).
 .. toctree::
     :maxdepth: 1
 
+    onnx/summary
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
     onnx/onnxruntime_rf

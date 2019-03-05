@@ -1,5 +1,5 @@
 
-.. _l-onnxruntime-dt:
+.. _l-bench-plot-onnxruntime-decision-tree:
 
 Prediction time scikit-learn / onnxruntime: decision tree
 =========================================================
