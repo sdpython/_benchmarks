@@ -1,8 +1,8 @@
 build
 dist
-onnxruntime/*.png
-onnxruntime/*.csv
-onnxruntime/*.onnx
+onnx/*.png
+onnx/*.csv
+onnx/*.onnx
 scikit-learn/*.txt
 scikit-learn/*.png
 scikit-learn/*.csv

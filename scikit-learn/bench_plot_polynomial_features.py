@@ -151,6 +151,7 @@ def run_bench(repeat=10, verbose=False):
 # Run the benchmark
 # +++++++++++++++++
 
+
 df = run_bench(verbose=True)
 df.to_csv("bench_polynomial_features.csv", index=False)
 print(df.head())
