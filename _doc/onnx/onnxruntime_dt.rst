@@ -9,11 +9,6 @@ Prediction time scikit-learn / onnxruntime for DecisionTreeClassifier
 
 .. index:: onnxruntime, DecisionTreeClassifier
 
-Code
-++++
-
-`bench_plot_onnxruntime_decision_tree.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_decision_tree.py>`_
-
 Overview
 ++++++++
 
@@ -92,6 +87,8 @@ Raw results
 
 Benchmark code
 ++++++++++++++
+
+`bench_plot_onnxruntime_decision_tree.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_decision_tree.py>`_
 
 .. literalinclude:: ../../onnx/bench_plot_onnxruntime_decision_tree.py
     :language: python

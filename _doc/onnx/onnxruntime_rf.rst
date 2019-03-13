@@ -9,11 +9,6 @@ Prediction time scikit-learn / onnxruntime for RandomForestClassifier
 
 .. index:: onnxruntime, RandomForestClassifier
 
-Code
-++++
-
-`bench_plot_onnxruntime_random_forest.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_random_forest.py>`_
-
 Overview
 ++++++++
 
@@ -111,6 +106,8 @@ Raw results
 
 Benchmark code
 ++++++++++++++
+
+`bench_plot_onnxruntime_random_forest.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_random_forest.py>`_
 
 .. literalinclude:: ../../onnx/bench_plot_onnxruntime_random_forest.py
     :language: python

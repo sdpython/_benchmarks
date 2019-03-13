@@ -14,6 +14,7 @@ or models.
     :maxdepth: 2
 
     implementation
+    modules
     onnx
     technical
 

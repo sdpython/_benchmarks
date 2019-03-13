@@ -9,11 +9,6 @@ Prediction time scikit-learn / onnxruntime for LogisticRegression
 
 .. index:: onnxruntime, LogisticRegression
 
-Code
-++++
-
-`bench_plot_onnxruntime_logreg.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_logreg.py>`_
-
 Overview
 ++++++++
 
@@ -92,6 +87,8 @@ Raw results
 
 Benchmark code
 ++++++++++++++
+
+`bench_plot_onnxruntime_logreg.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_logreg.py>`_
 
 .. literalinclude:: ../../onnx/bench_plot_onnxruntime_logreg.py
     :language: python

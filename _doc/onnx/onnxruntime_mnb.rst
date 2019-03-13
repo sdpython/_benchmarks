@@ -9,11 +9,6 @@ Prediction time scikit-learn / onnxruntime for MultinomialNB
 .. contents::
     :local:
 
-Code
-++++
-
-`bench_plot_onnxruntime_multinomialnb.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_multinomialnb.py>`_
-
 Overview
 ++++++++
 
@@ -110,6 +105,8 @@ Raw results
 
 Benchmark code
 ++++++++++++++
+
+`bench_plot_onnxruntime_multinomialnb.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_multinomialnb.py>`_
 
 .. literalinclude:: ../../onnx/bench_plot_onnxruntime_multinomialnb.py
     :language: python

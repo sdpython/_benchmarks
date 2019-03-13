@@ -1,5 +1,7 @@
 build
 dist
+modules/*.png
+modules/*.csv
 onnx/*.png
 onnx/*.csv
 onnx/*.onnx
