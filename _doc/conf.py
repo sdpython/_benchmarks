@@ -35,6 +35,7 @@ extensions = [
     "sphinxcontrib.blockdiag",
     "pyquickhelper.sphinxext.sphinx_runpython_extension",
     "pyquickhelper.sphinxext.sphinx_epkg_extension",
+    "pyquickhelper.sphinxext.sphinx_collapse_extension",
 ]
 
 try:

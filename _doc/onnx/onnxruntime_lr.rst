@@ -1,13 +1,13 @@
 
 .. _l-bench-plot-onnxruntime-logreg:
 
-Prediction time scikit-learn / onnxruntime: LogisticRegression
-==============================================================
-
-.. index:: onnxruntime, LogisticRegression
+Prediction time scikit-learn / onnxruntime for LogisticRegression
+=================================================================
 
 .. contents::
     :local:
+
+.. index:: onnxruntime, LogisticRegression
 
 Code
 ++++
@@ -21,12 +21,10 @@ Overview
 
     import matplotlib.pyplot as plt
     import pandas
-    from pymlbenchmark.benchmark.bench_helper import bench_pivot
     from pymlbenchmark.plotting import plot_bench_xtime
 
     name = "../../onnx/results/bench_plot_onnxruntime_logreg.perf.csv"
     df = pandas.read_csv(name)
-    piv = bench_pivot(df).reset_index(drop=False)
 
     plot_bench_xtime(df, row_cols='N', col_cols='method',
                      hue_cols='fit_intercept',
@@ -37,8 +35,6 @@ Overview
     plt.suptitle("Acceleration onnxruntime / scikit-learn for LogisticRegression")
     plt.show()
 
-:epkg:`onnxruntime` is always faster in that particular scenario.
-
 Detailed graphs
 +++++++++++++++
 
@@ -46,12 +42,10 @@ Detailed graphs
 
     import matplotlib.pyplot as plt
     import pandas
-    from pymlbenchmark.benchmark.bench_helper import bench_pivot
     from pymlbenchmark.plotting import plot_bench_results
 
     name = "../../onnx/results/bench_plot_onnxruntime_logreg.perf.csv"
     df = pandas.read_csv(name)
-    piv = bench_pivot(df).reset_index(drop=False)
 
     plot_bench_results(df, row_cols='N', col_cols='method',
                               hue_cols='fit_intercept',
@@ -88,11 +82,13 @@ Raw results
     :toggle: out
 
     from pyquickhelper.pandashelper import df2rst
+    from pymlbenchmark.benchmark.bench_helper import bench_pivot
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_logreg.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_logreg.perf.csv")
     df = pandas.read_csv(name)
-    df['speedup'] = df['time_skl'] / df['time_ort']
-    print(df2rst(df, number_format=4))
+    piv = bench_pivot(df).reset_index(drop=False)
+    piv['speedup'] = piv['skl'] / piv['ort']
+    print(df2rst(piv, number_format=4))
 
 Benchmark code
 ++++++++++++++
