@@ -67,7 +67,7 @@ Raw results
     import pandas
     name = os.path.join(__WD__, "../../modules/results/bench_re2.csv")
     df = pandas.read_csv(name)
-    piv = bench_pivot(df).reset_index(drop=False)
+    piv = bench_pivot(df, experiment='test').reset_index(drop=False)
     piv['speedup'] = piv['re'] / piv['re2']
     print(df2rst(piv, number_format=4))
 
