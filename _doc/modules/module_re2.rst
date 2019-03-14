@@ -43,7 +43,7 @@ Detailed graphs
     df = pandas.read_csv(name)
 
     plot_bench_results(df, row_cols='N', col_cols=None,
-                       hue_cols='max_depth',
+                       hue_cols='dim',
                        cmp_col_values=('test', 're'),
                        x_value='dim', y_value='mean',
                        title=None,
