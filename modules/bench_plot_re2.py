@@ -11,7 +11,7 @@ Benchmark of `re2 <https://github.com/facebook/pyre2>`_.
 # ++++++++++++++++++++++++++++
 
 import re
-import re2
+from wrapclib import re2
 import numpy
 from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
 from pymlbenchmark.datasets import random_binary_classification
