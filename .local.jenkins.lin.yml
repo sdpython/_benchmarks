@@ -16,9 +16,9 @@ virtualenv:
   - path: {{ospathjoin(root_path, pickname("$NAME_JENKINS", project_name + "_$VERSION_$DIST_$NAME"), "_venv")}}
   
 before_script:
-    # regular expression for Jenkins view: ((.*PUBLISH.*)|(.*PYPI.*))|(.*37.*.*((std)|(STD)).*)
-  -  $PYINT -c "from pip._internal import main;main(\"install --no-cache-dir --no-deps --index http://localhost:8067/simple/ pyquickhelper jyquickhelper mlinsights pymlbenchmark wrapclib --extra-index-url=https://pypi.python.org/simple/\".split())"
-  -  $PYINT -c "from pip._internal import main;main(\"install --no-cache-dir --no-deps --index http://localhost:8067/simple/ skl2onnx onnxmltools scikit-onnxruntime onnx onnxruntime --extra-index-url=https://pypi.python.org/simple/\".split())"
+  - $PYINT -c "from pip._internal import main;main(\"install --no-cache-dir --no-deps --index http://localhost:8067/simple/ pyquickhelper jyquickhelper mlinsights pymlbenchmark wrapclib --extra-index-url=https://pypi.python.org/simple/\".split())"
+  - $PYINT -c "from pip._internal import main;main(\"install --no-cache-dir --no-deps --index http://localhost:8067/simple/ skl2onnx onnxmltools scikit-onnxruntime onnx onnxruntime --extra-index-url=https://pypi.python.org/simple/\".split())"
+  - $PYINT -c "from pip._internal import main;main(\"install --no-cache-dir --no-deps --index http://localhost:8067/simple/ scikit-learn>=0.21 --extra-index-url=https://pypi.python.org/simple/\".split())"
 
 script:
   # scikit-learn
