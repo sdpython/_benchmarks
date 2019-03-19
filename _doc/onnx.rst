@@ -25,3 +25,15 @@ usually tested for small batches (like 10 observations).
     onnx/onnxruntime_mnb
     onnx/onnxruntime_dt
     onnx/onnxruntime_rf
+
+ONNX versus other implementations
+=================================
+
+The following benchmarks were implemented in other
+repositories. The first one looks into the implementation
+of a logistic regression with python, C++ or C++ optimization
+provided by other libraries.
+
+* `Optimisation de code avec cffi, numba, cython
+  <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/cffi_linear_regression.html>`_
+  

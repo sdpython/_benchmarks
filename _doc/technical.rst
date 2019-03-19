@@ -18,6 +18,25 @@ stable version except if the test involves a pull request
 which implies :epkg:`scikit-learn` is installed from
 the master branch.
 
+onnx
+====
+
+``python setup.py install`` works on Linux. On Windows,
+*protobuf* must be compiled first and then referenced
+before building the wheel. This is what it could look
+like:
+
+::
+
+    @echo off
+    set ONNX_ML=1
+    set PATH=c:\Python370_x64;c:\Python370_x64\Scripts;%PATH%
+    set PATH=%~dp0..\\..\protobuf\build_msvc\Release;%PATH%
+    set CMAKE_ARGS=..\\third_party\\pybind11\\tools -DPROTOBUF_INCLUDE_DIRS=C:\\xavierdupre\\__home_\\github_fork\\protobuf\\src -DPROTOBUF_LIBRARIES=C:\\xavierdupre\\__home_\\github_fork\\protobuf\\build_msvc\\Release\\libprotobuf.lib;C:\\xavierdupre\\__home_\\github_fork\\protobuf\\build_msvc\\Release\\libprotoc.lib -DONNX_PROTOC_EXECUTABLE=C:\\xavierdupre\\__home_\\github_fork\\protobuf\\build_msvc\\Release\\protoc.exe
+    cd onnx
+    python setup.py bdist_wheel
+    cd ..
+
 onnxruntime
 ===========
 

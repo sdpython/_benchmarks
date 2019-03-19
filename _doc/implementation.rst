@@ -13,3 +13,23 @@ Pull Requests
 
     scikit-learn/PR13290
     scikit-learn/PR13290_2
+
+C++, Python
+===========
+
+The following benchmarks were implemented in other
+repositories. The first one measures differents way to write
+the dot product in C++ using a couple of processors
+optimization such as branching or
+`AVX <https://fr.wikipedia.org/wiki/Advanced_Vector_Extensions>`_
+instructions.
+
+* `Measures branching in C++ from python
+  <http://www.xavierdupre.fr/app/cpyquickhelper/helpsphinx/notebooks/cbenchmark_branching.html>`_
+
+The second one looks into the implementation
+of a logistic regression with python, C++ or C++ optimization
+provided by other libraries.
+
+* `Optimisation de code avec cffi, numba, cython
+  <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/cffi_linear_regression.html>`_
