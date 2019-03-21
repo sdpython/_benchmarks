@@ -26,6 +26,8 @@ instructions.
 
 * `Measures branching in C++ from python
   <http://www.xavierdupre.fr/app/cpyquickhelper/helpsphinx/notebooks/cbenchmark_branching.html>`_
+* `Measures a vector sum with different accumulator type
+  <http://www.xavierdupre.fr/app/cpyquickhelper/helpsphinx/notebooks/cbenchmark_sum_type.html>`_
 
 The second one looks into the implementation
 of a logistic regression with python, C++ or C++ optimization
