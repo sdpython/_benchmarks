@@ -35,3 +35,8 @@ provided by other libraries.
 
 * `Optimisation de code avec cffi, numba, cython
   <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/cffi_linear_regression.html>`_
+
+The next benchmark compares the gain obtained by
+playing a criterion for decision tree regressor.
+
+* `Custom Criterion for DecisionTreeRegressor <http://www.xavierdupre.fr/app/mlinsights/helpsphinx/notebooks/piecewise_linear_regression_criterion.html>`_
