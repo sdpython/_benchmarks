@@ -23,6 +23,7 @@ usually tested for small batches (like 10 observations).
     onnx/summary
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
+    onnx/onnxruntime_knn
     onnx/onnxruntime_rf
 
 ONNX versus other implementations

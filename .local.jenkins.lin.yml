@@ -28,6 +28,7 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_logreg.py", NAME: "ORT_LR" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree.py", NAME: "ORT_DT" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", NAME: "ORT_RF" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", NAME: "ORT_KNN" }
   # module
   - { CMD: "$PYINT -u modules/bench_plot_re2.py", NAME: "MOD_RE2" }
   # documentation
