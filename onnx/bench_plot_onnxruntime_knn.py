@@ -28,10 +28,10 @@ filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 @ignore_warnings(category=FutureWarning)
 def run_bench(repeat=10, verbose=False):
 
-    pbefore = dict(n_neighbors=[1, 2, 3, 4, 5, 10, 20][2:],
-                   leaf_size=[10, 20, 30][2:],
-                   dim=[1, 5, 10, 20, 50][2:],
-                   metric=["minkowski", "euclidean", "manhattan", "mahalanobis"][2:])
+    pbefore = dict(n_neighbors=[1, 2, 3, 4, 5, 10, 20],
+                   leaf_size=[10, 20, 30],
+                   dim=[1, 5, 10, 20, 50],
+                   metric=["minkowski", "euclidean", "manhattan", "mahalanobis"])
     pafter = dict(N=[1])
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
