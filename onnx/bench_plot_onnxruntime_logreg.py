@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Benchmark of onnxruntime on LogisticRegression.
+Benchmark of :epkg:`onnxruntime` on LogisticRegression.
 """
 # Authors: Xavier Dupré (benchmark)
 # License: MIT

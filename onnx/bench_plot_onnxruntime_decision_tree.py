@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Benchmark of onnxruntime on DecisionTree.
+Benchmark of :epkg:`onnxruntime` on DecisionTree.
 """
 # Authors: Xavier Dupré (benchmark)
 # License: MIT

@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Benchmark of onnxruntime on RandomForest.
+Benchmark of :epkg:`onnxruntime` on RandomForest.
 """
 # Authors: Xavier Dupré (benchmark)
 # License: MIT

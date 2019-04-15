@@ -5,6 +5,8 @@ modules/*.csv
 onnx/*.png
 onnx/*.csv
 onnx/*.onnx
+onnx/scikit-learn
+onnx/onnxruntime-skl2onnx
 scikit-learn/*.txt
 scikit-learn/*.png
 scikit-learn/*.csv

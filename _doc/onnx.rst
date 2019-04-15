@@ -20,6 +20,7 @@ usually tested for small batches (like 10 observations).
 .. toctree::
     :maxdepth: 1
 
+    onnx/onnxruntime_unittest
     onnx/summary
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
@@ -36,4 +37,3 @@ provided by other libraries.
 
 * `Optimisation de code avec cffi, numba, cython
   <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/cffi_linear_regression.html>`_
-  

@@ -83,6 +83,7 @@ epkg_dictionary = {
     'PolynomialFeatures': 'https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html',
     'Python': 'https://www.python.org/',
     'scikit-learn': 'https://scikit-learn.org/stable/',
+    'sklearn-onnx': 'https://github.com/onnx/sklearn-onnx',
 }
 
 # -- Setup actions -----------------------------------------------------------
