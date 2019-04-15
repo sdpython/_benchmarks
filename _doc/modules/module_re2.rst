@@ -54,7 +54,7 @@ Detailed graphs
 Raw results
 +++++++++++
 
-:download:`bench_re2.csv <../../onnx/results/bench_re2.csv>`
+:download:`bench_re2.csv <../../modules/results/bench_re2.csv>`
 
 .. runpython::
     :rst:

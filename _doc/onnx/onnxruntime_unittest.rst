@@ -24,7 +24,7 @@ in folder `tests <https://github.com/onnx/sklearn-onnx/tree/master/tests>`_.
 
     name = "../../onnx/results/bench_plot_skl2onnx_unittest.perf.csv"
     df = pandas.read_csv(name)
-    df = df[df.stderr.isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
+    df = df[df['stderr'].isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
     df['model'] = df['_model'].apply(lambda s: s.replace("Sklearn", ""))
 
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
@@ -51,7 +51,7 @@ Ratio by model
 
     name = "../../onnx/results/bench_plot_skl2onnx_unittest.perf.csv"
     df = pandas.read_csv(name)
-    df = df[df.stderr.isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
+    df = df[df['stderr'].isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
     df['model'] = df['_model'].apply(lambda s: s.replace("Sklearn", ""))
 
     fig, ax = plt.subplots(1, 1, figsize=(10, 25))
@@ -92,9 +92,9 @@ Errors
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_skl2onnx_unittest.time.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_skl2onnx_unittest.perf.csv")
     df = pandas.read_csv(name)
-    err = df[~df.stderr.isnull()]
+    err = df[~df['stderr'].isnull()]
     err = err[["_model", "stderr"]]
     print(df2rst(err))
 
@@ -114,10 +114,10 @@ Raw results
     import pandas
     name = os.path.join(__WD__, "../../onnx/results/bench_plot_skl2onnx_unittest.perf.csv")
     df = pandas.read_csv(name)
-    df = df[df.stderr.isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
+    df = df[df['stderr'].isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
     df['model'] = df['_model'].apply(lambda s: s.replace("Sklearn", ""))
     piv = df[["model", "original_time", "original_std", "onnxrt_time", "onnxrt_std", "ratio"]]
-    piv.columns = ["model", "sklearn", "skl dev", "onnxruntime", "ort dev", ratio"]
+    piv.columns = ["model", "sklearn", "skl dev", "onnxruntime", "ort dev", "ratio"]
     print(df2rst(piv, number_format=4))
 
 Benchmark code
