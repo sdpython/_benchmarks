@@ -28,9 +28,9 @@ filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 @ignore_warnings(category=FutureWarning)
 def run_bench(repeat=10, verbose=False):
 
-    pbefore = dict(n_neighbors=[1, 2, 3, 4, 5, 10, 20],
-                   leaf_size=[10, 20, 30],
-                   dim=[1, 5, 10, 20, 50],
+    pbefore = dict(n_neighbors=[1, 2, 3, 5, 10, 20],
+                   leaf_size=[10, 30],
+                   dim=[1, 5, 10, 20, 50, 75, 100],
                    metric=["minkowski", "euclidean", "manhattan", "mahalanobis"])
     pafter = dict(N=[1])
 
@@ -51,8 +51,9 @@ def run_bench(repeat=10, verbose=False):
 # Runs the benchmark
 # ++++++++++++++++++
 
-df = run_bench(verbose=True)
-df.to_csv("%s.perf.csv" % filename, index=False)
+# df = run_bench(verbose=True)
+# df.to_csv("%s.perf.csv" % filename, index=False)
+df = pandas.read_csv("%s.perf.csv" % filename)
 print(df.head())
 
 #########################
@@ -68,7 +69,7 @@ print(dfi)
 # Plot the results
 # ++++++++++++++++
 
-plot_bench_results(df, row_cols='n_neighbors', col_cols='method',
+plot_bench_results(df, row_cols=['leaf_size', 'n_neighbors'], col_cols='method',
                    x_value='dim', hue_cols='metric',
                    title="%s\nBenchmark scikit-learn / onnxruntime" % model_name)
 plt.savefig("%s.png" % filename)

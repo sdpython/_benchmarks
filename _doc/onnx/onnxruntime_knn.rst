@@ -61,7 +61,7 @@ Detailed graphs
     name = "../../onnx/results/bench_plot_onnxruntime_knn.perf.csv"
     df = pandas.read_csv(name)
 
-    plot_bench_results(df, row_cols='n_neighbors', col_cols='method',
+    plot_bench_results(df, row_cols=['leaf_size', 'n_neighbors'], col_cols='method',
                        x_value='dim', hue_cols='metric',
                        title=None,
                        ax=None, box_side=4)
