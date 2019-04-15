@@ -1,15 +1,16 @@
 name,value,version
 date,,2019-04-15
-python,"3.7.2 (tags/v3.7.2:9a3ffc0492, Dec 23 2018, 23:09:28) [MSC v.1916 64 bit (AMD64)]",
-platform,win32,
-OS,Windows-10-10.0.17134-SP0,
-machine,AMD64,
-processor,"Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
-release,10,
-architecture,"('64bit', 'WindowsPE')",
+python,"3.7.2 (default, Mar  1 2019, 18:34:21) 
+[GCC 6.3.0 20170516]",
+platform,linux,
+OS,Linux-4.9.0-8-amd64-x86_64-with-debian-9.6,
+machine,x86_64,
+processor,,
+release,4.9.0-8-amd64,
+architecture,"('64bit', '')",
 numpy,"l, a, n, g, u, a, g, e,  , =,  , c",1.16.2
 onnx,opset=10,1.4.1
-onnxruntime,CPU,0.3.1
+onnxruntime,CPU-MKLDNN-MLAS-EBLAS,0.3.1
 pandas,,0.24.2
 skl2onnx,,1.4.5
 sklearn,,0.21.dev0
