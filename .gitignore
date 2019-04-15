@@ -12,3 +12,4 @@ scikit-learn/*.png
 scikit-learn/*.csv
 scikit-learn/*.onnx
 scikit-learn/*.prof
+onnx/sklearn-onnx/

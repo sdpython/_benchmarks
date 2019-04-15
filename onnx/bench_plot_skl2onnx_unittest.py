@@ -96,7 +96,7 @@ if os.path.exists(skl):
     cmd = "git pull"
 else:
     pth = None
-    cmd = "git clone https://github.com/onnx/sklearn-onnx.git"
+    cmd = "git clone https://github.com/onnx/sklearn-onnx.git " + skl
 run_cmd(cmd, wait=True, change_path=pth, fLOG=print)
 
 #########################
