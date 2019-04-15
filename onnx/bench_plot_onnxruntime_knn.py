@@ -51,9 +51,8 @@ def run_bench(repeat=10, verbose=False):
 # Runs the benchmark
 # ++++++++++++++++++
 
-# df = run_bench(verbose=True)
-# df.to_csv("%s.perf.csv" % filename, index=False)
-df = pandas.read_csv("%s.perf.csv" % filename)
+df = run_bench(verbose=True)
+df.to_csv("%s.perf.csv" % filename, index=False)
 print(df.head())
 
 #########################
