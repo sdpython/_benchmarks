@@ -82,9 +82,9 @@ class GraphORtBenchPerfTest(BenchPerfTest):
 @ignore_warnings(category=FutureWarning)
 def run_bench(repeat=20, number=10, verbose=False):
 
-    pbefore = dict(dim=[1, 100, 1000, 10000],
+    pbefore = dict(dim=[1, 100, 1000],
                    nbnode=[1, 2, 3, 4, 5, 10, 20, 50, 100, 150, 200, 250, 300])
-    pafter = dict(N=[1, 100, 1000, 10000, 20000, 50000])
+    pafter = dict(N=[1, 100, 1000, 10000, 20000])
 
     test = lambda dim=None, **opts: GraphORtBenchPerfTest(dim=dim, **opts)
     bp = BenchPerf(pbefore, pafter, test)
