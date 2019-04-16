@@ -104,9 +104,8 @@ def run_bench(repeat=20, number=10, verbose=False):
 
 
 filename = os.path.splitext(os.path.split(__file__)[-1])[0]
-# df = run_bench(verbose=True)
-# df.to_csv("%s.perf.csv" % filename, index=False)
-df = pandas.read_csv("results/%s.perf.csv" % filename)
+df = run_bench(verbose=True)
+df.to_csv("%s.perf.csv" % filename, index=False)
 print(df.head())
 
 #########################
