@@ -6,7 +6,8 @@ import sys
 import shutil
 import sphinx_gallery.gen_gallery
 # import sphinx_modern_theme_modified
-import sphinx_readable_theme
+# import sphinx_readable_theme
+import alabaster
 this = os.path.abspath(os.path.dirname(__file__))
 new_paths = [os.path.join(this, '..', 'scikit-learn', 'results')]
 for np in new_paths:
@@ -37,6 +38,7 @@ extensions = [
     "pyquickhelper.sphinxext.sphinx_runpython_extension",
     "pyquickhelper.sphinxext.sphinx_epkg_extension",
     "pyquickhelper.sphinxext.sphinx_collapse_extension",
+    "alabaster",
 ]
 
 try:
@@ -57,12 +59,13 @@ pygments_style = 'default'
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = "sphinx_mo"
 html_static_path = ['_static']
 # html_theme = "sphinx_modern_theme_modified"
-html_theme = "readable"
+# html_theme = "readable"
+html_theme = "alabaster"
 # html_theme_path = [sphinx_modern_theme_modified.get_html_theme_path()]
-html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
+# html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
+html_theme_path = [alabaster.get_path()]
 html_logo = "logo_main.png"
 
 # -- Options for intersphinx extension ---------------------------------------
@@ -80,6 +83,7 @@ sphinx_gallery_conf = {
 # -- shortcuts ---------------------------------------------------------------
 
 epkg_dictionary = {
+    'numpy': 'https://www.numpy.org/',
     'onnx': 'https://github.com/onnx/onnx',
     'ONNX': 'https://onnx.ai/',
     'onnxruntime': 'https://github.com/Microsoft/onnxruntime',

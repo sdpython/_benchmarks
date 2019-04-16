@@ -30,7 +30,8 @@ Median Prediction Time
 
     folder = "../../onnx/results"
     tests = [os.path.join(folder, n) for n in os.listdir(folder)]
-    dfs = [(name, pandas.read_csv(name)) for name in tests if '.time.' not in name]
+    dfs = [(name, pandas.read_csv(name)) for name in tests \
+           if '.time.' not in name and 'unittest' not in name]
 
     rows = []
     side1 = 'skl'

@@ -34,7 +34,7 @@ from onnxruntime import InferenceSession
 
 def generate_onnx_graph(dim, nbnode, input_name='X1'):
     """Generates a series of consecutive additions."""
-    
+
     matrices = []
     i1 = input_name
     for i in range(nbnode - 1):
@@ -47,7 +47,7 @@ def generate_onnx_graph(dim, nbnode, input_name='X1'):
     node = OnnxAdd(i1, i2, output_names=['Y'])
     onx = node.to_onnx([(input_name, FloatTensorType((1, dim)))],
                        outputs=[('Y', FloatTensorType((1, dim)))])
-    return onx, matrices    
+    return onx, matrices
 
 
 class GraphORtBenchPerfTest(BenchPerfTest):
@@ -56,7 +56,7 @@ class GraphORtBenchPerfTest(BenchPerfTest):
         self.input_name = 'X1'
         self.nbnode = nbnode
         self.onx, self.matrices = generate_onnx_graph(dim,
-            nbnode, self.input_name)
+                                                      nbnode, self.input_name)
         as_string = self.onx.SerializeToString()
         self.ort = InferenceSession(as_string)
 
@@ -102,9 +102,11 @@ def run_bench(repeat=20, number=10, verbose=False):
 # Runs the benchmark
 # ++++++++++++++++++
 
+
 filename = os.path.splitext(os.path.split(__file__)[-1])[0]
-df = run_bench(verbose=True)
-df.to_csv("%s.perf.csv" % filename, index=False)
+# df = run_bench(verbose=True)
+# df.to_csv("%s.perf.csv" % filename, index=False)
+df = pandas.read_csv("results/%s.perf.csv" % filename)
 print(df.head())
 
 #########################
@@ -124,7 +126,24 @@ print(dfi)
 from pymlbenchmark.plotting import plot_bench_results
 plot_bench_results(df, row_cols='N', col_cols='dim',
                    x_value='nbnode',
-                   title="%s\nBenchmark scikit-learn / onnxruntime" % "Cascade Add");
+                   title="%s\nBenchmark scikit-learn / onnxruntime" % "Cascade Add")
 
-fig.savefig("%s.node.png" % filename)
+plt.savefig("%s.node.png" % filename)
 
+
+##################################
+# Plot one ONNX graph
+# +++++++++++++++++++
+
+for nbnode in (2, 4):
+    onx = generate_onnx_graph(5, nbnode)[0]
+
+    from onnx.tools.net_drawer import GetPydotGraph, GetOpNodeProducer
+    pydot_graph = GetPydotGraph(onx.graph, name=onx.graph.name, rankdir="TB",
+                                node_producer=GetOpNodeProducer("docstring"))
+    pydot_graph.write_dot("graph.%d.dot" % nbnode)
+    os.system('dot -O -Tpng graph.%d.dot' % nbnode)
+image = plt.imread("graph.%d.dot.png" % nbnode)
+plt.imshow(image)
+plt.axis('off')
+plt.savefig("%s.%d.node.png" % (filename, nbnode))

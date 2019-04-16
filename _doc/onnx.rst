@@ -21,6 +21,7 @@ usually tested for small batches (like 10 observations).
     :maxdepth: 1
 
     onnx/onnxruntime_unittest
+    onnx/onnxruntime_cascade
     onnx/summary
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
