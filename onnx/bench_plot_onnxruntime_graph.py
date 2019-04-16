@@ -51,10 +51,10 @@ def generate_onnx_graph(dim, nbnode, input_name='X1'):
 
 
 class GraphORtBenchPerfTest(BenchPerfTest):
-    def __init__(self, N=10, dim=4, nbnode=3):
+    def __init__(self, dim=4, nbnode=3):
         BenchPerfTest.__init__(self)
-        X, y = random_binary_classification(N, dim)
         self.input_name = 'X1'
+        self.nbnode = nbnode
         self.onx, self.matrices = generate_onnx_graph(dim,
             nbnode, self.input_name)
         as_string = self.onx.SerializeToString()
@@ -75,6 +75,7 @@ class GraphORtBenchPerfTest(BenchPerfTest):
                 {'lib': 'npy', 'fct': predict_npy}]
 
     def data(self, N=10, dim=4, **kwargs):  # pylint: disable=W0221
+        print("++", N, dim, "-", self.nbnode)
         return tuple(o.astype(numpy.float32)
                      for o in random_binary_classification(N, dim)[:1])
 
@@ -82,9 +83,9 @@ class GraphORtBenchPerfTest(BenchPerfTest):
 @ignore_warnings(category=FutureWarning)
 def run_bench(repeat=20, number=10, verbose=False):
 
-    pbefore = dict(dim=[1, 100, 1000],
-                   nbnode=[1, 2, 3, 4, 5, 10, 20, 50, 100, 150, 200, 250, 300])
-    pafter = dict(N=[1, 100, 1000, 10000, 20000])
+    pbefore = dict(dim=[1, 100, 200],
+                   nbnode=[1, 2, 3, 5, 10, 50, 100, 150, 200, 250, 300])
+    pafter = dict(N=[1, 100, 1000, 10000])
 
     test = lambda dim=None, **opts: GraphORtBenchPerfTest(dim=dim, **opts)
     bp = BenchPerf(pbefore, pafter, test)
