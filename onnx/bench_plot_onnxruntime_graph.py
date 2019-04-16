@@ -80,7 +80,7 @@ class GraphORtBenchPerfTest(BenchPerfTest):
 
 
 @ignore_warnings(category=FutureWarning)
-def run_bench(repeat=20, number=100, verbose=False):
+def run_bench(repeat=20, number=10, verbose=False):
 
     pbefore = dict(dim=[1, 100, 1000, 10000],
                    nbnode=[1, 2, 3, 4, 5, 10, 20, 50, 100, 150, 200, 250, 300])
