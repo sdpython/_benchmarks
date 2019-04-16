@@ -75,7 +75,6 @@ class GraphORtBenchPerfTest(BenchPerfTest):
                 {'lib': 'npy', 'fct': predict_npy}]
 
     def data(self, N=10, dim=4, **kwargs):  # pylint: disable=W0221
-        print("++", N, dim, "-", self.nbnode)
         return tuple(o.astype(numpy.float32)
                      for o in random_binary_classification(N, dim)[:1])
 
