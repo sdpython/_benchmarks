@@ -2,10 +2,6 @@
 language: python
 
 python:
-  #- { PATH: "{{Python36}}",
-  #    VERSION: 3.6,
-  #    DIST: std, PYINT: python3.6,
-  #    LD_LIBRARY_PATH: /usr/local/Python-3.6.8 }
   - { PATH: "{{Python37}}",
       VERSION: 3.7,
       DIST: std,
@@ -30,6 +26,7 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", NAME: "ORT_RF" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", NAME: "ORT_KNN" }
   - { CMD: "$PYINT -u onnx/bench_plot_skl2onnx_unittest.py", NAME: "ORT_UNIT" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_graph.py", NAME: "ORT_CASC" }
   # module
   - { CMD: "$PYINT -u modules/bench_plot_re2.py", NAME: "MOD_RE2" }
   # documentation
