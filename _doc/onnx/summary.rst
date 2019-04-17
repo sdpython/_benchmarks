@@ -25,7 +25,9 @@ Median Prediction Time
         'bench_plot_onnxruntime_logreg': 'LogisticRegression',
         'bench_plot_onnxruntime_decision_tree': 'DecisionTreeClassifier',
         'bench_plot_onnxruntime_random_forest': 'RandomForestClassifier',
-        'bench_plot_onnxruntime_multinomialnb': 'MultinomialNB',
+        'bench_plot_onnxruntime_knn': 'KNearestNeighbors',
+        'bench_plot_onnxruntime_mlp': 'MLPClassifier',
+        '.pref': '',
     }
 
     folder = "../../onnx/results"
@@ -94,7 +96,9 @@ for each number of features.
         'bench_plot_onnxruntime_logreg': 'LogisticRegression',
         'bench_plot_onnxruntime_decision_tree': 'DecisionTreeClassifier',
         'bench_plot_onnxruntime_random_forest': 'RandomForestClassifier',
-        'bench_plot_onnxruntime_multinomialnb': 'MultinomialNB',
+        'bench_plot_onnxruntime_knn': 'KNearestNeighbors',
+        'bench_plot_onnxruntime_mlp': 'MLPClassifier',
+        '.pref': '',
     }
 
     folder = os.path.join(__WD__, "../../onnx/results")
@@ -150,10 +154,12 @@ for each number of features.
     from pymlbenchmark.benchmark.bench_helper import bench_pivot
 
     renamed = {
-        'bench_plot_onnxruntime_logreg.perf': 'LogisticRegression',
-        'bench_plot_onnxruntime_decision_tree.perf': 'DecisionTreeClassifier',
-        'bench_plot_onnxruntime_random_forest.perf': 'RandomForestClassifier',
-        'bench_plot_onnxruntime_multinomialnb.perf': 'MultinomialNB',
+        'bench_plot_onnxruntime_logreg': 'LogisticRegression',
+        'bench_plot_onnxruntime_decision_tree': 'DecisionTreeClassifier',
+        'bench_plot_onnxruntime_random_forest': 'RandomForestClassifier',
+        'bench_plot_onnxruntime_knn': 'KNearestNeighbors',
+        'bench_plot_onnxruntime_mlp': 'MLPClassifier',
+        '.pref': '',
     }
 
     folder = os.path.join(__WD__, "../../onnx/results")
