@@ -68,8 +68,11 @@ print(dfi)
 # Plot the results
 # ++++++++++++++++
 
-plot_bench_results(df, row_cols=['hidden_layer_sizes'], col_cols='method',
-                   x_value='dim',
+plot_bench_results(df, row_cols=['N', 'hidden_layer_sizes'],
+                   col_cols='method',
+                   hue_cols='activation',
+                   cmp_col_values=('lib', 'skl'),
+                   x_value='dim', y_value='mean',
                    title="%s\nBenchmark scikit-learn / onnxruntime" % model_name)
 plt.savefig("%s.png" % filename)
 # plt.show()
