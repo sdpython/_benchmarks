@@ -2,31 +2,42 @@
 ONNX benchmarks
 ===============
 
-The following benchmarks compare runtime or *backeend*
+The following benchmarks compare runtime or *backend*
 with :epkg:`ONNX`.
 
-One-Off predictions
-===================
+.. contents::
+    :local:
+
+onxruntime VS scikit-learn
+==========================
 
 The following benchmark measures the prediction time between
-:epkg:`scikit-learn` and :epkg:`onnxruntime` for different configurations
-related to *one-off* predictions: predictions are computed
-for one observation at a time which is the standard
-scenario in a webservice.
+:epkg:`scikit-learn` and :epkg:`onnxruntime` for different models
+related to *one-off* predictions and *batch* predictions.
 :epkg:`onnxruntime` allows for some models to run batch
-predictions. If this functionality is available, it is
-usually tested for small batches (like 10 observations).
+predictions by using broadcasting. It is not available
+for all models.
+
+.. toctree::
+    :maxdepth: 1
+
+    onnx/summary
+    onnx/onnxruntime_lr
+    onnx/onnxruntime_dt
+    onnx/onnxruntime_knn
+    onnx/onnxruntime_rf
+
+onnxruntime specific configurations
+===================================
+
+The following benchmark look into simplified models
+to help understand how :epkg:`onnxruntime` works.
 
 .. toctree::
     :maxdepth: 1
 
     onnx/onnxruntime_unittest
     onnx/onnxruntime_cascade
-    onnx/summary
-    onnx/onnxruntime_lr
-    onnx/onnxruntime_dt
-    onnx/onnxruntime_knn
-    onnx/onnxruntime_rf
 
 ONNX versus other implementations
 =================================

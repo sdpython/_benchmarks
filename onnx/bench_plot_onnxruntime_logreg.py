@@ -60,8 +60,8 @@ class OnnxRuntimeBenchPerfTestBinaryClassification3(OnnxRuntimeBenchPerfTestBina
 def run_bench(repeat=100, verbose=False):
 
     pbefore = dict(dim=[1, 5, 10, 20, 50, 100, 150],
-                   fit_intercept=[True, False])
-    pafter = dict(N=[1, 10])
+                   fit_intercept=[True])
+    pafter = dict(N=[1, 10, 100, 1000])
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification3(
         LogisticRegression, dim=dim, **opts)
     bp = BenchPerf(pbefore, pafter, test)

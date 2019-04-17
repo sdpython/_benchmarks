@@ -22,7 +22,7 @@ The experiment compares the execution time between
 
 .. list-table::
     :widths: 5 5
-    
+
     * - *k=2*
       - *k=4*
     * - .. image:: graph.2.dot.png

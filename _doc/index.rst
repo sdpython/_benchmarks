@@ -11,15 +11,15 @@ I reused the template to measure various implementations
 or models.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     implementation
     modules
     onnx
     technical
+    glossary
 
 *Links:*
 
 * `github <https://github.com/sdpython/_benchmarks/>`_,
-* `documentation <http://www.xavierdupre.fr/app/_benchmarks/helpsphinx/index.html>`_
 * :ref:`genindex`

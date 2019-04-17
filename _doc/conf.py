@@ -5,9 +5,11 @@ import os
 import sys
 import shutil
 import sphinx_gallery.gen_gallery
+
 # import sphinx_modern_theme_modified
-# import sphinx_readable_theme
-import alabaster
+import sphinx_readable_theme
+# import alabaster
+
 this = os.path.abspath(os.path.dirname(__file__))
 new_paths = [os.path.join(this, '..', 'scikit-learn', 'results')]
 for np in new_paths:
@@ -26,6 +28,8 @@ release = version
 # -- General configuration ---------------------------------------------------
 
 extensions = [
+    "sphinx_readable_theme",
+    # "alabaster",
     'sphinx.ext.intersphinx',
     'sphinx.ext.imgmath',
     'sphinx.ext.ifconfig',
@@ -38,7 +42,6 @@ extensions = [
     "pyquickhelper.sphinxext.sphinx_runpython_extension",
     "pyquickhelper.sphinxext.sphinx_epkg_extension",
     "pyquickhelper.sphinxext.sphinx_collapse_extension",
-    "alabaster",
 ]
 
 try:
@@ -60,12 +63,15 @@ pygments_style = 'default'
 # -- Options for HTML output -------------------------------------------------
 
 html_static_path = ['_static']
+
 # html_theme = "sphinx_modern_theme_modified"
-# html_theme = "readable"
-html_theme = "alabaster"
+html_theme = "readable"
+# html_theme = "alabaster"
+
 # html_theme_path = [sphinx_modern_theme_modified.get_html_theme_path()]
-# html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
-html_theme_path = [alabaster.get_path()]
+html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
+# html_theme_path = [alabaster.get_path()]
+
 html_logo = "logo_main.png"
 
 # -- Options for intersphinx extension ---------------------------------------

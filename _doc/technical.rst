@@ -1,6 +1,6 @@
-=================
-Technical details
-=================
+===============================
+Technical details, installation
+===============================
 
 Benchmarking is an exact science as the results
 may change depending on the machine used to compute

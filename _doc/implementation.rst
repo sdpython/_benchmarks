@@ -2,11 +2,14 @@
 Comparing implementations
 =========================
 
-The following benchmarks compares different implementations
+The following benchmarks compare different implementations
 of the same algorithm.
 
-Pull Requests
-=============
+.. contents::
+    :local:
+
+Benchmarks of pull requests on scikit-learn
+==========================================
 
 .. toctree::
     :maxdepth: 1
@@ -14,8 +17,8 @@ Pull Requests
     scikit-learn/PR13290
     scikit-learn/PR13290_2
 
-C++, Python
-===========
+Benchmarks of toy implementations in C++, Python
+================================================
 
 The following benchmarks were implemented in other
 repositories. The first one measures differents way to write
