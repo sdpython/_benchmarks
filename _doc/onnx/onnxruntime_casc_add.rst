@@ -28,7 +28,9 @@ Both :epkg:`onnxruntime` and :epkg:`numpy` use :epkg:`BLAS` functions.
     * - *k=2*
       - *k=4*
     * - .. image:: graph.2.dot.png
+            :width: 100
       - .. image:: graph.4.dot.png
+            :width: 150
 
 Overview
 ++++++++

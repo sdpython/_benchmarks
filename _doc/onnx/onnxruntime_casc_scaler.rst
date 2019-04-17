@@ -27,8 +27,10 @@ The experiment compares the execution time between
 
     * - *k=2*
       - *k=4*
-    * - .. image:: graph.2.dot.png
-      - .. image:: graph.4.dot.png
+    * - .. image:: graph.2.scl.dot.png
+            :width: 100
+      - .. image:: graph.4.scl.dot.png
+            :width: 100
 
 Overview
 ++++++++
@@ -43,9 +45,9 @@ Overview
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='N', col_cols='dim',
                        x_value='nbnode',
-                       title="%s\nBenchmark numpy / onnxruntime" % "Cascade Add");
+                       title="%s\nBenchmark numpy / onnxruntime" % "Cascade Scaler");
 
-    plt.suptitle("Acceleration onnxruntime / numpy for Add")
+    plt.suptitle("Acceleration onnxruntime / numpy for Scaler")
     plt.show()
 
 Configuration

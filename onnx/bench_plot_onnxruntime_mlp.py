@@ -31,7 +31,7 @@ def run_bench(repeat=10, verbose=False):
     pbefore = dict(hidden_layer_sizes=[(2,), (10,), (20,),
                                        (2, 2), (10, 2), (20, 2)],
                    activation=['relu', 'logistic'],
-                   dim=[2, 5, 10, 20, 50])
+                   dim=[2, 5, 10])
     pafter = dict(N=[1, 10, 100])
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
