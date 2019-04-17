@@ -26,7 +26,8 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", NAME: "ORT_RF" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", NAME: "ORT_KNN" }
   - { CMD: "$PYINT -u onnx/bench_plot_skl2onnx_unittest.py", NAME: "ORT_UNIT" }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_graph.py", NAME: "ORT_CASC" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", NAME: "ORT_CASCADD", TIMEOUT: 1800 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_scaler.py", NAME: "ORT_CASCSCL", TIMEOUT: 2400 }
   # module
   - { CMD: "$PYINT -u modules/bench_plot_re2.py", NAME: "MOD_RE2" }
   # documentation
