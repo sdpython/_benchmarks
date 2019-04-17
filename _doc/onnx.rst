@@ -26,6 +26,7 @@ for all models.
     onnx/onnxruntime_dt
     onnx/onnxruntime_knn
     onnx/onnxruntime_rf
+    onnx/onnxruntime_mlp
 
 onnxruntime specific configurations
 ===================================

@@ -66,7 +66,7 @@ Detailed graphs
                        cmp_col_values=('lib', 'skl'),
                        x_value='dim', y_value='mean',
                        title=None,
-                     ax=None, box_side=4)
+                       ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for RandomForestClassifier")
     plt.show()
 

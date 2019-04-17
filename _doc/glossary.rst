@@ -15,4 +15,4 @@ Glossary
         This is usually what webservices do.
 
     online prediction
-        See *one off predictions*.
+        See *one off prediction*.
