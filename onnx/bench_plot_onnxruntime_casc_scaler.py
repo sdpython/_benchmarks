@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Benchmark of :epkg:`onnxruntime` with graph size.
+Benchmark of :epkg:`onnxruntime` for a cascade of scalers (additions).
 """
 # Authors: Xavier Dupré (benchmark)
 # License: MIT
@@ -31,6 +31,7 @@ from onnxruntime import InferenceSession
 # Benchmark
 # +++++++++
 
+
 def generate_onnx_graph(dim, nbnode, input_name='X1'):
     """Generates a series of consecutive additions."""
 
@@ -55,6 +56,7 @@ class GraphORtBenchPerfTest(BenchPerfTest):
         BenchPerfTest.__init__(self)
         self.input_name = 'X1'
         self.nbnode = nbnode
+        self.scale = numpy.ones((1, dim))
         self.onx, self.matrices = generate_onnx_graph(dim,
                                                       nbnode, self.input_name)
         as_string = self.onx.SerializeToString()
@@ -65,10 +67,11 @@ class GraphORtBenchPerfTest(BenchPerfTest):
         def predict_ort(X, model=self.ort):
             return self.ort.run(None, {self.input_name: X})[0]
 
-        def predict_npy(X, model=self.matrices):
+        def predict_npy(X, model=self.matrices, scale=self.scale):
             res = X.copy()
             for mat in model:
                 res += X
+                res *= scale
             return res
 
         return [{'lib': 'ort', 'fct': predict_ort},

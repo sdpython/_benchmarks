@@ -89,6 +89,7 @@ sphinx_gallery_conf = {
 # -- shortcuts ---------------------------------------------------------------
 
 epkg_dictionary = {
+    'BLAS': 'https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms',
     'numpy': 'https://www.numpy.org/',
     'onnx': 'https://github.com/onnx/onnx',
     'ONNX': 'https://onnx.ai/',

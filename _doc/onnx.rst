@@ -37,7 +37,8 @@ to help understand how :epkg:`onnxruntime` works.
     :maxdepth: 1
 
     onnx/onnxruntime_unittest
-    onnx/onnxruntime_cascade
+    onnx/onnxruntime_casc_add
+    onnx/onnxruntime_casc_scaler
 
 ONNX versus other implementations
 =================================

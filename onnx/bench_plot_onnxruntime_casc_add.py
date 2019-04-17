@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Benchmark of :epkg:`onnxruntime` with graph size.
+Benchmark of :epkg:`onnxruntime` for a cascade of additions.
 """
 # Authors: Xavier Dupré (benchmark)
 # License: MIT
