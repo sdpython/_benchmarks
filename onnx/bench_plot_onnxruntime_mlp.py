@@ -17,7 +17,7 @@ from sklearn.utils.testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from scipy.special import expit
 from pymlbenchmark.context import machine_information
-from pymlbenchmark.benchmark import BenchPerf
+from pymlbenchmark.benchmark import BenchPerf, ProfilerCall
 from pymlbenchmark.external import OnnxRuntimeBenchPerfTestBinaryClassification
 from pymlbenchmark.plotting import plot_bench_results
 
@@ -34,9 +34,19 @@ def run_bench(repeat=10, verbose=False):
                    dim=[2, 5, 10])
     pafter = dict(N=[1, 10, 100, 1000])
 
+    profilers = [ProfilerCall(dict(N=1, dim=10, hidden_layer_sizes=(10, 2), lib='skl', method="predict", activation='relu'), module="cProfile"),
+                 ProfilerCall(dict(N=1, dim=10, hidden_layer_sizes=(
+                     10, 2), lib='ort', method="predict", activation='relu'), module="cProfile"),
+                 ProfilerCall(dict(N=10, dim=10, hidden_layer_sizes=(
+                     10, 2), lib='skl', method="predict", activation='relu')),
+                 ProfilerCall(dict(N=10, dim=10, hidden_layer_sizes=(
+                     10, 2), lib='ort', method="predict", activation='relu')),
+                 ]
+
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
         MLPClassifier, dim=dim, **opts)
-    bp = BenchPerf(pbefore, pafter, test)
+
+    bp = BenchPerf(pbefore, pafter, test, profilers=profilers)
 
     start = time()
     results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose))
@@ -44,16 +54,21 @@ def run_bench(repeat=10, verbose=False):
 
     results_df = pandas.DataFrame(results)
     print("Total time = %0.3f sec\n" % (end - start))
-    return results_df
+    return results_df, profilers
 
 
 #########################
 # Runs the benchmark
 # ++++++++++++++++++
 
-df = run_bench(verbose=True)
+df, profilers = run_bench(verbose=True)
 df.to_csv("%s.perf.csv" % filename, index=False)
 print(df.head())
+
+with open("%s.prof.txt" % filename, "w") as f:
+    for prof in profilers:
+        f.write("\n#########################################\n\n")
+        prof.to_txt(f)
 
 #########################
 # Extract information about the machine used

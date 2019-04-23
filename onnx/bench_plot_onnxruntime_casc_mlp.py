@@ -22,7 +22,7 @@ from sklearn.utils.testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from sklearn.neural_network import MLPClassifier
 from pyquickhelper.loghelper import run_cmd, sys_path_append
-from pymlbenchmark.benchmark import BenchPerfTest, BenchPerf
+from pymlbenchmark.benchmark import BenchPerfTest, BenchPerf, ProfilerCall
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.datasets.artificial import random_binary_classification
 from pymlbenchmark.plotting import plot_bench_results
@@ -38,7 +38,7 @@ from skonnxrt.sklapi import OnnxTransformer
 
 fixed_dim = 10
 X, y = random_binary_classification(N=10000, dim=fixed_dim)
-model = MLPClassifier(hidden_layer_sizes=(10, 10), activation='logistic')
+model = MLPClassifier(hidden_layer_sizes=(10, 2), activation='logistic')
 model.fit(X, y)
 
 # Converting
@@ -78,8 +78,9 @@ output_names = list(enumerate_model_node_outputs(model_onnx))
 
 class GraphORtBenchPerfTest(BenchPerfTest):
 
-    def __init__(self, fixed_dim=None, skl_model=None, model_onnx=None):
-        BenchPerfTest.__init__(self)
+    def __init__(self, fixed_dim=None, skl_model=None,
+                 model_onnx=None, **kwargs):
+        BenchPerfTest.__init__(self, **kwargs)
         if fixed_dim is None:
             raise RuntimeError("fixed_dim cannot be None.")
         if skl_model is None:
@@ -100,9 +101,9 @@ class GraphORtBenchPerfTest(BenchPerfTest):
         self.onnx_models = models
 
     def fcts(self, **kwargs):
-
         sess = InferenceSession(self.onnx_bytes)
-        fcts = [{'lib': 'skl', 'method': 'skl_proba', 'fct': self.skl_model.predict},
+        fcts = [{'lib': 'skl', 'method': 'skl_proba',
+                 'fct': self.skl_model.predict},
                 {'lib': 'ort', 'method': 'onnx_proba',
                  'fct': lambda X, sess=sess: sess.run(None, {'X': X.astype(numpy.float32)})[0]}]
         for k, v in self.onnx_models.items():
@@ -136,8 +137,15 @@ def run_bench(repeat=25, number=20, verbose=False,
                      1000, 2000, 5000, 10000
                      ])
 
+    profilers = [ProfilerCall(dict(N=1, method="skl_proba"), module="cProfile"),
+                 ProfilerCall(dict(N=1, method="onnx_proba"),
+                              module="cProfile"),
+                 ProfilerCall(dict(N=10, method="skl_proba")),
+                 ProfilerCall(dict(N=10, method="onnx_proba")),
+                 ]
+
     test = lambda dim=None, **opts: GraphORtBenchPerfTest(**opts)
-    bp = BenchPerf(pbefore, pafter, test)
+    bp = BenchPerf(pbefore, pafter, test, profilers=profilers)
 
     start = time()
     results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
@@ -146,7 +154,7 @@ def run_bench(repeat=25, number=20, verbose=False,
 
     results_df = pandas.DataFrame(results)
     print("Total time = %0.3f sec\n" % (end - start))
-    return results_df
+    return results_df, profilers
 
 #########################
 # Runs the benchmark
@@ -154,15 +162,20 @@ def run_bench(repeat=25, number=20, verbose=False,
 
 
 filename = os.path.splitext(os.path.split(__file__)[-1])[0]
-df = run_bench(verbose=True, fixed_dim=fixed_dim, skl_model=model,
-               model_onnx=model_onnx)
+df, profilers = run_bench(verbose=True, fixed_dim=fixed_dim, skl_model=model,
+                          model_onnx=model_onnx)
 df = df.drop(['model_onnx', 'skl_model'], axis=1)
 df.to_csv("%s.perf.csv" % filename, index=False)
 print(df.head())
 
+with open("%s.prof.txt" % filename, "w") as f:
+    for prof in profilers:
+        f.write("\n#########################################\n\n")
+        prof.to_txt(f)
+
 #########################
-# Extracts information about the machine used
-# +++++++++++++++++++++++++++++++++++++++++++
+# Extract information about the machine used
+# ++++++++++++++++++++++++++++++++++++++++++
 
 pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx', 'onnxruntime',
         'onnx', 'skonnxrt']
@@ -170,15 +183,15 @@ dfi = pandas.DataFrame(machine_information(pkgs))
 dfi.to_csv("%s.time.csv" % filename, index=False)
 print(dfi)
 
-
 #############################
 # Plot the results by number of nodes
 # +++++++++++++++++++++++++++++++++++
 
-if False:
-    from pymlbenchmark.plotting import plot_bench_results
-    plot_bench_results(df, row_cols='N', col_cols='dim',
-                       x_value='nbnode',
-                       title="%s\nBenchmark scikit-learn / onnxruntime" % "Cascade Scaler")
+data = df[["N", "mean", "method"]].pivot('N', 'method', 'mean')
+for c in data.columns:
+    data[c] /= data['skl_proba']
 
-    plt.savefig("%s.node.png" % filename)
+fig, ax = plt.subplots(1, 2, figsize=(14, 6))
+data[['skl_proba', 'onnx_proba']].plot(ax=ax[0])
+data.plot(ax=ax[1])
+fig.savefig("%s.graph.png" % filename)

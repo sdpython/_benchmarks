@@ -5,12 +5,13 @@ modules/*.csv
 onnx/*.png
 onnx/*.csv
 onnx/*.onnx
+onnx/*.prof.txt
 onnx/scikit-learn
+onnx/sklearn-onnx/
 onnx/onnxruntime-skl2onnx
 scikit-learn/*.txt
 scikit-learn/*.png
 scikit-learn/*.csv
 scikit-learn/*.onnx
 scikit-learn/*.prof
-onnx/sklearn-onnx/
 *.dot
