@@ -31,7 +31,7 @@ def run_bench(repeat=10, verbose=False):
     pbefore = dict(dim=[1, 5, 10, 20, 50, 100],
                    max_depth=[2, 5, 10],
                    n_estimators=[1, 10, 100])
-    pafter = dict(N=[1, 10])
+    pafter = dict(N=[1, 10, 100])
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
         RandomForestClassifier, dim=dim, **opts)

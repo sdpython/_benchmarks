@@ -40,6 +40,7 @@ to help understand how :epkg:`onnxruntime` works.
     onnx/onnxruntime_unittest
     onnx/onnxruntime_casc_add
     onnx/onnxruntime_casc_scaler
+    onnx/onnxruntime_casc_mlp
 
 ONNX versus other implementations
 =================================

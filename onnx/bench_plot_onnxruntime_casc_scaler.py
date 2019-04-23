@@ -87,7 +87,7 @@ def run_bench(repeat=20, number=2, verbose=False):
 
     pbefore = dict(dim=[1, 10, 100],
                    nbnode=[1, 2, 3, 5, 10, 50, 100, 150, 200, 250, 300])
-    pafter = dict(N=[1, 100, 1000, 10000])
+    pafter = dict(N=[1, 10, 100, 1000, 10000])
 
     test = lambda dim=None, **opts: GraphORtBenchPerfTest(dim=dim, **opts)
     bp = BenchPerf(pbefore, pafter, test)

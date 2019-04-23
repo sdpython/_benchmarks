@@ -32,7 +32,7 @@ def run_bench(repeat=10, verbose=False):
                                        (2, 2), (10, 2), (20, 2)],
                    activation=['relu', 'logistic'],
                    dim=[2, 5, 10])
-    pafter = dict(N=[1, 10, 100])
+    pafter = dict(N=[1, 10, 100, 1000])
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
         MLPClassifier, dim=dim, **opts)
