@@ -107,8 +107,7 @@ class GraphORtBenchPerfTest(BenchPerfTest):
                 {'lib': 'ort', 'method': 'onnx_proba',
                  'fct': lambda X, sess=sess: sess.run(None, {'X': X.astype(numpy.float32)})[0]}]
         for k, v in self.onnx_models.items():
-            def fct(X, onx=v.onnxrt_): return onx.run(
-                None, {'X': X.astype(numpy.float32)})[0]
+            fct = lambda X, onx=v.onnxrt_: onx.run(None, {'X': X.astype(numpy.float32)})[0]
             fcts.append(dict(lib='ort', method='ox_' + k, fct=fct))
 
         return fcts
