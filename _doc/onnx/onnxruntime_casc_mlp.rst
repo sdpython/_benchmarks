@@ -36,6 +36,8 @@ Overview
     fig, ax = plt.subplots(1, 2, figsize=(14, 6))
     data[['skl_proba', 'onnx_proba']].plot(ax=ax[0]);
     data.plot(ax=ax[1]);
+    ax[0].set_xscale('log')
+    ax[1].set_xscale('log')
 
     plt.suptitle("Speed against scikit-learn, lower is faster.")
     plt.show()
