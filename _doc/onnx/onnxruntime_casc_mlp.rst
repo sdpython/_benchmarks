@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-cascade-mlp:
 
-Prediction time for intermediate outputs
-========================================
+Prediction time for intermediate outputs of a MLPClassifier
+===========================================================
 
 .. contents::
     :local:
