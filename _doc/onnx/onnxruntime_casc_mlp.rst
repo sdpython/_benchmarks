@@ -71,7 +71,7 @@ Raw results
     name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_casc_mlp.perf.csv")
     df = pandas.read_csv(name)
     piv = bench_pivot(df).reset_index(drop=False)
-    piv['speedup'] = piv['npy'] / piv['ort']
+    piv['speedup'] = piv['skl'] / piv['ort']
     print(df2rst(piv, number_format=4))
 
 Benchmark code
