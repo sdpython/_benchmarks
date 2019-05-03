@@ -33,7 +33,7 @@ from onnxruntime import InferenceSession
 
 
 def generate_onnx_graph(dim, nbnode, input_name='X1'):
-    """Generates a series of consecutive additions."""
+    """Generates a series of consecutive scalers."""
 
     matrices = []
     scale = list(numpy.ones((1, dim)).ravel())
