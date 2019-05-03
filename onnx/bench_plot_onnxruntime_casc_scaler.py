@@ -60,7 +60,11 @@ class GraphORtBenchPerfTest(BenchPerfTest):
         self.onx, self.matrices = generate_onnx_graph(dim,
                                                       nbnode, self.input_name)
         as_string = self.onx.SerializeToString()
-        self.ort = InferenceSession(as_string)
+        try:
+            self.ort = InferenceSession(as_string)
+        except RuntimeError as e:
+            raise RuntimeError("Issue with {}\n{}".format(
+                e, self.onx))
 
     def fcts(self, **kwargs):
 
