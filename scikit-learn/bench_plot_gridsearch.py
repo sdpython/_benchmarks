@@ -99,7 +99,7 @@ class PolyBenchPerfTest(BenchPerfTest):
 # +++++++++
 
 
-@ignore_warnings(category=(FutureWarning, UserWarning))
+@ignore_warnings(category=(FutureWarning, UserWarning, DeprecationWarning))
 def run_bench(repeat=10, verbose=False):
     pbefore = dict(dim=[5, 10])
     pafter = dict(N=[100, 1000, 10000], n_jobs=[1, 2, 3])
