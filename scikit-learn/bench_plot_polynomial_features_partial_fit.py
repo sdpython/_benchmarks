@@ -37,7 +37,7 @@ from pymlbenchmark.datasets import random_binary_classification
 
 class PolyBenchPerfTest(BenchPerfTest):
     def __init__(self, dim=None, **opts):
-        # Models are fitted here. Every not measured
+        # Models are fitted here. Everything not measured
         # should take place here.
         assert dim is not None
         BenchPerfTest.__init__(self, **opts)
