@@ -67,7 +67,7 @@ class PolyBenchPerfTest(BenchPerfTest):
             'lr__penalty': ['l1', 'l2'],
         }
 
-        return GridSearchCV(model, params_grid, n_jobs=n_jobs, verbose=1)
+        return GridSearchCV(model, params_grid, n_jobs=n_jobs, verbose=0)
 
     def data(self, N=None, dim=None, **opts):
         # The benchmark requires a new datasets each time.
