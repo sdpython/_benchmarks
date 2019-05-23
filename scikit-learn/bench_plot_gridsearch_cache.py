@@ -27,6 +27,10 @@ from mlinsights.mlbatch import PipelineCache, MLCache
 # Starts a dask cluster
 # +++++++++++++++++++++
 
+has_dask = False
+
+"""
+# Does work yet.
 from distributed import Client, LocalCluster
 try:
     cluster = LocalCluster()
@@ -37,6 +41,7 @@ try:
 except Exception as e:
     print("Cannot use dask due to {0}.".format(e))
     has_dask = False
+"""
 
 ##############################
 # Implementations to benchmark
