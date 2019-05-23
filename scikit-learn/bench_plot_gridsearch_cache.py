@@ -135,7 +135,7 @@ class GridSearchBenchPerfTest(BenchPerfTest):
 @ignore_warnings(category=(FutureWarning, UserWarning, DeprecationWarning))
 def run_bench(repeat=3, verbose=False, number=1):
     pbefore = dict(dim=[5, 10, 20])
-    pafter = dict(N=[1000, 10000, 100000], n_jobs=[1, 2, 3, 4])
+    pafter = dict(N=[1000, 10000, 20000], n_jobs=[1, 2, 3, 4])
 
     bp = BenchPerf(pbefore, pafter, GridSearchBenchPerfTest)
 
