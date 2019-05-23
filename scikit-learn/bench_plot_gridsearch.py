@@ -101,8 +101,8 @@ class PolyBenchPerfTest(BenchPerfTest):
 
 @ignore_warnings(category=(FutureWarning, UserWarning, DeprecationWarning))
 def run_bench(repeat=1, verbose=False, number=1):
-    pbefore = dict(dim=[5, 10, 20, 50, 100])
-    pafter = dict(N=[100, 1000, 10000, 100000], n_jobs=[1, 2, 3, 4])
+    pbefore = dict(dim=[5, 10, 20])
+    pafter = dict(N=[100, 1000, 10000], n_jobs=[1, 2, 3])
 
     bp = BenchPerf(pbefore, pafter, PolyBenchPerfTest)
 
