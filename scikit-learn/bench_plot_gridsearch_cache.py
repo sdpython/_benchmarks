@@ -143,5 +143,5 @@ plot_bench_results(df, row_cols=['N'],
                    col_cols=['n_jobs'], x_value='dim',
                    hue_cols=['test'],
                    cmp_col_values='test',
-                   title="GridSearchCV\nBenchmark caching strategies"
+                   title="GridSearchCV\nBenchmark caching strategies")
 # plt.show()
