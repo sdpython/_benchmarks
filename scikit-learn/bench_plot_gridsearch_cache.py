@@ -20,8 +20,23 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.utils.testing import ignore_warnings
+import sklearn.utils
 from mlinsights.mlbatch import PipelineCache, MLCache
 
+##############################
+# Starts a dask cluster
+# +++++++++++++++++++++
+
+from distributed import Client, LocalCluster
+try:
+    cluster = LocalCluster()
+    print(cluster)
+    client = Client(cluster)
+    print(client)
+    has_dask = True
+except Exception as e:
+    print("Cannot use dask due to {0}.".format(e))
+    has_dask = False
 
 ##############################
 # Implementations to benchmark
@@ -45,6 +60,9 @@ class GridSearchBenchPerfTest(BenchPerfTest):
         elif cache == 'joblib':
             cl = Pipeline
             ps = dict(memory='jb-%d-%d' % (dim, n_jobs))
+        elif cache == 'dask':
+            cl = Pipeline
+            ps = dict(memory='dk-%d-%d' % (dim, n_jobs))
         elif cache == "memory":
             cl = PipelineCache
             ps = dict(cache_name='memory-%d-%d' % (dim, n_jobs))
@@ -77,11 +95,21 @@ class GridSearchBenchPerfTest(BenchPerfTest):
 
     def fcts(self, dim=None, **kwargs):
         # The function returns the prediction functions to tests.
+        global has_dask
+        options = ['no', 'joblib', 'memory']
+        if has_dask:
+            options.append('dask')
         models = {}
-        for cache in ['no', 'joblib', 'memory']:
+        for cache in options:
             models[cache] = self._make_model(dim, cache, self.n_jobs)
 
         def fit_model(X, y, cache):
+            if cache == "joblib":
+                sklearn.utils.parallel_backend("loky", self.n_jobs)
+            elif cache == "dask":
+                sklearn.utils.parallel_backend("dask", self.n_jobs)
+            else:
+                sklearn.utils.parallel_backend("threading", self.n_jobs)
             model = models[cache]
             model.fit(X, y)
             if cache == 'memory':
@@ -102,7 +130,7 @@ class GridSearchBenchPerfTest(BenchPerfTest):
 @ignore_warnings(category=(FutureWarning, UserWarning, DeprecationWarning))
 def run_bench(repeat=3, verbose=False, number=1):
     pbefore = dict(dim=[5, 10, 20])
-    pafter = dict(N=[100, 1000, 10000], n_jobs=[1, 2, 3, 4])
+    pafter = dict(N=[1000, 10000, 100000], n_jobs=[1, 2, 3, 4])
 
     bp = BenchPerf(pbefore, pafter, GridSearchBenchPerfTest)
 
@@ -119,10 +147,13 @@ def run_bench(repeat=3, verbose=False, number=1):
 # Run the benchmark
 # +++++++++++++++++
 
-
+filename = "bench_plot_gridsearch_cache"
 df = run_bench(verbose=True)
-df.to_csv("bench_gridsearch_cache.csv", index=False)
+df.to_csv("%s.csv" % filename, index=False)
 print(df.head())
+
+if has_dask:
+    cluster.close()
 
 #########################
 # Extract information about the machine used
@@ -131,7 +162,9 @@ print(df.head())
 from pymlbenchmark.context import machine_information
 pkgs = ['numpy', 'pandas', 'sklearn']
 dfi = pandas.DataFrame(machine_information(pkgs))
+dfi.to_csv("%s.time.csv" % filename, index=False)
 print(dfi)
+
 
 #############################
 # Plot the results

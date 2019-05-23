@@ -9,13 +9,14 @@ of the same algorithm.
     :local:
 
 Benchmarks of pull requests on scikit-learn
-==========================================
+===========================================
 
 .. toctree::
     :maxdepth: 1
 
     scikit-learn/PR13290
     scikit-learn/PR13290_2
+    scikit-learn/gridsearch_cache
 
 Benchmarks of toy implementations in C++, Python
 ================================================
