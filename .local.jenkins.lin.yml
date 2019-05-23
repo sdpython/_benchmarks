@@ -30,7 +30,7 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", NAME: "ORT_CASCADD", TIMEOUT: 1800 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_scaler.py", NAME: "ORT_CASCSCL", TIMEOUT: 2400 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_mlp.py", NAME: "ORT_CASCMLP" }
-  - { CMD: "$PYINT -u scikit-learn/bench_plot_gridsearch.py", NAME: "SKL_CACHE", TIMEOUT: 2400 }
+  - { CMD: "$PYINT -u scikit-learn/bench_plot_gridsearch_cache.py", NAME: "SKL_CACHE", TIMEOUT: 2400 }
   # module
   - { CMD: "$PYINT -u modules/bench_plot_re2.py", NAME: "MOD_RE2" }
   # documentation

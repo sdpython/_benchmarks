@@ -31,7 +31,7 @@ from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
 from pymlbenchmark.datasets import random_binary_classification
 
 
-class PolyBenchPerfTest(BenchPerfTest):
+class GridSearchBenchPerfTest(BenchPerfTest):
 
     def __init__(self, dim=None, n_jobs=1, **opts):
         assert dim is not None
@@ -100,11 +100,11 @@ class PolyBenchPerfTest(BenchPerfTest):
 
 
 @ignore_warnings(category=(FutureWarning, UserWarning, DeprecationWarning))
-def run_bench(repeat=1, verbose=False, number=1):
-    pbefore = dict(dim=[5, 10, 20])
-    pafter = dict(N=[100, 1000, 10000], n_jobs=[1, 2, 3])
+def run_bench(repeat=3, verbose=False, number=1):
+    pbefore = dict(dim=[5, 10, 20, 50])
+    pafter = dict(N=[100, 1000, 10000, 100000], n_jobs=[1, 2, 3, 4])
 
-    bp = BenchPerf(pbefore, pafter, PolyBenchPerfTest)
+    bp = BenchPerf(pbefore, pafter, GridSearchBenchPerfTest)
 
     start = time()
     results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose))
@@ -121,7 +121,7 @@ def run_bench(repeat=1, verbose=False, number=1):
 
 
 df = run_bench(verbose=True)
-df.to_csv("bench_polynomial_features.csv", index=False)
+df.to_csv("bench_gridsearch_cache.csv", index=False)
 print(df.head())
 
 #########################
@@ -141,7 +141,7 @@ from pymlbenchmark.plotting import plot_bench_results
 print(df.columns)
 plot_bench_results(df, row_cols=['N'],
                    col_cols=['n_jobs'], x_value='dim',
-                   hue_cols=['cache'],
+                   hue_cols=['test'],
                    cmp_col_values='test',
-                   title="GridSearchCV\nBenchmark caching strategies")
+                   title="GridSearchCV\nBenchmark caching strategies"
 # plt.show()
