@@ -110,7 +110,6 @@ Raw results
     import pandas
     name = os.path.join(__WD__, "../../scikit-learn/results/bench_plot_gridsearch_cache.csv")
     df = pandas.read_csv(name)
-    df['speedup'] = df['time_0_20_2'] / df['time_current']
     print(df2rst(df, number_format=4))
 
 Benchmark code
