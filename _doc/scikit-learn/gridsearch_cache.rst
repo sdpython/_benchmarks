@@ -55,6 +55,7 @@ Graphs
 
     import matplotlib.pyplot as plt
     import pandas
+    from pymlbenchmark.plotting plot_bench_results
     name = "../../scikit-learn/results/bench_plot_gridsearch_cache.csv"
     df = pandas.read_csv(name)
     plt.close('all')
@@ -70,15 +71,15 @@ Graphs
 
     import matplotlib.pyplot as plt
     import pandas
+    from pymlbenchmark.plotting plot_bench_xtime
     name = "../../scikit-learn/results/bench_plot_gridsearch_cache.csv"
     df = pandas.read_csv(name)
     plt.close('all')
 
-    plot_bench_results(df, row_cols=['N'],
-                       col_cols=['n_jobs'], x_value='dim',
-                       hue_cols=['test'],
+    plot_bench_xtime(df, row_cols=['n_jobs'],
+                       hue_cols=['N'], x_value='mean',
                        cmp_col_values='test',
-                       title="GridSearchCV\nBenchmark caching strategies")
+                       title="GridSearchCV\nBenchmark caching strategies");
     plt.show()
 
 Machine used to run the test
