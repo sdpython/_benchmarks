@@ -77,9 +77,9 @@ Graphs
     plt.close('all')
 
     plot_bench_xtime(df, row_cols=['n_jobs'],
-                       hue_cols=['N'], x_value='mean',
-                       cmp_col_values='test',
-                       title="GridSearchCV\nBenchmark caching strategies");
+                     hue_cols=['N'], x_value='mean',
+                     cmp_col_values='test',
+                     title="GridSearchCV\nBenchmark caching strategies");
     plt.show()
 
 Machine used to run the test
