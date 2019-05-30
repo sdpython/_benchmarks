@@ -54,7 +54,7 @@ Ratio by model
     df = df[df['stderr'].isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
     df['model'] = df['_model'].apply(lambda s: s.replace("Sklearn", ""))
 
-    fig, ax = plt.subplots(1, 1, figsize=(10, 35))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 45))
     df.plot.barh(x="model", y="ratio", ax=ax, logx=True)
     ymin, ymax = ax.get_ylim()
     ax.plot([0.5, 0.5], [ymin, ymax], '--', label="2x faster")
