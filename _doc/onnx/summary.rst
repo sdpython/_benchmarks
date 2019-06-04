@@ -39,6 +39,8 @@ Median Prediction Time
     side1 = 'skl'
     side2 = 'ort'
     for name, df in dfs:
+        if "diff" in df.columns:
+            continue
         df = bench_pivot(df, value='median').reset_index(drop=False)
         if "dim" in df.columns and 'N' in df.columns and \
             side1 in df.columns and side2 in df.columns and \
@@ -110,6 +112,8 @@ for each number of features.
     side1 = 'skl'
     side2 = 'ort'
     for name, df in dfs:
+        if "diff" in df.columns:
+            continue
         df = bench_pivot(df, value='median').reset_index(drop=False)
         if "dim" in df.columns and 'N' in df.columns and \
             side1 in df.columns and side2 in df.columns and \
@@ -171,6 +175,8 @@ for each number of features.
     side1 = 'skl'
     side2 = 'ort'
     for name, df in dfs:
+        if "diff" in df.columns:
+            continue
         df = bench_pivot(df, value='min').reset_index(drop=False)
         if "dim" in df.columns and 'N' in df.columns and \
             side1 in df.columns and side2 in df.columns and \
