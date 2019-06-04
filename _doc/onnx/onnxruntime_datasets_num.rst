@@ -94,11 +94,7 @@ Raw results
     import pandas
     name = os.path.join(__WD__, "../../onnx/results/bench_plot_datasets_num.perf.csv")
     df = pandas.read_csv(name)
-    df = df[df['stderr'].isnull() & ~df.ratio.isnull()].sort_values("ratio").copy()
-    df['model'] = df['_model'].apply(lambda s: s.replace("Sklearn", ""))
-    piv = df[["model", "original_time", "original_std", "onnxrt_time", "onnxrt_std", "ratio"]]
-    piv.columns = ["model", "sklearn", "skl dev", "onnxruntime", "ort dev", "ratio"]
-    print(df2rst(piv, number_format=4))
+    print(df2rst(df, number_format=4))
 
 Benchmark code
 ++++++++++++++
