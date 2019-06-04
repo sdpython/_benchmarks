@@ -1,15 +1,16 @@
 name,value,version
 date,,2019-06-04
-python,"3.7.2 (tags/v3.7.2:9a3ffc0492, Dec 23 2018, 23:09:28) [MSC v.1916 64 bit (AMD64)]",
-platform,win32,
-OS,Windows-10-10.0.17134-SP0,
-machine,AMD64,
-processor,"Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
-release,10,
-architecture,"('64bit', 'WindowsPE')",
-numpy,"mkl_lapack95_lp64, mkl_blas95_lp64",1.16.2
+python,"3.7.2 (default, Mar  1 2019, 18:34:21) 
+[GCC 6.3.0 20170516]",
+platform,linux,
+OS,Linux-4.9.0-8-amd64-x86_64-with-debian-9.6,
+machine,x86_64,
+processor,,
+release,4.9.0-8-amd64,
+architecture,"('64bit', '')",
+numpy,"openblas, language=c",1.16.4
 onnx,opset=10,1.5.0
-onnxruntime,CPU,0.4.0
+onnxruntime,CPU-MKLDNN-MLAS-EBLAS,0.4.0
 pandas,,0.24.2
 skl2onnx,,1.4.9999
-sklearn,,0.22.dev0
+sklearn,,0.21.2

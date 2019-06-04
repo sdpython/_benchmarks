@@ -22,6 +22,7 @@ a couple of datasets :
 
     import matplotlib.pyplot as plt
     import pandas
+    from pymlbenchmark.plotting import plot_bench_xtime
 
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
@@ -37,6 +38,7 @@ Graph X = number of observations to predict
 
     import matplotlib.pyplot as plt
     import pandas
+    from pymlbenchmark.plotting import plot_bench_results
 
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
@@ -52,6 +54,7 @@ Graph of differences between scikit-learn and onnxruntime
 
     import matplotlib.pyplot as plt
     import pandas
+    from pymlbenchmark.plotting import plot_bench_results
 
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
