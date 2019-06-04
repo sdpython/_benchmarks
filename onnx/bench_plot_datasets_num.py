@@ -20,6 +20,7 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier,
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC, NuSVC
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.gaussian_process import GaussianProcessClassifier
@@ -65,6 +66,10 @@ def get_model(model_name):
         return BernoulliNB()
     elif model_name == "ADA":
         return AdaBoostClassifier()
+    elif model_name == "SVC":
+        return SVC(probability=True)
+    elif model_name == "NuSVC":
+        return NuSVC(probability=True)
     else:
         raise ValueError("Unknown model name '{}'.".format(model_name))
 
@@ -148,7 +153,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 def run_bench(repeat=5, verbose=False):
 
     pbefore = dict(dim=[-1],
-                   model=list(sorted(['BNB', 'RF', 'DT', 'MNB',
+                   model=list(sorted(['SVC', 'NuSVC', 'BNB',
+                                      'RF', 'DT', 'MNB',
                                       'ADA', 'MLP',
                                       'LR', 'BT', 'KNN'])),
                    dataset=["breast_cancer", "digits"])
