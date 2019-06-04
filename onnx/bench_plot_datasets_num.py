@@ -21,7 +21,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.gaussian_process.kernels import RBF
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.utils.testing import ignore_warnings
 from pymlbenchmark.context import machine_information
@@ -61,6 +61,8 @@ def get_model(model_name):
         return MLPClassifier()
     elif model_name == "MNB":
         return MultinomialNB()
+    elif model_name == "BNB":
+        return BernoulliNB()
     elif model_name == "ADA":
         return AdaBoostClassifier()
     else:
@@ -146,11 +148,12 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 def run_bench(repeat=5, verbose=False):
 
     pbefore = dict(dim=[-1],
-                   model=['RF', 'DT', 'MNB', 'ADA', 'MLP',
-                          'LR', 'BT', 'KNN'],
+                   model=list(sorted(['BNB', 'RF', 'DT', 'MNB',
+                                      'ADA', 'MLP',
+                                      'LR', 'BT', 'KNN'])),
                    dataset=["breast_cancer", "digits"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
-                     2000, 5000, 10000, 20000])
+                     2000, 5000, 10000, 20000, 50000])
 
     test = lambda dim=None, **opts: DatasetsOrtBenchPerfTest(**opts)
     bp = BenchPerf(pbefore, pafter, test)
