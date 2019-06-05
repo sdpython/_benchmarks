@@ -205,12 +205,14 @@ print(dfi)
 
 plot_bench_xtime(df[df.norm], col_cols='dataset',
                  hue_cols='model',
+                 drop_remove=["1.0x", "2.0x"],
                  title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime")
 plt.savefig("%s.normT.time.png" % filename)
 # plt.show()
 
 plot_bench_xtime(df[~df.norm], col_cols='dataset',
                  hue_cols='model',
+                 drop_remove=["1.0x", "2.0x"],
                  title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime")
 plt.savefig("%s.normF.time.png" % filename)
 # plt.show()
