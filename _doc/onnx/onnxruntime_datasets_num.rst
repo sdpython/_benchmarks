@@ -31,7 +31,11 @@ It computes the prediction time for the following models:
 * *RF*: ``RandomForestClassifier(max_depth=4, n_estimators=10)``
 * *SVC*: ``SVC(probability=True)``
 
-The predictor follows a *StandardScaler* in a pipeline if
+The predictor follows a `StandardScaler
+<https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html>`_ (or a
+`MinMaxScaler <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html>`_
+if the model is a naive Bayes one)
+in a pipeline if
 ``norm=True`` or is the only object is ``norm=False``.
 
 .. plot::
@@ -43,7 +47,7 @@ The predictor follows a *StandardScaler* in a pipeline if
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
     fig, ax = plt.subplots(1, 2, figsize=(12, 5))
-    
+
     plot_bench_xtime(df[~df.norm], col_cols='dataset',
                      hue_cols='model',
                      title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime",

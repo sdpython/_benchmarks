@@ -25,7 +25,7 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.utils.testing import ignore_warnings
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.pipeline import make_pipeline
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
@@ -86,7 +86,10 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         self.dataset_name = dataset
         self.datas = common_datasets[dataset]
         if norm:
-            self.model = make_pipeline(StandardScaler(), get_model(model))
+            if 'NB' in model:
+                self.model = make_pipeline(MinMaxScaler(), get_model(model))
+            else:
+                self.model = make_pipeline(StandardScaler(), get_model(model))
         else:
             self.model = get_model(model)
         self.model.fit(self.datas[0], self.datas[2])
