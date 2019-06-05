@@ -89,17 +89,25 @@ class PolyBenchPerfTest(BenchPerfTest):
         the same results for both :epkg:`scikit-learn` and
         :epkg:`onnxruntime`.
         """
-        res = results
-        if len(res) > 0 and res[0][1].shape[0] <= 10000:
-            for i in range(1, len(res)):
-                p1, p2 = res[0][1], res[i][1]
+        if len(results) > 0 and results[0][2].shape[0] <= 10000:
+            res = {}
+            for idt, fct, vals in results:
+                if idt not in res:
+                    res[idt] = {}
+                te = fct['test']
+                res[idt][te] = vals
+
+            baseline = "PF-0.20.2"
+            test = "PF-DEV"
+            for _, v in res.items():
+                p1, p2 = v[baseline], v[test]
                 if len(p1.shape) == 1 and len(p2.shape) == 2:
                     p2 = p2.ravel()
                 try:
                     assert_almost_equal(p1, p2, decimal=4)
                 except AssertionError as e:
                     raise AssertionError("Dim {} - discrepencies between\n{} and\n{}.".format(
-                        p1.shape, res[0][0], res[i][0])) from e
+                        p1.shape, res[0][1], res[i][1])) from e
 
 
 ##############################

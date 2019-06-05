@@ -87,8 +87,8 @@ class PolyBenchPerfTest(BenchPerfTest):
 
     def validate(self, results, **kwargs):
         for row in results:
-            assert isinstance(row[0], dict)  # test options
-            assert isinstance(row[1], SGDClassifier)  # trained model
+            assert isinstance(row[1], dict)  # test options
+            assert isinstance(row[2], SGDClassifier)  # trained model
 
 
 ##############################
