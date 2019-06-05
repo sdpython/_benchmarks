@@ -25,6 +25,8 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.utils.testing import ignore_warnings
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
 from pymlbenchmark.plotting import plot_bench_results, plot_bench_xtime
@@ -78,12 +80,15 @@ common_datasets = create_datasets()
 
 
 class DatasetsOrtBenchPerfTest(BenchPerfTest):
-    def __init__(self, model, dataset):
+    def __init__(self, model, dataset, norm):
         BenchPerfTest.__init__(self)
         self.model_name = model
         self.dataset_name = dataset
         self.datas = common_datasets[dataset]
-        self.model = get_model(model)
+        if norm:
+            self.model = make_pipeline(StandardScaler(), get_model(model))
+        else:
+            self.model = get_model(model)
         self.model.fit(self.datas[0], self.datas[2])
         self.data_test = self.datas[1]
 
@@ -157,6 +162,7 @@ def run_bench(repeat=5, verbose=False):
                                       'RF', 'DT', 'MNB',
                                       'ADA', 'MLP',
                                       'LR', 'GBT', 'KNN'])),
+                   norm=[False, True],
                    dataset=["breast_cancer", "digits"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
                      2000, 5000, 10000, 20000, 50000])
@@ -194,19 +200,25 @@ print(dfi)
 # Plot the results
 # ++++++++++++++++
 
-plot_bench_xtime(df, col_cols='dataset',
+plot_bench_xtime(df[df.norm], col_cols='dataset',
                  hue_cols='model',
-                 title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
-plt.savefig("%s.time.png" % filename)
+                 title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime")
+plt.savefig("%s.normT.time.png" % filename)
 # plt.show()
 
-plot_bench_results(df, row_cols='model', col_cols='dataset',
+plot_bench_xtime(df[~df.norm], col_cols='dataset',
+                 hue_cols='model',
+                 title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime")
+plt.savefig("%s.normF.time.png" % filename)
+# plt.show()
+
+plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                    x_value='N',
                    title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
 plt.savefig("%s.curve.png" % filename)
 # plt.show()
 
-plot_bench_results(df, row_cols='model', col_cols='dataset',
+plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                    x_value='N', y_value='diff',
                    err_value=('lower_diff', 'upper_diff'),
                    title="Numerical datasets\Absolute difference scikit-learn / onnxruntime")

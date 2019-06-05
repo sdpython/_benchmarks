@@ -31,6 +31,9 @@ It computes the prediction time for the following models:
 * *RF*: ``RandomForestClassifier(max_depth=4, n_estimators=10)``
 * *SVC*: ``SVC(probability=True)``
 
+The predictor follows a *StandardScaler* in a pipeline if
+``norm=True`` or is the only object is ``norm=False``.
+
 .. plot::
 
     import matplotlib.pyplot as plt
@@ -39,9 +42,16 @@ It computes the prediction time for the following models:
 
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
-    plot_bench_xtime(df, col_cols='dataset',
+    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+    
+    plot_bench_xtime(df[~df.norm], col_cols='dataset',
                      hue_cols='model',
-                     title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
+                     title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime",
+                     ax=ax[0])
+    plot_bench_xtime(df[df.norm], col_cols='dataset',
+                     hue_cols='model',
+                     title="Numerical datasets - norm=True\nBenchmark scikit-learn / onnxruntime",
+                     ax=ax[1])
     plt.show()
 
 Graph X = number of observations to predict
@@ -55,7 +65,7 @@ Graph X = number of observations to predict
 
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
-    plot_bench_results(df, row_cols='model', col_cols='dataset',
+    plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                        x_value='N',
                        title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
     plt.show()
@@ -71,7 +81,7 @@ Graph of differences between scikit-learn and onnxruntime
 
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
-    plot_bench_results(df, row_cols='model', col_cols='dataset',
+    plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                        x_value='N', y_value='diff',
                        err_value=('lower_diff', 'upper_diff'),
                        title="Numerical datasets\Absolute difference scikit-learn / onnxruntime")
