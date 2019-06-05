@@ -17,6 +17,19 @@ and :epkg:`scikit-learn`. It looks into multiple models for
 a couple of datasets :
 `breast cancer <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html>`_,
 `digits <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html>`_.
+It computes the prediction time for the following models:
+
+* *ADA*: ``AdaBoostClassifier()``
+* *BNB*: ``BernoulliNB()``
+* *DT*: ``DecisionTreeClassifier(max_depth=4)``
+* *GBT*: ``GradientBoostingClassifier(max_depth=4, n_estimators=10)``
+* *KNN*: ``KNeighborsClassifier()``
+* *LR*: ``LogisticRegression(solver="liblinear", penalty="l2")``
+* *MLP*: ``MLPClassifier()``
+* *MNB*: ``MultinomialNB()``
+* *NuSVC*: ``NuSVC(probability=True)``
+* *RF*: ``RandomForestClassifier(max_depth=4, n_estimators=10)``
+* *SVC*: ``SVC(probability=True)``
 
 .. plot::
 

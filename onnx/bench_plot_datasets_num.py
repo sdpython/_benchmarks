@@ -54,7 +54,7 @@ def get_model(model_name):
         return DecisionTreeClassifier(max_depth=4)
     elif model_name == "RF":
         return RandomForestClassifier(max_depth=4, n_estimators=10)
-    elif model_name == "BT":
+    elif model_name == "GBT":
         return GradientBoostingClassifier(max_depth=4, n_estimators=10)
     elif model_name == "KNN":
         return KNeighborsClassifier()
@@ -156,7 +156,7 @@ def run_bench(repeat=5, verbose=False):
                    model=list(sorted(['SVC', 'NuSVC', 'BNB',
                                       'RF', 'DT', 'MNB',
                                       'ADA', 'MLP',
-                                      'LR', 'BT', 'KNN'])),
+                                      'LR', 'GBT', 'KNN'])),
                    dataset=["breast_cancer", "digits"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
                      2000, 5000, 10000, 20000, 50000])
