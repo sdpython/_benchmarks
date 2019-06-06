@@ -34,9 +34,12 @@ It computes the prediction time for the following models:
 The predictor follows a `StandardScaler
 <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html>`_ (or a
 `MinMaxScaler <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html>`_
-if the model is a naive Bayes one)
+if the model is a Naive Bayes one)
 in a pipeline if
 ``norm=True`` or is the only object is ``norm=False``.
+The pipeline looks like
+``make_pipeline(StandardScaler(), estimator())``.
+
 
 .. plot::
 
@@ -58,7 +61,7 @@ in a pipeline if
                      drop_remove=["1.0x", "2.0x"],
                      title="Numerical datasets - norm=True\nBenchmark scikit-learn / onnxruntime",
                      ax=ax[1])
-    plt.show()
+    fig.show()
 
 Graph X = number of observations to predict
 +++++++++++++++++++++++++++++++++++++++++++
