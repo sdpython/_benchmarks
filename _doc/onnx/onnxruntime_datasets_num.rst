@@ -53,12 +53,10 @@ The pipeline looks like
 
     plot_bench_xtime(df[~df.norm], col_cols='dataset',
                      hue_cols='model',
-                     drop_remove=["1.0x", "2.0x"],
                      title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime",
                      ax=ax[0])
     plot_bench_xtime(df[df.norm], col_cols='dataset',
                      hue_cols='model',
-                     drop_remove=["1.0x", "2.0x"],
                      title="Numerical datasets - norm=True\nBenchmark scikit-learn / onnxruntime",
                      ax=ax[1])
     fig.show()
