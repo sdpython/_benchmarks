@@ -49,8 +49,8 @@ class Re2Bench(BenchPerfTest):
         :epkg:`onnxruntime`.
         """
         res = results
-        d1 = res[0][1]
-        d2 = res[1][1]
+        d1 = res[0][2]
+        d2 = res[1][2]
         assert len(d1) == len(d2)
         for a, b in zip(d1, d2):
             g1 = a.groups()[0]
