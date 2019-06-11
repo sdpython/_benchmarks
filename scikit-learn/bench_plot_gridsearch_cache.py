@@ -82,7 +82,7 @@ class GridSearchBenchPerfTest(BenchPerfTest):
             ('lr', LogisticRegression(solver='liblinear'))],
             **ps)
         params_grid = {
-            'scale__feature_range': [(0, 1), (-1, 1)],
+            'scale__feature_range': [(0, 1)],
             'pca__n_components': [2, 4],
             'poly__degree': [2, 3],
             'bins__n_bins': [5],
