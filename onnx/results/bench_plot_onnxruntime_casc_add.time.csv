@@ -1,5 +1,5 @@
 name,value,version
-date,,2019-04-23
+date,,2019-06-11
 python,"3.7.2 (default, Mar  1 2019, 18:34:21) 
 [GCC 6.3.0 20170516]",
 platform,linux,
@@ -8,9 +8,9 @@ machine,x86_64,
 processor,,
 release,4.9.0-8-amd64,
 architecture,"('64bit', '')",
-numpy,"openblas, language=c",1.16.2
-onnx,opset=10,1.4.1
-onnxruntime,CPU-MKLDNN-MLAS-EBLAS,0.3.1
+numpy,"openblas, language=c",1.16.4
+onnx,opset=10,1.5.0
+onnxruntime,CPU-MKLDNN-MLAS-EBLAS,0.4.9999
 pandas,,0.24.2
-skl2onnx,,1.4.6
-sklearn,,0.21.dev0
+skl2onnx,,1.4.9999
+sklearn,,0.22.dev0
