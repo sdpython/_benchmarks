@@ -98,7 +98,7 @@ def run_bench(repeat=20, number=2, verbose=False):
 
     start = time()
     results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
-                                           number=number))
+                                           number=number, stop_if_error=False))
     end = time()
 
     results_df = pandas.DataFrame(results)

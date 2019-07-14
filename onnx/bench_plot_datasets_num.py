@@ -145,8 +145,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         diffs = []
         for i in range(0, nb):
             r = res[i]
-            bas = r['skl']
-            onn = r['ort']
+            bas = numpy.squeeze(r['skl'])
+            onn = numpy.squeeze(r['ort'].squeeze())
             if bas.shape != onn.shape:
                 raise AssertionError("Shape mismatch {} != {} params={}".format(
                     bas.shape, onn.shape, results[0][0]))
@@ -174,7 +174,8 @@ def run_bench(repeat=5, verbose=False):
     bp = BenchPerf(pbefore, pafter, test)
 
     start = time()
-    results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose))
+    results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
+                                           stop_if_error=False))
     end = time()
 
     results_df = pandas.DataFrame(results)

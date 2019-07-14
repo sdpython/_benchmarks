@@ -52,7 +52,8 @@ def run_bench(repeat=10, verbose=False):
     bp = BenchPerf(pbefore, pafter, test, profilers=profilers)
 
     start = time()
-    results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose))
+    results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
+                                           stop_if_error=False))
     end = time()
 
     results_df = pandas.DataFrame(results)

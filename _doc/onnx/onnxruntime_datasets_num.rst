@@ -40,7 +40,6 @@ in a pipeline if
 The pipeline looks like
 ``make_pipeline(StandardScaler(), estimator())``.
 
-
 .. plot::
 
     import matplotlib.pyplot as plt

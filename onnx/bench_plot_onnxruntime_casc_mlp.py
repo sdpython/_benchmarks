@@ -27,8 +27,8 @@ from pymlbenchmark.context import machine_information
 from pymlbenchmark.datasets.artificial import random_binary_classification
 from pymlbenchmark.plotting import plot_bench_results
 from onnxruntime import InferenceSession
-from skonnxrt.helpers.onnx_helper import enumerate_model_node_outputs
-from skonnxrt.sklapi import OnnxTransformer
+from mlprodict.onnxrt.onnx_inference_manipulations import enumerate_model_node_outputs
+from mlprodict.sklapi import OnnxTransformer
 
 ################################
 # Trains a MLPClassifier
@@ -107,8 +107,9 @@ class GraphORtBenchPerfTest(BenchPerfTest):
                 {'lib': 'ort', 'method': 'onnx_proba',
                  'fct': lambda X, sess=sess: sess.run(None, {'X': X.astype(numpy.float32)})[0]}]
         for k, v in self.onnx_models.items():
-            def fct(X, onx=v.onnxrt_): return onx.run(
-                None, {'X': X.astype(numpy.float32)})[0]
+            def fct(X, onx=v.onnxrt_):
+                out = onx.run({'X': X.astype(numpy.float32)})
+                return out['output_label']
             fcts.append(dict(lib='ort', method='ox_' + k, fct=fct))
 
         return fcts
@@ -149,7 +150,7 @@ def run_bench(repeat=25, number=20, verbose=False,
 
     start = time()
     results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
-                                           number=number))
+                                           number=number, stop_if_error=False))
     end = time()
 
     results_df = pandas.DataFrame(results)
