@@ -121,7 +121,7 @@ print(df.head())
 # Extracts information about the machine used
 # +++++++++++++++++++++++++++++++++++++++++++
 
-pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx', 'onnxruntime', 'onnx']
+pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx', 'onnxruntime', 'onnx', 'mlprodict']
 dfi = pandas.DataFrame(machine_information(pkgs))
 dfi.to_csv("%s.time.csv" % filename, index=False)
 print(dfi)
@@ -137,6 +137,7 @@ def label_fct(la):
     la = la.replace("fit_intercept", "fi")
     la = la.replace("True", "1")
     la = la.replace("False", "0")
+    la = la.replace("max_depth", "mxd")
     return la
 
 

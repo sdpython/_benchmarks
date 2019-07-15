@@ -181,7 +181,7 @@ with open("%s.prof.txt" % filename, "w") as f:
 # ++++++++++++++++++++++++++++++++++++++++++
 
 pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx', 'onnxruntime',
-        'onnx', 'skonnxrt']
+        'onnx', 'mlprodict']
 dfi = pandas.DataFrame(machine_information(pkgs))
 dfi.to_csv("%s.time.csv" % filename, index=False)
 print(dfi)

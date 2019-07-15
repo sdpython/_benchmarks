@@ -26,6 +26,7 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_logreg.py", NAME: "ORT_LR" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_mlp.py", NAME: "ORT_MLP", TIMEOUT: 2400 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree.py", NAME: "ORT_DT" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree_reg.py", NAME: "ORT_DT_REG" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", NAME: "ORT_RF" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", NAME: "ORT_KNN" }
   - { CMD: "$PYINT -u onnx/bench_plot_skl2onnx_unittest.py", NAME: "ORT_UNIT" }
