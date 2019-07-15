@@ -16,6 +16,7 @@ from io import StringIO
 import numpy
 import pandas
 import matplotlib.pyplot as plt
+import sklearn
 from sklearn.utils.testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from pyquickhelper.loghelper import run_cmd, sys_path_append
@@ -89,10 +90,11 @@ def run_bench(repeat=20, number=10, verbose=False):
     test = lambda dim=None, **opts: GraphORtBenchPerfTest(dim=dim, **opts)
     bp = BenchPerf(pbefore, pafter, test)
 
-    start = time()
-    results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
-                                           number=number, stop_if_error=False))
-    end = time()
+    with sklearn.config_context(assume_finite=True):
+        start = time()
+        results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
+                                               number=number, stop_if_error=False))
+        end = time()
 
     results_df = pandas.DataFrame(results)
     print("Total time = %0.3f sec\n" % (end - start))

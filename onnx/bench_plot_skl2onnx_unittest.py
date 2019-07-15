@@ -17,6 +17,7 @@ from io import StringIO
 import numpy
 import pandas
 import matplotlib.pyplot as plt
+import sklearn
 from sklearn.utils.testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from pyquickhelper.loghelper import run_cmd, sys_path_append
@@ -108,7 +109,8 @@ location = os.path.join(this, 'sklearn-onnx', "tests")
 filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 full_filename = filename + ".perf.csv"
 if not os.path.exists(full_filename):
-    df = run_all_tests(location, folder, verbose=True)
+    with sklearn.config_context(assume_finite=True):
+        df = run_all_tests(location, folder, verbose=True)
     print("[benchmark] saves into '{}'.".format(full_filename))
     df.to_csv(full_filename, index=False)
 else:

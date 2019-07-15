@@ -12,6 +12,7 @@ from time import perf_counter as time
 import numpy
 import pandas
 import matplotlib.pyplot as plt
+import sklearn
 from sklearn.neural_network import MLPClassifier
 from sklearn.utils.testing import ignore_warnings
 from sklearn.utils.extmath import softmax
@@ -51,10 +52,11 @@ def run_bench(repeat=10, verbose=False):
 
     bp = BenchPerf(pbefore, pafter, test, profilers=profilers)
 
-    start = time()
-    results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
-                                           stop_if_error=False))
-    end = time()
+    with sklearn.config_context(assume_finite=True):
+        start = time()
+        results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
+                                               stop_if_error=False))
+        end = time()
 
     results_df = pandas.DataFrame(results)
     print("Total time = %0.3f sec\n" % (end - start))
