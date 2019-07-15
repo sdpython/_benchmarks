@@ -35,17 +35,13 @@ def run_bench(repeat=10, verbose=False):
                    dim=[2, 5, 10])
     pafter = dict(N=[1, 10, 100, 1000])
 
-    profilers = [ProfilerCall(dict(N=1, dim=10, hidden_layer_sizes=(10, 2),
-                                   lib='skl', method="predict_proba", activation='relu'),
-                              module="cProfile"),
-                 ProfilerCall(dict(N=1, dim=10, hidden_layer_sizes=(10, 2),
-                                   lib='onxpython', method="predict_proba", activation='relu'),
-                              module="cProfile"),
-                 ProfilerCall(dict(N=10, dim=10, hidden_layer_sizes=(10, 2),
-                                   lib='skl', method="predict_proba", activation='relu')),
-                 ProfilerCall(dict(N=10, dim=10, hidden_layer_sizes=(10, 2),
-                                   lib='onxpython', method="predict_proba", activation='relu')),
-                 ]
+    merged = {}
+    merged.update(pbefore)
+    merged.update(pafter)
+    d0 = {k: v[0] for k, v in merged.items()}
+
+    profilers = [ProfilerCall(d0, module="cProfile"),
+                 ProfilerCall(d0, module="cProfile")]
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
         MLPClassifier, dim=dim, **opts)
@@ -80,7 +76,8 @@ with open("%s.prof.txt" % filename, "w") as f:
 # Extract information about the machine used
 # ++++++++++++++++++++++++++++++++++++++++++
 
-pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx', 'onnxruntime', 'onnx', 'mlprodict']
+pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx',
+        'onnxruntime', 'onnx', 'mlprodict']
 dfi = pandas.DataFrame(machine_information(pkgs))
 dfi.to_csv("%s.time.csv" % filename, index=False)
 print(dfi)
@@ -88,6 +85,7 @@ print(dfi)
 #############################
 # Plot the results
 # ++++++++++++++++
+
 
 def label_fct(la):
     la = la.replace("onxpython", "opy")

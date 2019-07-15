@@ -60,7 +60,8 @@ print(df.head())
 # Extract information about the machine used
 # ++++++++++++++++++++++++++++++++++++++++++
 
-pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx', 'onnxruntime', 'onnx', 'mlprodict']
+pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx',
+        'onnxruntime', 'onnx', 'mlprodict']
 dfi = pandas.DataFrame(machine_information(pkgs))
 dfi.to_csv("%s.time.csv" % filename, index=False)
 print(dfi)
@@ -68,6 +69,7 @@ print(dfi)
 #############################
 # Plot the results
 # ++++++++++++++++
+
 
 def label_fct(la):
     la = la.replace("onxpython", "opy")
