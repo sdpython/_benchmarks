@@ -12,6 +12,7 @@ from time import perf_counter as time
 import numpy
 import pandas
 import matplotlib.pyplot as plt
+import sklearn
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.utils.testing import ignore_warnings
 from sklearn.utils.extmath import softmax
