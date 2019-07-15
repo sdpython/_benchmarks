@@ -39,12 +39,12 @@ def run_bench(repeat=10, verbose=False):
                                    lib='skl', method="predict_proba", activation='relu'),
                               module="cProfile"),
                  ProfilerCall(dict(N=1, dim=10, hidden_layer_sizes=(10, 2),
-                                   lib='ort', method="predict_proba", activation='relu'),
+                                   lib='onxpython', method="predict_proba", activation='relu'),
                               module="cProfile"),
                  ProfilerCall(dict(N=10, dim=10, hidden_layer_sizes=(10, 2),
                                    lib='skl', method="predict_proba", activation='relu')),
                  ProfilerCall(dict(N=10, dim=10, hidden_layer_sizes=(10, 2),
-                                   lib='ort', method="predict_proba", activation='relu')),
+                                   lib='onxpython', method="predict_proba", activation='relu')),
                  ]
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
