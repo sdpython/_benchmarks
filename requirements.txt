@@ -1,0 +1,5 @@
+onnx
+onnxruntime
+mlprodict>=0.272
+pymlbenchmark
+git+https://github.com/xadupre/sklearn-onnx.git@jenkins

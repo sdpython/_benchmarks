@@ -206,6 +206,15 @@ print(dfi)
 # Plot the results
 # ++++++++++++++++
 
+def label_fct(la):
+    la = la.replace("onxpython", "opy")
+    la = la.replace("onxonnxruntime1", "ort")
+    la = la.replace("fit_intercept", "fi")
+    la = la.replace("True", "1")
+    la = la.replace("False", "0")
+    return la
+
+
 plot_bench_xtime(df[df.norm], col_cols='dataset',
                  hue_cols='model',
                  title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime")
@@ -227,6 +236,7 @@ plt.savefig("%s.curve.png" % filename)
 plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                    x_value='N', y_value='diff',
                    err_value=('lower_diff', 'upper_diff'),
-                   title="Numerical datasets\Absolute difference scikit-learn / onnxruntime")
+                   title="Numerical datasets\Absolute difference scikit-learn / onnxruntime",
+                   label_fct=label_fct)
 plt.savefig("%s.diff.png" % filename)
 # plt.show()

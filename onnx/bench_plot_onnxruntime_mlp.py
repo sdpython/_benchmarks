@@ -89,11 +89,21 @@ print(dfi)
 # Plot the results
 # ++++++++++++++++
 
+def label_fct(la):
+    la = la.replace("onxpython", "opy")
+    la = la.replace("onxonnxruntime1", "ort")
+    la = la.replace("fit_intercept", "fi")
+    la = la.replace("True", "1")
+    la = la.replace("False", "0")
+    return la
+
+
 plot_bench_results(df, row_cols=['N', 'hidden_layer_sizes'],
                    col_cols='method',
                    hue_cols='activation',
                    cmp_col_values=('lib', 'skl'),
                    x_value='dim', y_value='mean',
-                   title="%s\nBenchmark scikit-learn / onnxruntime" % model_name)
+                   title="%s\nBenchmark scikit-learn / onnxruntime" % model_name,
+                   label_fct=label_fct)
 plt.savefig("%s.png" % filename)
 # plt.show()

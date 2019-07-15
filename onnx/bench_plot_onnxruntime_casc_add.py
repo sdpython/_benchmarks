@@ -124,10 +124,20 @@ print(dfi)
 # Plot the results by number of nodes
 # +++++++++++++++++++++++++++++++++++
 
+def label_fct(la):
+    la = la.replace("onxpython", "opy")
+    la = la.replace("onxonnxruntime1", "ort")
+    la = la.replace("fit_intercept", "fi")
+    la = la.replace("True", "1")
+    la = la.replace("False", "0")
+    return la
+
+
 from pymlbenchmark.plotting import plot_bench_results
 plot_bench_results(df, row_cols='N', col_cols='dim',
                    x_value='nbnode',
-                   title="%s\nBenchmark scikit-learn / onnxruntime" % "Cascade Add")
+                   title="%s\nBenchmark scikit-learn / onnxruntime" % "Cascade Add",
+                   label_fct=label_fct)
 
 plt.savefig("%s.node.png" % filename)
 
@@ -144,6 +154,7 @@ for nbnode in (2, 4):
                                 node_producer=GetOpNodeProducer("docstring"))
     pydot_graph.write_dot("graph.%d.dot" % nbnode)
     os.system('dot -O -Tpng graph.%d.dot' % nbnode)
+
 image = plt.imread("graph.%d.dot.png" % nbnode)
 plt.imshow(image)
 plt.axis('off')

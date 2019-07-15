@@ -67,10 +67,11 @@ def run_bench(repeat=100, verbose=False):
         LogisticRegression, dim=dim, **opts)
     bp = BenchPerf(pbefore, pafter, test)
 
-    start = time()
-    results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
-                                           stop_if_error=False))
-    end = time()
+    with sklearn.config_context(assume_finite=True):
+        start = time()
+        results = list(bp.enumerate_run_benchs(repeat=repeat, verbose=verbose,
+                                               stop_if_error=False))
+        end = time()
 
     results_df = pandas.DataFrame(results)
     print("Total time = %0.3f sec\n" % (end - start))
@@ -98,8 +99,19 @@ print(dfi)
 # Plot the results
 # ++++++++++++++++
 
+
+def label_fct(la):
+    la = la.replace("onxpython", "opy")
+    la = la.replace("onxonnxruntime1", "ort")
+    la = la.replace("fit_intercept", "fi")
+    la = la.replace("True", "1")
+    la = la.replace("False", "0")
+    return la
+
+
 plot_bench_results(df, row_cols='N', col_cols='method',
                    x_value='dim', hue_cols='fit_intercept',
-                   title="%s\nBenchmark scikit-learn / onnxruntime" % model_name)
+                   title="%s\nBenchmark scikit-learn / onnxruntime" % model_name,
+                   label_fct=label_fct)
 plt.savefig("%s.png" % filename)
 # plt.show()

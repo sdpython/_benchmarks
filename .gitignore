@@ -16,3 +16,4 @@ scikit-learn/*.onnx
 scikit-learn/*.prof
 *.dot
 scikit-learn/*/joblib
+onnx/BENCH-*.pkl
