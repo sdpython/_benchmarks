@@ -1,13 +1,13 @@
-name,value,version
-date,,2019-07-15
-python,"3.7.2 (default, Mar  1 2019, 18:34:21) 
-[GCC 6.3.0 20170516]",
-platform,linux,
-OS,Linux-4.9.0-8-amd64-x86_64-with-debian-9.6,
-machine,x86_64,
+name,version,value
+date,2019-07-23,
+python,,"3.7.2 (default, Mar  1 2019, 18:34:21) 
+[GCC 6.3.0 20170516]"
+platform,,linux
+OS,,Linux-4.9.0-8-amd64-x86_64-with-debian-9.6
+machine,,x86_64
 processor,,
-release,4.9.0-8-amd64,
-architecture,"('64bit', '')",
-numpy,"openblas, language=c",1.16.4
-pandas,,0.24.2
-sklearn,,0.22.dev0
+release,,4.9.0-8-amd64
+architecture,,"('64bit', '')"
+numpy,1.16.4,"openblas, language=c"
+pandas,0.25.0,
+sklearn,0.22.dev0,
