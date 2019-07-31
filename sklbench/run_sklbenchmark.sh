@@ -21,9 +21,9 @@ asv run -b _bench || exit 1
 echo --PUBLISH-BENCHMARK--
 if [ -d scikit-learn_benchmarks ]
 then
-    rm ./../dist/html -r -f
+    rm ./../dist/html/sklbench_results -r -f
 fi
-asv publish -o ./../dist/html || exit 1
+asv publish -o ./../dist/html/sklbench_results || exit 1
 
 echo --END--
 cd ..
