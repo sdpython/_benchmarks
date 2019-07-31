@@ -4,7 +4,7 @@ cd scikit-learn_benchmarks
 
 echo --RUN-BENCHMARK--
 # asv run -b _bench --python=./_venv/bin/python
-asv run -b _bench --machine=DEBIANJK || exit 1
+asv run -b _bench || exit 1
 
 echo --PUBLISH-BENCHMARK--
 asv publish -o ./../dist/html || exit 1
