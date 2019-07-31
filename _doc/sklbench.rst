@@ -61,10 +61,10 @@ And then a small application:
     from starlette.staticfiles import StaticFiles
 
     app = Router(routes=[
-        Mount('/', app=StaticFiles(directory='html'), name="html"),
+        Mount('/', app=StaticFiles(directory='html'), name="html"),        
     ])
 
-And a serveur:
+And a server:
 
 ::
 
