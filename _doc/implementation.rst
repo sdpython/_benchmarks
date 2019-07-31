@@ -8,15 +8,18 @@ of the same algorithm.
 .. contents::
     :local:
 
-Benchmarks of pull requests on scikit-learn
-===========================================
+Benchmarks around scikit-learn
+==============================
 
 .. toctree::
     :maxdepth: 1
 
-    scikit-learn/PR13290
-    scikit-learn/PR13290_2
     scikit-learn/gridsearch_cache
+
+Some benchmarks are available on :epkg:`PolynomialFeatures`
+at `Benchmark of PolynomialFeatures + partialfit of SGDClassifier
+<http://www.xavierdupre.fr/app/pymlbenchmark/helpsphinx/gyexamples/
+plot_bench_polynomial_features_partial_fit_standalone.html>`_.
 
 Benchmarks of toy implementations in C++, Python
 ================================================

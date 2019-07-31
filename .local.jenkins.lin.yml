@@ -19,8 +19,6 @@ before_script:
 
 script:
   # scikit-learn
-  - { CMD: "$PYINT -u scikit-learn/bench_plot_polynomial_features.py", NAME: "SKL_POLYF" }
-  - { CMD: "$PYINT -u scikit-learn/bench_plot_polynomial_features_partial_fit.py", NAME: "SKL_POLYF_PF" }
   - { CMD: "$PYINT -u scikit-learn/bench_plot_gridsearch_cache.py", NAME: "SKL_CACHE", TIMEOUT: 4800 }
   # onnxruntime
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_logreg.py", NAME: "ORT_LR" }

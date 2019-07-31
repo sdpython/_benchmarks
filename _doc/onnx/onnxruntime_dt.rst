@@ -59,7 +59,6 @@ Detailed graphs
 
     name = "../../onnx/results/bench_plot_onnxruntime_decision_tree.perf.csv"
     df = pandas.read_csv(name)
-    print(df.columns)
 
     plot_bench_results(df, row_cols='N', col_cols='max_depth',
                               hue_cols='method',
@@ -101,7 +100,8 @@ Raw results
     name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree.perf.csv")
     df = pandas.read_csv(name)
     piv = bench_pivot(df).reset_index(drop=False)
-    piv['speedup'] = piv['skl'] / piv['ort']
+    piv['speedup_py'] = piv['skl'] / piv['onxpython']
+    piv['speedup_ort'] = piv['skl'] / piv['onxonnxruntime1']
     print(df2rst(piv, number_format=4))
 
 Benchmark code

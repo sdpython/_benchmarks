@@ -90,6 +90,7 @@ sphinx_gallery_conf = {
 
 epkg_dictionary = {
     'BLAS': 'https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms',
+    'joblib': 'https://joblib.readthedocs.io/en/latest/',
     'numpy': 'https://www.numpy.org/',
     'onnx': 'https://github.com/onnx/onnx',
     'ONNX': 'https://onnx.ai/',

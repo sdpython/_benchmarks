@@ -1,30 +1,50 @@
-
-def label_fct(la):
-    la = la.replace("onxpython", "opy")
-    la = la.replace("onxonnxruntime1", "ort")
-    la = la.replace("True", "1")
-    la = la.replace("False", "0")
-    la = la.replace("max_depth", "mxd")
-    la = la.replace("method=predict_proba", "prob")
-    la = la.replace("method=predict", "cl")
-    return la
-
-
 import matplotlib.pyplot as plt
 import pandas
-from pymlbenchmark.benchmark.bench_helper import bench_pivot
-from pymlbenchmark.plotting import plot_bench_xtime
-
-name = "../../onnx/results/bench_plot_onnxruntime_random_forest.perf.csv"
+name = "../../scikit-learn/results/bench_polynomial_features.csv"
 df = pandas.read_csv(name)
-print(df.head().T)
+plt.close('all')
 
-plot_bench_xtime(df, row_cols='N', col_cols='method',
-                 hue_cols=['n_estimators'],
-                 cmp_col_values=('lib', 'skl'),
-                 x_value='mean', y_value='xtime',
-                 parallel=(1., 0.5), title=None,
-                 ax=None, box_side=4, label_fct=label_fct)
-plt.suptitle(
-    "Acceleration onnxruntime / scikit-learn for RandomForestClassifier")
+index = ['N', 'count', 'degree', 'dim', 'error_c', 'interaction_only']
+values = ['mean']
+columns = ['test']
+piv = pandas.pivot_table(data=df, index=index, values=values, columns=columns)
+print(piv)
+
+
+nrows = len(set(df.degree))
+fig, ax = plt.subplots(nrows, 4, figsize=(nrows * 4, 12))
+pos = 0
+
+for di, degree in enumerate(sorted(set(df.degree))):
+    pos = 0
+    for order in sorted(set(df.order)):
+        for interaction_only in sorted(set(df.interaction_only)):
+            a = ax[di, pos]
+            if di == ax.shape[0] - 1:
+                a.set_xlabel("N observations", fontsize='x-small')
+            if pos == 0:
+                a.set_ylabel("Time (s) degree={}".format(degree),
+                             fontsize='x-small')
+
+            for color, dim in zip('brgyc', sorted(set(df.dim))):
+                subset = df[(df.degree == degree) & (df.dim == dim) &
+                            (df.interaction_only == interaction_only) &
+                            (df.order == order)]
+                if subset.shape[0] == 0:
+                    continue
+                subset = subset.sort_values("N")
+                label = "nf={} l=0.20.2".format(dim)
+                subset.plot(x="N", y="time_0_20_2", label=label, ax=a,
+                            logx=True, logy=True, c=color, style='--')
+                label = "nf={} l=now".format(dim)
+                subset.plot(x="N", y="time_current", label=label, ax=a,
+                            logx=True, logy=True, c=color)
+
+            a.legend(loc=0, fontsize='x-small')
+            if di == 0:
+                a.set_title("order={} interaction_only={}".format(
+                    order, interaction_only), fontsize='x-small')
+            pos += 1
+
+plt.suptitle("Benchmark for PolynomialFeatures")
 plt.show()
