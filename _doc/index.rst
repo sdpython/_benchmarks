@@ -17,6 +17,7 @@ or models.
     modules
     onnx
     technical
+    sklbench
     glossary
 
 *Links:*
