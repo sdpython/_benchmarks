@@ -15,8 +15,16 @@ echo --MACHINE--
 asv machine --yes || exit 1
 
 echo --RUN-BENCHMARK--
-# asv run -b _bench --python=./_venv/bin/python
-asv run -b _bench || exit 1
+asv run -b KMeans || exit 1
+asv run -b LogisticRegression || exit 1
+asv run -b LinearRegression || exit 1
+asv run -b SGDRegressor || exit 1
+asv run -b Ridge || exit 1
+asv run -b ElasticNet || exit 1
+asv run -b Lasso || exit 1
+asv run -b PCA || exit 1
+asv run -b SVC || exit 1
+asv run -b KNeighbors || exit 1
 
 echo --PUBLISH-BENCHMARK--
 if [ -d scikit-learn_benchmarks ]
