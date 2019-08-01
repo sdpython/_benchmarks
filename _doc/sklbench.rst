@@ -72,4 +72,4 @@ And a server:
 
 
 The results can be seen at this
-`location <sklbench_results/index.html>`_.
+`Scikit-Learn/ONNX benchmark with AirSpeedVelocity <sklbench_results/index.html>`_.
