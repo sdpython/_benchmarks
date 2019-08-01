@@ -37,7 +37,7 @@ script:
   # documentation
   - { CMD: "$PYINT -c \"from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])\"", NAME: "UT" }
   # benchmark
-  - { CMD: "bash sklbench/run_sklbenchmark.sh", NAME: "SKLBENCH", TIMEOUT: 10000, CLEAN: "0" }
+  - { CMD: "bash sklbench/run_sklbenchmark.sh", NAME: "SKLBENCH", TIMEOUT: 12000, CLEAN: "0" }
 
 after_script:
   - if [ ${NAME} == "UT" ] then ls dist/html/*.html fi
