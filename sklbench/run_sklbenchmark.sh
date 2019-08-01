@@ -15,16 +15,18 @@ echo --MACHINE--
 asv machine --yes || exit 1
 
 echo --RUN-BENCHMARK--
+asv run -b ElasticNet --append-samples || exit 1
+asv run -b GradientBoosting --append-samples || exit 1
 asv run -b KMeans --append-samples || exit 1
-asv run -b LogisticRegression --append-samples || exit 1
+asv run -b KNeighbors --append-samples || exit 1
 asv run -b LinearRegression --append-samples || exit 1
-# asv run -b SGDRegressor --append-samples || exit 1
-# asv run -b Ridge --append-samples || exit 1
-# asv run -b ElasticNet --append-samples || exit 1
-# asv run -b Lasso --append-samples || exit 1
-# asv run -b PCA --append-samples || exit 1
-# asv run -b SVC --append-samples || exit 1
-# asv run -b KNeighbors --append-samples || exit 1
+asv run -b LogisticRegression --append-samples || exit 1
+asv run -b PCA --append-samples || exit 1
+asv run -b RandomForest --append-samples || exit 1
+asv run -b Ridge --append-samples || exit 1
+asv run -b Lasso --append-samples || exit 1
+asv run -b SGDRegressor --append-samples || exit 1
+asv run -b SVC --append-samples || exit 1
 
 echo --PUBLISH-BENCHMARK--
 if [ -d scikit-learn_benchmarks ]
