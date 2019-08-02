@@ -28,6 +28,12 @@ asv run -b Ridge --append-samples --no-pull || exit 1
 asv run -b SGDRegressor --append-samples --no-pull || exit 1
 asv run -b SVC --append-samples --no-pull || exit 1
 
+echo --CLEAN-BENCHMARK--
+asv rm -y benchmark=Classifier
+asv rm -y benchmark=Estimator
+asv rm -y benchmark=Predictor
+asv rm -y benchmark=Transformer
+
 echo --PUBLISH-BENCHMARK--
 if [ -d scikit-learn_benchmarks ]
 then
