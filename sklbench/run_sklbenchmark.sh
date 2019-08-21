@@ -16,24 +16,18 @@ echo --MACHINE--
 asv machine --yes || exit 1
 
 echo --RUN-BENCHMARK--
-asv run -b ElasticNet --append-samples || exit 1
-asv run -b GradientBoosting --append-samples --no-pull || exit 1
-asv run -b KMeans --append-samples --no-pull || exit 1
-asv run -b KNeighbors --append-samples --no-pull || exit 1
-asv run -b Lasso --append-samples --no-pull || exit 1
-asv run -b LinearRegression --append-samples --no-pull || exit 1
-asv run -b LogisticRegression --append-samples --no-pull || exit 1
-asv run -b PCA --append-samples --no-pull || exit 1
-asv run -b RandomForest --append-samples --no-pull || exit 1
-asv run -b Ridge --append-samples --no-pull || exit 1
-asv run -b SGDRegressor --append-samples --no-pull || exit 1
-asv run -b SVC --append-samples --no-pull || exit 1
-
-echo --CLEAN-BENCHMARK--
-asv rm -y benchmark=Classifier
-asv rm -y benchmark=Estimator
-asv rm -y benchmark=Predictor
-asv rm -y benchmark=Transformer
+asv run -b ElasticNet --append-samples --show-stderr || exit 1
+asv run -b GradientBoosting --append-samples --no-pull --show-stderr || exit 1
+asv run -b KMeans --append-samples --no-pull --show-stderr || exit 1
+asv run -b KNeighbors --append-samples --no-pull --show-stderr || exit 1
+asv run -b Lasso --append-samples --no-pull --show-stderr || exit 1
+asv run -b LinearRegression --append-samples --no-pull --show-stderr || exit 1
+asv run -b LogisticRegression --append-samples --no-pull --show-stderr || exit 1
+asv run -b PCA --append-samples --no-pull --show-stderr || exit 1
+asv run -b RandomForest --append-samples --no-pull --show-stderr || exit 1
+asv run -b Ridge --append-samples --no-pull --show-stderr || exit 1
+asv run -b SGDRegressor --append-samples --no-pull --show-stderr || exit 1
+asv run -b SVC --append-samples --no-pull --show-stderr || exit 1
 
 echo --PUBLISH-BENCHMARK--
 if [ -d scikit-learn_benchmarks ]
