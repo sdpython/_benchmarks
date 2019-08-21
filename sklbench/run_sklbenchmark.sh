@@ -1,8 +1,9 @@
-echo --CLONE--
 if [ ! -d scikit-learn_benchmarks ]
 then
+    echo --CLONE--
     git clone https://github.com/sdpython/scikit-learn_benchmarks --recursive
 else
+    echo --UPDATE--
     cd scikit-learn_benchmarks
     git pull
     git submodule update --init --recursive
