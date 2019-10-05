@@ -70,6 +70,17 @@ And a server:
 
     uvicorn webapp:app ---host <host> -port 8877 --ssl-keyfile=./key.pem --ssl-certfile=./cert.pem
 
+Benchmarks
+==========
 
+The first benchmark extends the official :epkg:`scikit-learn`
+benchmarks available at `scikit-learn_benchmarks
+<https://github.com/jeremiedbb/scikit-learn_benchmarks>`_.
 The results can be seen at this
 `Scikit-Learn/ONNX benchmark with AirSpeedVelocity <sklbench_results/index.html>`_.
+
+The second benchmark is produced using an automated way implemented in
+:epkg:`mlprodict`. The sources are available at
+`asv-skl2onnx <https://github.com/sdpython/asv-skl2onnx>`_ and
+displayed at `Prediction with scikit-learn and ONNX benchmark
+<sklbench_results_predict/index.html>`_.
