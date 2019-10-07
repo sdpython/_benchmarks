@@ -46,8 +46,8 @@ def generate_onnx_graph(dim, nbnode, input_name='X1'):
     i2 = random_binary_classification(1, dim)[0].astype(numpy.float32)
     matrices.append(i2)
     node = OnnxAdd(i1, i2, output_names=['Y'])
-    onx = node.to_onnx([(input_name, FloatTensorType((1, dim)))],
-                       outputs=[('Y', FloatTensorType((1, dim)))])
+    onx = node.to_onnx([(input_name, FloatTensorType((None, dim)))],
+                       outputs=[('Y', FloatTensorType((None, dim)))])
     return onx, matrices
 
 
