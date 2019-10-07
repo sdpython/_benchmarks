@@ -1,3 +1,7 @@
+echo --INSTALL--
+pip3.7 install scikit-learn onnxruntime onnx
+pip3.7 install git+https://github.com/xadupre/sklearn-onnx.git@jenkins
+
 if [ ! -d scikit-learn_benchmarks ]
 then
     echo --CLONE--
