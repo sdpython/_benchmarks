@@ -1,3 +1,5 @@
+echo --PIP--
+pip install git+https://github.com/sdpython/asv.git@jenkins
 echo --CLONE--
 git clone -b master --single-branch https://github.com/sdpython/asv-skl2onnx.git --recursive
 cd asv-skl2onnx
