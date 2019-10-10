@@ -77,10 +77,21 @@ The first benchmark extends the official :epkg:`scikit-learn`
 benchmarks available at `scikit-learn_benchmarks
 <https://github.com/jeremiedbb/scikit-learn_benchmarks>`_.
 The results can be seen at this
-`Scikit-Learn/ONNX benchmark with AirSpeedVelocity <sklbench_results/index.html>`_.
+`Scikit-Learn/ONNX benchmark with AirSpeedVelocity
+<http://www.xavierdupre.fr/app/benches/scikit-learn_benchmarks/index.html>`_.
 
 The second benchmark is produced using an automated way implemented in
 :epkg:`mlprodict`. The sources are available at
 `asv-skl2onnx <https://github.com/sdpython/asv-skl2onnx>`_ and
 displayed at `Prediction with scikit-learn and ONNX benchmark
-<sklbench_results_predict/index.html>`_.
+<http://www.xavierdupre.fr/app/benches/asv-skl2onnx/index.html>`_.
+
+The last benchmark is a standalone becnhmark only comparing
+:epkg:`onnxruntime` and :epkg:`scikit-learn`.
+The sources are available at
+`scikit-onnx-benchmark <https://github.com/xadupre/scikit-onnx-benchmark>`_ and
+displayed at `onnxruntime vs scikit-learn for comparison
+<http://www.xavierdupre.fr/app/benches/scikit-onnx-benchmark/index.html>`_.
+
+
+
