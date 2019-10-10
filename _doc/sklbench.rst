@@ -93,5 +93,9 @@ The sources are available at
 displayed at `onnxruntime vs scikit-learn for comparison
 <http://www.xavierdupre.fr/app/benches/scikit-onnx-benchmark/index.html>`_.
 
-
-
+I also created two mini benchmark to get a sense of what the previous ones
+look like:
+`mlprodict model of benchmark
+<http://www.xavierdupre.fr/app/benches/mlprodict_bench/index.html>`_,
+`mlprodict model applied to linear models
+<http://www.xavierdupre.fr/app/benches/mlprodict_bench2/index.html>`_.
