@@ -1,7 +1,19 @@
 echo --PIP--
 pip install git+https://github.com/sdpython/asv.git@jenkins
+
 echo --CLONE--
-git clone -b master --single-branch https://github.com/sdpython/asv-skl2onnx.git --recursive
+if [ ! -d asv-skl2onnx ]
+then
+    echo --CLONE--
+    git clone https://github.com/sdpython/asv-skl2onnx.git --recursive
+else
+    echo --UPDATE--
+    cd asv-skl2onnx
+    git pull
+    git submodule update --init --recursive
+    cd ..
+fi
+
 cd asv-skl2onnx
 git pull
 echo --BENCH--
