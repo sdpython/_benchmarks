@@ -22,3 +22,4 @@ then
 fi
 echo --PUBLISH--
 python3.7 -m asv publish --config asv.conf.json -o html || exit 1
+python3.7 asv_exports.py || exit 1
