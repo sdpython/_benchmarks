@@ -25,4 +25,4 @@ then
 fi
 echo --PUBLISH--
 python3.7 -m asv publish --config asv.conf.json -o html || exit 1
-python3.7 -m mlprodict asv2csv -f results -o "asv_<date>.csv" || exit 1
+python3.7 -m mlprodict asv2csv -f results -o "asv_<date>.csv" --baseline skl || exit 1
