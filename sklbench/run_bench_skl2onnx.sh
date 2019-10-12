@@ -16,7 +16,9 @@ fi
 
 cd asv-skl2onnx
 git pull
-echo --BENCH--
+echo --BENCH-CREATE--
+python3.7 -m mlprodict asv_bench --location . --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" -v 1 || exit 1
+echo --BENCH-RUN--
 python3.7 -m asv run --show-stderr --config asv.conf.json
 if [ -d html ]
 then
