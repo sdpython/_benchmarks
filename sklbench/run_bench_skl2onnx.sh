@@ -1,5 +1,6 @@
 echo --PIP--
 pip install git+https://github.com/sdpython/asv.git@jenkins
+pip install git+https://github.com/scikit-learn/scikit-learn.git
 
 echo --CLONE--
 if [ ! -d asv-skl2onnx ]
