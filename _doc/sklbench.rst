@@ -70,8 +70,8 @@ And a server:
 
     uvicorn webapp:app ---host <host> -port 8877 --ssl-keyfile=./key.pem --ssl-certfile=./cert.pem
 
-Benchmarks
-==========
+Other benchmarks
+================
 
 The first benchmark extends the official :epkg:`scikit-learn`
 benchmarks available at `scikit-learn_benchmarks
