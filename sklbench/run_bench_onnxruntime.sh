@@ -12,9 +12,11 @@ else
 fi
 
 cd scikit-onnx-benchmark
+echo "BEGIN" > begin.txt
 
 echo --BENCH--
 python3.7 -m asv run --show-stderr --config asv.conf.json
+echo "END" > end.txt
 if [ -d html ]
 then
     echo --REMOVE HTML--
