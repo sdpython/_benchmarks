@@ -59,7 +59,7 @@ def get_model(model_name):
         return RandomForestClassifier(max_depth=4, n_estimators=10)
     elif model_name == "GBT":
         return GradientBoostingClassifier(max_depth=4, n_estimators=10)
-    elif model_name == "KNN":
+    elif model_name in ("AKNN", "KNN"):
         return KNeighborsClassifier()
     elif model_name == "MLP":
         return MLPClassifier()
@@ -101,16 +101,15 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         logger.propagate = False
         logger.disabled = True
         self.ort = InferenceSession(self.onx.SerializeToString())
-        self.broadcast = self.model_name not in {'KNN'}
 
     def fcts(self, **kwargs):
 
         def predict_ort(X, model=self.ort):
             input_name = self.ort.get_inputs()[0].name
-            if self.broadcast:
+            try:
                 return model.run(None, {input_name: X})[1]
-            else:
-                return [model.run(None, {input_name: X[i]})[1][0] for i in range(0, X.shape[0])]
+            except Exception as e:
+                return None
 
         def predict_skl(X, model=self.model):
             return model.predict_proba(X)

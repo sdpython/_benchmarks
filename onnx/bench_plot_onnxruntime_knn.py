@@ -33,7 +33,7 @@ def run_bench(repeat=10, verbose=False):
                    leaf_size=[10],
                    dim=[5, 10, 50],
                    metric=["euclidean"])
-    pafter = dict(N=[1, 10, 100, 1000, 10000])
+    pafter = dict(N=[1, 10, 100, 1000])
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
         KNeighborsClassifier, dim=dim, **opts)
