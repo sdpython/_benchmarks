@@ -89,6 +89,7 @@ sphinx_gallery_conf = {
 # -- shortcuts ---------------------------------------------------------------
 
 epkg_dictionary = {
+    'asv': 'https://github.com/airspeed-velocity/asv',
     'BLAS': 'https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms',
     'joblib': 'https://joblib.readthedocs.io/en/latest/',
     'mlprodict': 'http://www.xavierdupre.fr/app/mlprodict/helpsphinx/index.html',
