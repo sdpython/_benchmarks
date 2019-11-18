@@ -41,6 +41,7 @@ script:
   # benchmark
   - { CMD: "bash sklbench/run_sklbenchmark.sh", NAME: "SKLBENCH", TIMEOUT: 12000, SCHEDULER: "H H(3-4) * * 1", CLEAN: "0" }
   - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "H H(7-8) * * 1", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "H H(13-14) * * 1", CLEAN: "0" }
   - { CMD: "bash sklbench/run_bench_onnxruntime.sh", NAME: "SKLORT", SCHEDULER: "H H(11-12) * * 1", CLEAN: "0" }
 
 after_script:
