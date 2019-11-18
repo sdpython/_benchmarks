@@ -40,10 +40,10 @@ script:
   - { CMD: "$PYINT -c \"from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])\"", NAME: "UT" }
   # benchmark
   - { CMD: "bash sklbench/run_sklbenchmark.sh", NAME: "SKLBENCH", TIMEOUT: 12000, SCHEDULER: "H H(3-4) * * 1", CLEAN: "0" }
-  - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "H H(7-8) * * 1", CLEAN: "0" }
-  - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "H H(13-14) * * 1", CLEAN: "0" }
-  - { CMD: "bash sklbench/run_bench_skl2onnx_cpp_same.sh", NAME: "SKLBENCHONNX_CPP_SAME", SCHEDULER: "H H(14-15) * * 1", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "H H(7-8) * * 1", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_bench_skl2onnx_cpp_same.sh", NAME: "SKLBENCHONNX_CPP_SAME", SCHEDULER: "H H(8-9) * * 1", CLEAN: "0" }
   - { CMD: "bash sklbench/run_bench_onnxruntime.sh", NAME: "SKLORT", SCHEDULER: "H H(11-12) * * 1", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "H H(7-8) * * 6", CLEAN: "0" }
 
 after_script:
   - if [ ${NAME} == "UT" ] then ls dist/html/*.html fi
