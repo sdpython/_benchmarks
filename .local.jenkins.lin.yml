@@ -14,8 +14,8 @@ virtualenv:
 before_script:
   - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ pyquickhelper jyquickhelper mlinsights pymlbenchmark wrapclib --upgrade --extra-index-url=https://pypi.python.org/simple/
   - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ skl2onnx onnxmltools onnx onnxruntime onnxconverter_common --upgrade --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ mlprodict --upgrade --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ scikit-learn>=0.21 --upgrade --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ mlprodict mlinsights pandas_streaming --upgrade --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ scikit-learn --upgrade --extra-index-url=https://pypi.python.org/simple/
   - $PYINT -m pip install xgboost lightgbm
   - $PYINT -m pip freeze
 
