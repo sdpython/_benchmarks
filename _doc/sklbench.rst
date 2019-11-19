@@ -85,8 +85,15 @@ The second benchmark is produced using an automated way implemented in
 `asv-skl2onnx <https://github.com/sdpython/asv-skl2onnx>`_ and
 displayed at `Prediction with scikit-learn and ONNX benchmark
 <http://www.xavierdupre.fr/app/benches/asv-skl2onnx/index.html>`_.
+A subset of these models is available at
+`Prediction with scikit-learn and ONNX benchmark (SVM + Trees)
+<http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp/index.html>`_ and
+`same benchmark with different settings
+<http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp-same/index.html>`_
+which is the same one but with the setting
+``-environment existing:same``.
 
-The last benchmark is a standalone becnhmark only comparing
+The last benchmark is a standalone benchmark only comparing
 :epkg:`onnxruntime` and :epkg:`scikit-learn`.
 The sources are available at
 `scikit-onnx-benchmark <https://github.com/xadupre/scikit-onnx-benchmark>`_ and

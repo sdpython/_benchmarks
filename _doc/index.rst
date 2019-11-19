@@ -34,7 +34,7 @@ Smaller benchmarks:
 * `Prediction with scikit-learn and ONNX benchmark (SVM + Trees)
   <http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp/index.html>`_
   (`same benchmark with different settings
-   <http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp-same/index.html>`_)
+  <http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp-same/index.html>`_)
 * `mlprodict model of benchmark
   <http://www.xavierdupre.fr/app/benches/mlprodict_bench/index.html>`_
 * `mlprodict model applied to linear models 
