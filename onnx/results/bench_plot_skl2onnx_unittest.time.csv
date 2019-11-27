@@ -9,7 +9,7 @@ processor,,
 release,,4.9.0-8-amd64
 architecture,,"('64bit', '')"
 numpy,1.17.4,"openblas, language=c"
-onnx,1.6.34,opset=11
+onnx,1.6.34,opset=12
 onnxruntime,1.0.991,CPU-MKL-ML
 pandas,0.25.3,
 skl2onnx,1.6.99,
