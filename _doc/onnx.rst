@@ -24,6 +24,7 @@ for all models.
     onnx/onnxruntime_datasets_num
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
+    onnx/onnxruntime_dt_reg
     onnx/onnxruntime_knn
     onnx/onnxruntime_rf
     onnx/onnxruntime_mlp

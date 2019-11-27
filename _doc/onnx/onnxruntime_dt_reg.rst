@@ -1,13 +1,13 @@
 
-.. _l-bench-plot-onnxruntime-decision-tree:
+.. _l-bench-plot-onnxruntime-decision-tree-reg:
 
-Prediction time scikit-learn / onnxruntime for DecisionTreeClassifier
-=====================================================================
+Prediction time scikit-learn / onnxruntime for DecisionTreeRegressor
+====================================================================
 
 .. contents::
     :local:
 
-.. index:: onnxruntime, DecisionTreeClassifier
+.. index:: onnxruntime, DecisionTreeRegressor
 
 Overview
 ++++++++
@@ -26,7 +26,7 @@ Overview
     import pandas
     from pymlbenchmark.plotting import plot_bench_xtime
 
-    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree.perf.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv"
     df = pandas.read_csv(name)
 
     plot_bench_xtime(df, row_cols='N', col_cols='max_depth',
@@ -35,7 +35,7 @@ Overview
                      x_value='mean', y_value='xtime',
                      parallel=(1., 0.5), title=None,
                      ax=None, box_side=4, label_fct=label_fct)
-    plt.suptitle("Acceleration onnxruntime / scikit-learn for DecisionTreeClassifier")
+    plt.suptitle("Acceleration onnxruntime / scikit-learn for DecisionTreeRegressor")
     plt.show()
 
 Detailed graphs
@@ -57,7 +57,7 @@ Detailed graphs
     import pandas
     from pymlbenchmark.plotting import plot_bench_results
 
-    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree.perf.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv"
     df = pandas.read_csv(name)
 
     plot_bench_results(df, row_cols='N', col_cols='max_depth',
@@ -66,7 +66,7 @@ Detailed graphs
                      x_value='dim', y_value='mean',
                      title=None, label_fct=label_fct,
                      ax=None, box_side=4)
-    plt.suptitle("Acceleration onnxruntime / scikit-learn for DecisionTreeClassifier")
+    plt.suptitle("Acceleration onnxruntime / scikit-learn for DecisionTreeRegressor")
     plt.show()
 
 Configuration
@@ -79,14 +79,14 @@ Configuration
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree.time.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.time.csv")
     df = pandas.read_csv(name)
     print(df2rst(df, number_format=4))
 
 Raw results
 +++++++++++
 
-:download:`bench_plot_onnxruntime_decision_tree.csv <../../onnx/results/bench_plot_onnxruntime_decision_tree.perf.csv>`
+:download:`bench_plot_onnxruntime_decision_tree_reg.csv <../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv>`
 
 .. runpython::
     :rst:
@@ -97,7 +97,7 @@ Raw results
     from pyquickhelper.pandashelper import df2rst
     from pymlbenchmark.benchmark.bench_helper import bench_pivot
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree.perf.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv")
     df = pandas.read_csv(name)
     piv = bench_pivot(df).reset_index(drop=False)
     piv['speedup_py'] = piv['skl'] / piv['onxpython']
@@ -112,7 +112,7 @@ Raw results
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree.perf.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv")
     df = pandas.read_csv(name)
     df = df[df['lib'] == 'skl']
     print(df2rst(df, number_format=4))
@@ -120,7 +120,7 @@ Raw results
 Benchmark code
 ++++++++++++++
 
-`bench_plot_onnxruntime_decision_tree.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_decision_tree.py>`_
+`bench_plot_onnxruntime_decision_tree_reg.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_decision_tree_reg.py>`_
 
-.. literalinclude:: ../../onnx/bench_plot_onnxruntime_decision_tree.py
+.. literalinclude:: ../../onnx/bench_plot_onnxruntime_decision_tree_reg.py
     :language: python

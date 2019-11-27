@@ -105,6 +105,19 @@ Raw results
     piv['speedup_ort'] = piv['skl'] / piv['onxonnxruntime1']
     print(df2rst(piv, number_format=4))
 
+.. runpython::
+    :rst:
+    :warningout: RuntimeWarning
+    :showcode:
+    :toggle: out
+
+    from pyquickhelper.pandashelper import df2rst
+    import pandas
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_random_forest.perf.csv")
+    df = pandas.read_csv(name)
+    df = df[df['lib'] == 'skl']
+    print(df2rst(df, number_format=4))
+
 Benchmark code
 ++++++++++++++
 
