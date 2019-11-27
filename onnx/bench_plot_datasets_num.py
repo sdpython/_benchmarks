@@ -28,6 +28,7 @@ from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.utils.testing import ignore_warnings
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.pipeline import make_pipeline
+from mlprodict.onnxrt import OnnxInference
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
 from pymlbenchmark.plotting import plot_bench_results, plot_bench_xtime
@@ -101,21 +102,28 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         logger.propagate = False
         logger.disabled = True
         self.ort = InferenceSession(self.onx.SerializeToString())
+        self.oinf = OnnxInference(self.onx, runtime='python')
+        self.output_name = self.oinf.output_names[-1]
+        self.input_name = self.ort.get_inputs()[0].name
 
     def fcts(self, **kwargs):
 
-        def predict_ort(X, model=self.ort):
-            input_name = self.ort.get_inputs()[0].name
+        def predict_ort(X, model=self.ort, namei=self.input_name):
             try:
-                return model.run(None, {input_name: X})[1]
+                return model.run(None, {namei: X})[1]
             except Exception as e:
                 return None
 
         def predict_skl(X, model=self.model):
             return model.predict_proba(X)
 
+        def predict_pyrt(X, model=self.oinf, namei=self.input_name,
+                         nameo=self.output_name):
+            return model.run({namei: X})[nameo]
+
         return [{'lib': 'ort', 'fct': predict_ort},
-                {'lib': 'skl', 'fct': predict_skl}]
+                {'lib': 'skl', 'fct': predict_skl,
+                 'lib': 'pyrt', 'fct': predict_pyrt}]
 
     def data(self, N=10, dim=-1, **kwargs):  # pylint: disable=W0221
         if dim != -1:

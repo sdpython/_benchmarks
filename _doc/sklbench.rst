@@ -10,12 +10,11 @@ from a local machine.
 
 .. contents::
     :local:
-    
 
 Installation
 ============
 
-I followed the steps 
+I followed the steps
 
 ::
 
@@ -52,7 +51,7 @@ I created a key
 ::
 
     openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
-    
+
 And then a small application:
 
 ::
@@ -61,7 +60,7 @@ And then a small application:
     from starlette.staticfiles import StaticFiles
 
     app = Router(routes=[
-        Mount('/', app=StaticFiles(directory='html'), name="html"),        
+        Mount('/', app=StaticFiles(directory='html'), name="html"),
     ])
 
 And a server:

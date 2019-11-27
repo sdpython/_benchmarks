@@ -37,7 +37,7 @@ Smaller benchmarks:
   <http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp-same/index.html>`_)
 * `mlprodict model of benchmark
   <http://www.xavierdupre.fr/app/benches/mlprodict_bench/index.html>`_
-* `mlprodict model applied to linear models 
+* `mlprodict model applied to linear models
   <http://www.xavierdupre.fr/app/benches/mlprodict_bench2/index.html>`_
 
 *Links:*
