@@ -122,8 +122,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             return model.run({namei: X})[nameo]
 
         return [{'lib': 'ort', 'fct': predict_ort},
-                {'lib': 'skl', 'fct': predict_skl,
-                 'lib': 'pyrt', 'fct': predict_pyrt}]
+                {'lib': 'skl', 'fct': predict_skl},
+                {'lib': 'pyrt', 'fct': predict_pyrt}]
 
     def data(self, N=10, dim=-1, **kwargs):  # pylint: disable=W0221
         if dim != -1:
