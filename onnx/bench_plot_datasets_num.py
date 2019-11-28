@@ -243,10 +243,3 @@ plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
 plt.savefig("%s.curve.png" % filename)
 # plt.show()
 
-plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
-                   x_value='N', y_value='diff',
-                   err_value=('lower_diff', 'upper_diff'),
-                   title="Numerical datasets\Absolute difference scikit-learn / onnxruntime",
-                   label_fct=label_fct)
-plt.savefig("%s.diff.png" % filename)
-# plt.show()
