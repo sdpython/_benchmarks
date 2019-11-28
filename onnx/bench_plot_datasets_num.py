@@ -53,14 +53,14 @@ def create_datasets():
 
 
 def get_model(model_name):
-    if model_name == "LR":
+    if model_name in ("LR", "LR-ZM"):
         return LogisticRegression(solver="liblinear", penalty="l2")
     elif model_name == "DT":
-        return DecisionTreeClassifier(max_depth=4)
+        return DecisionTreeClassifier(max_depth=6)
     elif model_name == "RF":
-        return RandomForestClassifier(max_depth=4, n_estimators=10)
+        return RandomForestClassifier(max_depth=6, n_estimators=100)
     elif model_name == "GBT":
-        return GradientBoostingClassifier(max_depth=4, n_estimators=10)
+        return GradientBoostingClassifier(max_depth=4, n_estimators=100)
     elif model_name in ("KNN", "KNN-cdist"):
         return KNeighborsClassifier(algorithm='brute')
     elif model_name == "MLP":
@@ -76,7 +76,7 @@ def get_model(model_name):
     elif model_name == "NuSVC":
         return NuSVC(probability=True)
     elif model_name == 'OVR':
-        return OneVsRestClassifier(SVC(kernel='linear', probability=True))
+        return OneVsRestClassifier(DecisionTreeClassifier(max_depth=6))
     else:
         raise ValueError("Unknown model name '{}'.".format(model_name))
 
@@ -103,6 +103,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 
         if '-cdist' in model:
             options = {id(skl_model): {'optim': 'cdist'}}
+        elif "-ZM" in model:
+            options = {id(skl_model): {'zipmap': False}}
         else:
             options = None
         self.onx = to_onnx(self.model, self.datas[0].astype(numpy.float32), options=options)
@@ -179,7 +181,7 @@ def run_bench(repeat=5, verbose=False):
     pbefore = dict(dim=[-1],
                    model=list(sorted(['SVC', 'NuSVC', 'BNB',
                                       'RF', 'DT', 'MNB',
-                                      'ADA', 'MLP',
+                                      'ADA', 'MLP', 'LR-ZM',
                                       'LR', 'GBT', 'KNN',
                                       'KNN-cdist', 'OVR'])),
                    norm=[False, True],
