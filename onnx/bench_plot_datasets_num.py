@@ -76,7 +76,7 @@ def get_model(model_name):
     elif model_name == "NuSVC":
         return NuSVC(probability=True)
     elif model_name == 'OVR':
-        return OneVsRestClassifier(SVC(kernel='linear'))
+        return OneVsRestClassifier(SVC(kernel='linear', probability=True))
     else:
         raise ValueError("Unknown model name '{}'.".format(model_name))
 
