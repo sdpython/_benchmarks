@@ -15,19 +15,20 @@ import numpy
 import pandas
 import matplotlib.pyplot as plt
 import sklearn
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.neural_network import MLPClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC, NuSVC
 from sklearn.gaussian_process.kernels import RBF
-from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.utils.testing import ignore_warnings
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB, BernoulliNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.multiclass import OneVsRestClassifier
 from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.svm import SVC, NuSVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.utils.testing import ignore_warnings
 from mlprodict.onnxrt import OnnxInference
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
@@ -60,8 +61,8 @@ def get_model(model_name):
         return RandomForestClassifier(max_depth=4, n_estimators=10)
     elif model_name == "GBT":
         return GradientBoostingClassifier(max_depth=4, n_estimators=10)
-    elif model_name in ("AKNN", "KNN"):
-        return KNeighborsClassifier()
+    elif model_name in ("KNN", "KNN-cdist"):
+        return KNeighborsClassifier(algorithm='brute')
     elif model_name == "MLP":
         return MLPClassifier()
     elif model_name == "MNB":
@@ -74,6 +75,8 @@ def get_model(model_name):
         return SVC(probability=True)
     elif model_name == "NuSVC":
         return NuSVC(probability=True)
+    elif model_name == 'OVR':
+        return OneVsRestClassifier(SVC(kernel='linear'))
     else:
         raise ValueError("Unknown model name '{}'.".format(model_name))
 
@@ -87,17 +90,22 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         self.model_name = model
         self.dataset_name = dataset
         self.datas = common_datasets[dataset]
+        skl_model = get_model(model)
         if norm:
             if 'NB' in model:
-                self.model = make_pipeline(MinMaxScaler(), get_model(model))
+                self.model = make_pipeline(MinMaxScaler(), skl_model)
             else:
-                self.model = make_pipeline(StandardScaler(), get_model(model))
+                self.model = make_pipeline(StandardScaler(), skl_model)
         else:
-            self.model = get_model(model)
+            self.model = skl_model
         self.model.fit(self.datas[0], self.datas[2])
         self.data_test = self.datas[1]
 
-        self.onx = to_onnx(self.model, self.datas[0].astype(numpy.float32))
+        if '-cdist' in model:
+            options = {id(skl_model): {'optim': 'cdist'}}
+        else:
+            options = None
+        self.onx = to_onnx(self.model, self.datas[0].astype(numpy.float32), options=options)
         logger = getLogger("skl2onnx")
         logger.propagate = False
         logger.disabled = True
@@ -172,7 +180,8 @@ def run_bench(repeat=5, verbose=False):
                    model=list(sorted(['SVC', 'NuSVC', 'BNB',
                                       'RF', 'DT', 'MNB',
                                       'ADA', 'MLP',
-                                      'LR', 'GBT', 'KNN'])),
+                                      'LR', 'GBT', 'KNN',
+                                      'KNN-cdist', 'OVR'])),
                    norm=[False, True],
                    dataset=["breast_cancer", "digits"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
