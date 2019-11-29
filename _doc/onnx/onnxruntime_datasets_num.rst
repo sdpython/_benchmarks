@@ -21,14 +21,21 @@ It computes the prediction time for the following models:
 
 * *ADA*: ``AdaBoostClassifier()``
 * *BNB*: ``BernoulliNB()``
-* *DT*: ``DecisionTreeClassifier(max_depth=4)``
-* *GBT*: ``GradientBoostingClassifier(max_depth=4, n_estimators=10)``
+* *DT*: ``DecisionTreeClassifier(max_depth=6)``
+* *GBT*: ``GradientBoostingClassifier(max_depth=6, n_estimators=100)``
 * *KNN*: ``KNeighborsClassifier()``
+* *KNN-cdist*: ``KNeighborsClassifier()``, the conversion to ONNX
+  is run with option ``{'optim': 'cdist'}`` to use a specific operator
+  to compute pairwise distances
 * *LR*: ``LogisticRegression(solver="liblinear", penalty="l2")``
+* *LR-ZM*: ``LogisticRegression(solver="liblinear", penalty="l2")``,
+  the conversion to ONNX is run with option ``{'zipmap': False}``
+  to remove the final zipmap operator.
 * *MLP*: ``MLPClassifier()``
 * *MNB*: ``MultinomialNB()``
 * *NuSVC*: ``NuSVC(probability=True)``
-* *RF*: ``RandomForestClassifier(max_depth=4, n_estimators=10)``
+* *OVR*: ``OneVsRestClassifier(DecisionTreeClassifier(max_depth=6))``
+* *RF*: ``RandomForestClassifier(max_depth=6, n_estimators=100)``
 * *SVC*: ``SVC(probability=True)``
 
 The predictor follows a `StandardScaler
@@ -39,6 +46,14 @@ in a pipeline if
 ``norm=True`` or is the only object is ``norm=False``.
 The pipeline looks like
 ``make_pipeline(StandardScaler(), estimator())``.
+Three runtimes are tested:
+
+* `skl`: :epkg:`scikit-learn`,
+* `ort`: :epkg:`onnxruntime`,
+* `pyrt`: :epkg:`mlprodict`, it relies on :epkg:`numpy`
+  for most of the operators except trees and svm which 
+  use a modified version of the C++ code embedded in
+  :epkg:`onnxruntime`.
 
 .. plot::
 
