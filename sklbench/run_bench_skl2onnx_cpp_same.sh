@@ -1,3 +1,5 @@
+# Publishing does not seem to work for this benchmark.
+# It uses the existing environment.
 echo --PIP--
 pip install git+https://github.com/sdpython/asv.git@jenkins
 pip install git+https://github.com/scikit-learn/scikit-learn.git
