@@ -86,11 +86,7 @@ displayed at `Prediction with scikit-learn and ONNX benchmark
 <http://www.xavierdupre.fr/app/benches/asv-skl2onnx/index.html>`_.
 A subset of these models is available at
 `Prediction with scikit-learn and ONNX benchmark (SVM + Trees)
-<http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp/index.html>`_ and
-`same benchmark with different settings
-<http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp-same/index.html>`_
-which is the same one but with the setting
-``-environment existing:same``.
+<http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp/index.html>`_.
 
 The last benchmark is a standalone benchmark only comparing
 :epkg:`onnxruntime` and :epkg:`scikit-learn`.
