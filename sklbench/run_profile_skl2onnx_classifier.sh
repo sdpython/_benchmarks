@@ -3,29 +3,90 @@ mkdir profiles
 cd profiles
 
 echo --BENCH-CREATE--
-python -m mlprodict asv_bench --location . -n "4,5" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVC,RandomForestClassifier,DecisionTreeClassifier,AdaBoostClassifier,LogisticRegression,KNeighborsClassifier,MLPClassifier,MultinomialNB,BernoulliNB,OneVsRestClassifier -v 1 || exit 1
+python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVC,RandomForestClassifier,DecisionTreeClassifier,AdaBoostClassifier,LogisticRegression,KNeighborsClassifier,MLPClassifier,MultinomialNB,BernoulliNB,OneVsRestClassifier -v 1 || exit 1
 
 echo --PROFILE-RUN--
 
-# bash ./pyspy/ensemble/AdaBoostClassifier/
+echo --AdaBoostClassifier--
+cd ./pyspy/ensemble/AdaBoostClassifier
+export PYTHONPATH=../../../benches/ensemble/AdaBoostClassifier
+for f in ./*.sh
+do
+    echo "run '$f'"
+    bash $f || exit 1
+done
+cd ../../..
 
 echo --RandomForestClassifier--
 cd ./pyspy/ensemble/RandomForestClassifier
 export PYTHONPATH=../../../benches/ensemble/RandomForestClassifier
 for f in ./*.sh
 do
-    echo "-- $f --"
+    echo "run '$f'"
     bash $f || exit 1
 done
 cd ../../..
 
-# bash ./pyspy/linear_model/LogisticRegression/ nozipmap raw_score
-# bash ./pyspy/naive_bayes/BernoulliNB/
-# bash ./pyspy/naive_bayes/MultinomialNB/
-# bash ./pyspy/neighbors/KNeighborsClassifier/ cdist
-# bash ./pyspy/neural_network/MLPClassifier/
-# bash ./pyspy/svm/SVC/ linear poly rbf sigmoid
-# bash ./pyspy/tree/LinearSVC/DecisionTreeClassifier
+echo --LogisticRegression--
+cd ./pyspy/linear_model/LogisticRegression
+export PYTHONPATH=../../../benches/linear_model/LogisticRegression
+for f in ./*.sh
+do
+    echo "run '$f'"
+    bash $f || exit 1
+done
+cd ../../..
+
+echo --BernoulliNB--
+cd ./pyspy/naive_bayes/BernoulliNB
+export PYTHONPATH=../../../benches/naive_bayes/BernoulliNB
+for f in ./*.sh
+do
+    echo "run '$f'"
+    bash $f || exit 1
+done
+cd ../../..
+
+echo --MultinomialNB--
+cd ./pyspy/naive_bayes/MultinomialNB
+export PYTHONPATH=../../../benches/naive_bayes/MultinomialNB
+for f in ./*.sh
+do
+    echo "run '$f'"
+    bash $f || exit 1
+done
+cd ../../..
+
+echo --KNeighborsClassifier--
+cd ./pyspy/neighbors/KNeighborsClassifier
+export PYTHONPATH=../../../benches/neighbors/KNeighborsClassifier
+for f in ./*.sh
+do
+    echo "run '$f'"
+    bash $f || exit 1
+done
+cd ../../..
+
+echo --MLPClassifier--
+cd ./pyspy/neural_network/MLPClassifier
+export PYTHONPATH=../../../benches/neural_network/MLPClassifier
+for f in ./*.sh
+do
+    echo "run '$f'"
+    bash $f || exit 1
+done
+cd ../../..
+
+echo --SVC--
+cd ./pyspy/svm/SVC
+export PYTHONPATH=../../../benches/svm/SVC
+for f in ./*.sh
+do
+    echo "run '$f'"
+    bash $f || exit 1
+done
+cd ../../..
+
 
 echo --PUBLISH--
 mkdir htmlsvg
