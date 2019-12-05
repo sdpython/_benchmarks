@@ -28,6 +28,7 @@ for all models.
     onnx/onnxruntime_knn
     onnx/onnxruntime_rf
     onnx/onnxruntime_mlp
+    onnx/onnx_profiling
 
 onnxruntime specific configurations
 ===================================

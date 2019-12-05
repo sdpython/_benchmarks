@@ -98,6 +98,7 @@ epkg_dictionary = {
     'ONNX': 'https://onnx.ai/',
     'onnxruntime': 'https://github.com/Microsoft/onnxruntime',
     'PolynomialFeatures': 'https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html',
+    'py-spy': 'https://github.com/benfred/py-spy',
     'Python': 'https://www.python.org/',
     'scikit-learn': 'https://scikit-learn.org/stable/',
     'scikit-learn_benchmarks': 'https://github.com/jeremiedbb/scikit-learn_benchmarks',
