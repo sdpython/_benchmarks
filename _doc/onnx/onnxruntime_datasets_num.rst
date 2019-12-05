@@ -68,11 +68,7 @@ Three runtimes are tested:
     plot_bench_xtime(df[~df.norm], col_cols='dataset',
                      hue_cols='model',
                      title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime",
-                     ax=ax[0])
-    plot_bench_xtime(df[df.norm], col_cols='dataset',
-                     hue_cols='model',
-                     title="Numerical datasets - norm=True\nBenchmark scikit-learn / onnxruntime",
-                     ax=ax[1])
+                     ax=ax)
     fig.show()
 
 Graph X = number of observations to predict
@@ -91,6 +87,29 @@ Graph X = number of observations to predict
                        title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
     plt.show()
 
+Graph computing time per observations
++++++++++++++++++++++++++++++++++++++
+
+The following graph shows the computing cost per
+observations depending on the batch size.
+:epkg:`scikit-learn` is clearly optimized for batch predictions
+(= training).
+
+.. plot::
+
+    import matplotlib.pyplot as plt
+    import pandas
+    from pymlbenchmark.plotting import plot_bench_results
+
+    name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
+    df = pandas.read_csv(name)
+    for c in "min,max,mean,lower,upper,median".split(','):
+        df[c] /= df['N']
+    plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
+                       x_value='N',
+                       title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
+    plt.show()
+
 Graph of differences between scikit-learn and onnxruntime
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -103,9 +122,26 @@ Graph of differences between scikit-learn and onnxruntime
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
-                       x_value='N', y_value='diff',
-                       err_value=('lower_diff', 'upper_diff'),
+                       x_value='N', y_value='diff_ort',
+                       err_value=('lower_diff_ort', 'upper_diff_ort'),
                        title="Numerical datasets\Absolute difference scikit-learn / onnxruntime")
+    plt.show()
+
+Graph of differences between scikit-learn and python runtime
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. plot::
+
+    import matplotlib.pyplot as plt
+    import pandas
+    from pymlbenchmark.plotting import plot_bench_results
+
+    name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
+    df = pandas.read_csv(name)
+    plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
+                       x_value='N', y_value='diff_pyrt',
+                       err_value=('lower_diff_pyrt', 'upper_diff_pyrt'),
+                       title="Numerical datasets\Absolute difference scikit-learn / python runtime")
     plt.show()
 
 Configuration

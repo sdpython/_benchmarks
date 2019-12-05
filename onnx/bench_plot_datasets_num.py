@@ -145,9 +145,9 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 
     def validate(self, results, **kwargs):
         nb = 5
-        if len(results) != nb * 2:
+        if len(results) != nb * 3:  # skl, ort, pyrt
             raise RuntimeError(
-                "Expected only 2 results not {0}.".format(len(results)))
+                "Expected only 3 results not {0}.".format(len(results)))
         res = {}
         for idt, fct, vals in results:
             if idt not in res:
@@ -160,19 +160,22 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         if len(res) != nb:
             raise RuntimeError(
                 "Expected only 2 results not {0}.".format(len(results)))
-        diffs = []
-        for i in range(0, nb):
-            r = res[i]
-            bas = numpy.squeeze(r['skl'])
-            onn = numpy.squeeze(r['ort'].squeeze())
-            if bas.shape != onn.shape:
-                raise AssertionError("Shape mismatch {} != {} params={}".format(
-                    bas.shape, onn.shape, results[0][0]))
-            diff = numpy.max(numpy.abs(onn - bas))
-            diffs.append(diff)
-        return {'diff': sum(diffs) / nb,
-                'upper_diff': max(diffs),
-                'lower_diff': min(diffs)}
+        final = {}
+        for diff_name in ['ort', 'pyrt']:
+            diffs = []
+            for i in range(0, nb):
+                r = res[i]
+                bas = numpy.squeeze(r['skl'])
+                onn = numpy.squeeze(r[diff_name].squeeze())
+                if bas.shape != onn.shape:
+                    raise AssertionError("Shape mismatch {} != {} params={}".format(
+                        bas.shape, onn.shape, results[0][0]))
+                diff = numpy.max(numpy.abs(onn - bas))
+                diffs.append(diff)
+            final.update({'diff_%s' % diff_name: sum(diffs) / nb,
+                          'upper_diff_%s' % diff_name: max(diffs),
+                          'lower_diff_%s' % diff_name: min(diffs)})
+        return final
 
 
 @ignore_warnings(category=FutureWarning)
