@@ -43,6 +43,8 @@ script:
   - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "H H(7-8) * * 1", CLEAN: "0" }
   - { CMD: "bash sklbench/run_bench_onnxruntime.sh", NAME: "SKLORT", SCHEDULER: "H H(11-12) * * 1", CLEAN: "0" }
   - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "H H(7-8) * * 6", CLEAN: "0" }
+  # benchmark
+  - { CMD: "bash sklbench/run_profile_skl2onnx_classifier.sh", NAME: "SKLPROFILEONNX", SCHEDULER: "H H(6-7) * * 6" }
 
 after_script:
   - if [ ${NAME} == "UT" ] then ls dist/html/*.html fi
