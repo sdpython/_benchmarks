@@ -10,13 +10,7 @@ echo --PROFILE-RUN--
 # bash ./pyspy/ensemble/AdaBoostClassifier/
 
 cd ./pyspy/ensemble/RandomForestClassifier
-export PYTHONPATH=../../../benches/linear_model/LogisticRegression
-echo --CHECK--
-ls ../../..
-ls ../../../benches
-ls ../../../benches/linear_model
-ls ../../../benches/linear_model/LogisticRegression
-echo --ENDCHECK--
+export PYTHONPATH=../../../benches/ensemble/RandomForestClassifier
 bash ./bench_RandomForestClassifier_default_b_cl_1_4_12_float_.sh || exit 1
 bash ./bench_RandomForestClassifier_default_b_cl_1_50_12_float_.sh || exit 1
 bash ./bench_RandomForestClassifier_default_b_cl_1000_4_12_float_.sh || exit 1
