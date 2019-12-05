@@ -9,10 +9,12 @@ echo --PROFILE-RUN--
 
 # bash ./pyspy/ensemble/AdaBoostClassifier/
 
-bash ./pyspy/ensemble/RandomForestClassifier/bench_RandomForestClassifier_default_b_cl_1_4_12_float_.sh || exit 1
-bash ./pyspy/ensemble/RandomForestClassifier/bench_RandomForestClassifier_default_b_cl_1_50_12_float_.sh || exit 1
-bash ./pyspy/ensemble/RandomForestClassifier/bench_RandomForestClassifier_default_b_cl_1000_4_12_float_.sh || exit 1
-bash ./pyspy/ensemble/RandomForestClassifier/bench_RandomForestClassifier_default_b_cl_1000_50_12_float_.sh || exit 1
+cd ./pyspy/ensemble/RandomForestClassifier
+bash ./bench_RandomForestClassifier_default_b_cl_1_4_12_float_.sh || exit 1
+bash ./bench_RandomForestClassifier_default_b_cl_1_50_12_float_.sh || exit 1
+bash ./bench_RandomForestClassifier_default_b_cl_1000_4_12_float_.sh || exit 1
+bash ./bench_RandomForestClassifier_default_b_cl_1000_50_12_float_.sh || exit 1
+cd /../../..
 
 # bash ./pyspy/linear_model/LogisticRegression/ nozipmap raw_score
 # bash ./pyspy/naive_bayes/BernoulliNB/
