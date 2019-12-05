@@ -1,5 +1,6 @@
 onnx
 onnxruntime
-mlprodict>=0.2.542
+mlprodict>=0.3
 pymlbenchmark
+py-spy
 git+https://github.com/xadupre/sklearn-onnx.git@jenkins
