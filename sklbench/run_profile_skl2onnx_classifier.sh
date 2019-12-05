@@ -12,9 +12,10 @@ echo --PROFILE-RUN--
 echo --RandomForestClassifier--
 cd ./pyspy/ensemble/RandomForestClassifier
 export PYTHONPATH=../../../benches/ensemble/RandomForestClassifier
-for f in ./*.sh;
-echo -- $f --
-bash $f || exit 1;
+for f in ./*.sh
+do
+    echo "-- $f --"
+    bash $f || exit 1
 done
 cd ../../..
 
