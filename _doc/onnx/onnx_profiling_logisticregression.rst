@@ -35,4 +35,4 @@ Profiling LogisticRegression
         print()
         done += 1
     if done == 0:
-        print("No file found.")
+        print("No file found.", os.path.abspath("../../onnx/profiles"))
