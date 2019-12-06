@@ -13,7 +13,7 @@ export PYTHONPATH=../../../benches/ensemble/AdaBoostClassifier
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
@@ -23,7 +23,7 @@ export PYTHONPATH=../../../benches/ensemble/RandomForestClassifier
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
@@ -33,7 +33,7 @@ export PYTHONPATH=../../../benches/linear_model/LogisticRegression
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
@@ -43,7 +43,7 @@ export PYTHONPATH=../../../benches/naive_bayes/BernoulliNB
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
@@ -53,7 +53,7 @@ export PYTHONPATH=../../../benches/naive_bayes/MultinomialNB
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
@@ -63,7 +63,7 @@ export PYTHONPATH=../../../benches/neighbors/KNeighborsClassifier
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
@@ -73,7 +73,7 @@ export PYTHONPATH=../../../benches/neural_network/MLPClassifier
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
@@ -83,7 +83,7 @@ export PYTHONPATH=../../../benches/svm/SVC
 for f in ./*.sh
 do
     echo "run '$f'"
-    bash $f || exit 1
+    bash $f
 done
 cd ../../..
 
