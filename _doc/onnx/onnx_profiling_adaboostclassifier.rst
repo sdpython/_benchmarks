@@ -6,11 +6,13 @@ Profiling AdaboostClassifier
 
 .. runpython::
     :rst:
+    :showout:
 
     import os
     import glob
 
     pattern = "../../onnx/profiles/*AdaBoostClassifier*.svg"
+    done = 0
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
         filename = os.path.splitext(os.path.split(name)[-1])[0]
@@ -31,3 +33,6 @@ Profiling AdaboostClassifier
         print(".. raw:: html")
         print("    :file: {}".format(name))
         print()
+        done += 1
+    if done == 0:
+        print("No file found.")
