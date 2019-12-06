@@ -27,6 +27,16 @@ do
 done
 cd ../../..
 
+echo --DecisionTreeClassifier--
+cd ./pyspy/tree/DecisionTreeClassifier
+export PYTHONPATH=../../../benches/tree/DecisionTreeClassifier
+for f in ./*float*.sh
+do
+    echo "run '$f'"
+    bash $f
+done
+cd ../../..
+
 echo --LogisticRegression--
 cd ./pyspy/linear_model/LogisticRegression
 export PYTHONPATH=../../../benches/linear_model/LogisticRegression
