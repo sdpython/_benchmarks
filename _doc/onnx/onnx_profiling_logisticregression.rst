@@ -11,7 +11,7 @@ Profiling LogisticRegression
     import os
     import glob
 
-    pattern = "../../onnx/profiles/*LogisticRegression*.svg"
+    pattern = "onnx/profiles/*LogisticRegression*.svg"
     done = 0
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
@@ -35,4 +35,4 @@ Profiling LogisticRegression
         print()
         done += 1
     if done == 0:
-        print("No file found.", os.path.abspath("../../onnx/profiles"))
+        print("No file found.", os.path.abspath("onnx/profiles"))

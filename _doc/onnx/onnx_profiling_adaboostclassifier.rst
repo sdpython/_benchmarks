@@ -11,7 +11,7 @@ Profiling AdaboostClassifier
     import os
     import glob
 
-    pattern = "../../onnx/profiles/*AdaBoostClassifier*.svg"
+    pattern = "onnx/profiles/*AdaBoostClassifier*.svg"
     done = 0
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
@@ -35,4 +35,4 @@ Profiling AdaboostClassifier
         print()
         done += 1
     if done == 0:
-        print("No file found.", os.path.abspath("../../onnx/profiles"))
+        print("No file found.", os.path.abspath("onnx/profiles"))

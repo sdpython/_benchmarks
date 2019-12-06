@@ -11,7 +11,7 @@ Profiling RandomForestClassifier
     import os
     import glob
 
-    pattern = "../../onnx/profiles/*RandomForestClassifier*.svg"
+    pattern = "onnx/profiles/*RandomForestClassifier*.svg"
     done = 0
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
@@ -35,4 +35,4 @@ Profiling RandomForestClassifier
         print()
         done += 1
     if done == 0:
-        print("No file found.", os.path.abspath("../../onnx/profiles"))
+        print("No file found.", os.path.abspath("onnx/profiles"))
