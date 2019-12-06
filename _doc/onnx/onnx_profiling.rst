@@ -149,4 +149,8 @@ mlprodict.onnxrt.validate.validate_scenarios.build_custom_scenarios>`_.
 
     onnx_profiling_adaboostclassifier
     onnx_profiling_randomforestclassifier
+    onnx_profiling_bernoulli
+    onnx_profiling_knn
     onnx_profiling_logisticregression
+    onnx_profiling_svc
+    onnx_profiling_mlp
