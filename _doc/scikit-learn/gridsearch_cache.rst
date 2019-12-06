@@ -71,7 +71,7 @@ Graphs
 
     import matplotlib.pyplot as plt
     import pandas
-    from pymlbenchmark.plotting plot_bench_xtime
+    from pymlbenchmark.plotting import plot_bench_xtime
     name = "../../scikit-learn/results/bench_plot_gridsearch_cache.csv"
     df = pandas.read_csv(name)
     plt.close('all')

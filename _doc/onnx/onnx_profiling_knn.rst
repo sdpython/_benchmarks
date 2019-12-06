@@ -4,36 +4,30 @@
 Profiling KNeighborsClassifier
 ==============================
 
+.. postcontents::
+ 
 .. runpython::
     :rst:
-    :showout:
+    :sphinx: false
 
     import os
     import glob
+    from mlprodict.tools.filename_helper import (
+        extract_information_from_filename,
+        make_readable_title)
 
     pattern = "onnx/profiles/*KNeighborsClassifier*.svg"
     done = 0
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
         filename = os.path.splitext(os.path.split(name)[-1])[0]
-        spl = filename.split('_')
-        model = spl[1]
-        sce = spl[2]
-        problem = "_".join(spl[3:5])
-        dim = spl[5]
-        nf = spl[6]
-        opset = spl[7]
-        opt = '_'.join(spl[8:]).strip('_')
-        opt, kind = opt.split('__')
-
-        title = "{model} p:{problem} s:{sce} N={N} d={d} opset={opset} opt={opt} {kind}".format(
-            model=model, problem=problem, N=dim, d=nf, opt=opt, opset=opset,
-            sce=sce, kind=kind)
+        title = make_readable_title(
+            extract_information_from_filename(filename))
         print(title)
         print("+" * len(title))
         print()
         print(".. raw:: html")
-        print("    :file: {}".format(name))
+        print("    :file: ../../{}".format(name))
         print()
         done += 1
     if done == 0:

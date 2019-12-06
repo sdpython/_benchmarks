@@ -42,6 +42,7 @@ extensions = [
     "pyquickhelper.sphinxext.sphinx_runpython_extension",
     "pyquickhelper.sphinxext.sphinx_epkg_extension",
     "pyquickhelper.sphinxext.sphinx_collapse_extension",
+    "pyquickhelper.sphinxext.sphinx_postcontents_extension",
 ]
 
 try:
