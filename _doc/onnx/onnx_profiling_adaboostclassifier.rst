@@ -24,9 +24,11 @@ Profiling AdaboostClassifier
         nf = spl[6]
         opset = spl[7]
         opt = '_'.join(spl[8:]).strip('_')
-        
-        title = "{model} p:{problem} s:{sce} N={N} d={d} opset={opset} opt={opt}".format(
-            model=model, problem=problem, N=dim, d=nf, opt=opt, opset=opset, sce=sce)
+        opt, kind = opt.split('__')
+
+        title = "{model} p:{problem} s:{sce} N={N} d={d} opset={opset} opt={opt} {kind}".format(
+            model=model, problem=problem, N=dim, d=nf, opt=opt, opset=opset,
+            sce=sce, kind=kind)
         print(title)
         print("+" * len(title))
         print()

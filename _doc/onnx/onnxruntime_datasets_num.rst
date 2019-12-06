@@ -51,7 +51,7 @@ Three runtimes are tested:
 * `skl`: :epkg:`scikit-learn`,
 * `ort`: :epkg:`onnxruntime`,
 * `pyrt`: :epkg:`mlprodict`, it relies on :epkg:`numpy`
-  for most of the operators except trees and svm which 
+  for most of the operators except trees and svm which
   use a modified version of the C++ code embedded in
   :epkg:`onnxruntime`.
 

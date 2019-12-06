@@ -107,7 +107,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             options = {id(skl_model): {'zipmap': False}}
         else:
             options = None
-        self.onx = to_onnx(self.model, self.datas[0].astype(numpy.float32), options=options)
+        self.onx = to_onnx(self.model, self.datas[0].astype(
+            numpy.float32), options=options)
         logger = getLogger("skl2onnx")
         logger.propagate = False
         logger.disabled = True
@@ -256,4 +257,3 @@ plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                    title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
 plt.savefig("%s.curve.png" % filename)
 # plt.show()
-

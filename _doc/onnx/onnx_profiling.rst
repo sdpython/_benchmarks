@@ -31,11 +31,9 @@ The first file works for the module :epkg:`asv`.
     # Import specific to this model.
     from sklearn.tree import DecisionTreeClassifier
 
-
     from mlprodict.asv_benchmark import _CommonAsvSklBenchmarkClassifier
     from mlprodict.onnx_conv import to_onnx  # pylint: disable=W0611
     from mlprodict.onnxrt import OnnxInference  # pylint: disable=W0611
-
 
     class DecisionTreeClassifier_default_b_cl_benchClassifier(
             _CommonAsvSklBenchmarkClassifier):
@@ -82,12 +80,10 @@ The other runtimes are run the same number of times.
     import time
     from datetime import datetime
 
-
     def start():
         cl = DecisionTreeClassifier_default_b_cl_benchClassifier()
         cl.setup_cache()
         return cl
-
 
     def profile(iter, cl, runtime, N, nf, opset, dtype, optim):
         begin = time.perf_counter()
@@ -100,7 +96,6 @@ The other runtimes are run the same number of times.
             cl.time_predict(runtime, N, nf, opset, dtype, optim)
         return iter
 
-
     def setup_profile(iter, cl, runtime, N, nf, opset, dtype, optim):
         cl.setup(runtime, N, nf, opset, dtype, optim)
         return profile(iter, cl, runtime, N, nf, opset, dtype, optim)
@@ -109,18 +104,15 @@ The other runtimes are run the same number of times.
     iter = None
     print(datetime.now(), "begin")
 
-
     def profile_skl(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'skl', N, nf, opset, dtype, optim)
     iter = profile_skl(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
 
-
     def profile_pyrt(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'pyrt', N, nf, opset, dtype, optim)
     iter = profile_pyrt(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
-
 
     def profile_ort(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'ort', N, nf, opset, dtype, optim)
@@ -137,7 +129,7 @@ profilings with and without option ``--function``.
 Results
 +++++++
 
-They walk through many models, `problems 
+They walk through many models, `problems
 <http://www.xavierdupre.fr/app/mlprodict/helpsphinx/mlprodict/
 onnxrt/validate/validate_problems.html#mlprodict.onnxrt.validate.
 validate_problems.find_suitable_problem>`_
