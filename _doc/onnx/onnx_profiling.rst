@@ -85,16 +85,25 @@ The other runtimes are run the same number of times.
         cl.setup_cache()
         return cl
 
-    def profile(iter, cl, runtime, N, nf, opset, dtype, optim):
+    def profile0(iter, cl, runtime, N, nf, opset, dtype, optim):
         begin = time.perf_counter()
-        for i in range(0, 1000):
+        for i in range(0, 100):
             cl.time_predict(runtime, N, nf, opset, dtype, optim)
         duration = time.perf_counter() - begin
-        if iter is None:
-            iter = max(100, int(20 / duration * 1000)) # 20 seconds
+        iter = max(100, int(20 / duration * 100)) # 20 seconds
+        return iter
+
+
+    def setup_profile0(iter, cl, runtime, N, nf, opset, dtype, optim):
+        cl.setup(runtime, N, nf, opset, dtype, optim)
+        return profile0(iter, cl, runtime, N, nf, opset, dtype, optim)
+
+
+    def profile(iter, cl, runtime, N, nf, opset, dtype, optim):
         for i in range(iter):
             cl.time_predict(runtime, N, nf, opset, dtype, optim)
         return iter
+
 
     def setup_profile(iter, cl, runtime, N, nf, opset, dtype, optim):
         cl.setup(runtime, N, nf, opset, dtype, optim)
@@ -104,19 +113,28 @@ The other runtimes are run the same number of times.
     iter = None
     print(datetime.now(), "begin")
 
+
+    def profile0_skl(iter, cl, N, nf, opset, dtype, optim):
+        return setup_profile0(iter, cl, 'skl', N, nf, opset, dtype, optim)
+    iter = profile0_skl(iter, cl, 1, 4, 12, 'float', '')
+    print(datetime.now(), "iter", iter)
+
+
     def profile_skl(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'skl', N, nf, opset, dtype, optim)
-    iter = profile_skl(iter, cl, 1, 4, 12, 'float', '')
+    profile_skl(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
+
 
     def profile_pyrt(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'pyrt', N, nf, opset, dtype, optim)
-    iter = profile_pyrt(iter, cl, 1, 4, 12, 'float', '')
+    profile_pyrt(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
+
 
     def profile_ort(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'ort', N, nf, opset, dtype, optim)
-    iter = profile_ort(iter, cl, 1, 4, 12, 'float', '')
+    profile_ort(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
 
 Then :epkg:`py-spy` is used to produce the following
@@ -124,7 +142,7 @@ profilings with and without option ``--function``.
 
 ::
 
-    py-spy record --native --function --rate=10 -o bench_DecisionTreeClassifier_default_b_cl_1_20_12_float__fct.svg -- c:\Python372_x64\pythonw.exe bench_DecisionTreeClassifier_default_b_cl_1_20_12_float_.pypy-spy record --native --rate=10 -o bench_DecisionTreeClassifier_default_b_cl_1_20_12_float__line.svg -- c:\Python372_x64\pythonw.exe bench_DecisionTreeClassifier_default_b_cl_1_20_12_float_.py
+    py-spy record --native --function --rate=10 -o bench_DecisionTreeClassifier_default_b_cl_1_20_12_float__fct.svg -- python bench_DecisionTreeClassifier_default_b_cl_1_20_12_float_.pypy-spy record --native --rate=10 -o bench_DecisionTreeClassifier_default_b_cl_1_20_12_float__line.svg -- python bench_DecisionTreeClassifier_default_b_cl_1_20_12_float_.py
 
 Results
 +++++++
@@ -137,8 +155,11 @@ and `scenarios <http://www.xavierdupre.fr/app/mlprodict/helpsphinx/
 mlprodict/onnxrt/validate/validate_scenarios.html?highlight=build_custom_scenarios#
 mlprodict.onnxrt.validate.validate_scenarios.build_custom_scenarios>`_.
 
+**classifiers**
+
 .. toctree::
 
+    onnx_profiling_decision_tree
     onnx_profiling_adaboostclassifier
     onnx_profiling_randomforestclassifier
     onnx_profiling_bernoulli
@@ -146,3 +167,15 @@ mlprodict.onnxrt.validate.validate_scenarios.build_custom_scenarios>`_.
     onnx_profiling_logisticregression
     onnx_profiling_svc
     onnx_profiling_mlp
+
+**regressors**
+
+.. toctree::
+
+    onnx_profiling_reg_decision_tree
+    onnx_profiling_reg_adaboost
+    onnx_profiling_reg_randomforest
+    onnx_profiling_reg_knn
+    onnx_profiling_reg_linear
+    onnx_profiling_reg_svr
+    onnx_profiling_reg_mlp

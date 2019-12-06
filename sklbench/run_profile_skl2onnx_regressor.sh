@@ -47,9 +47,9 @@ do
 done
 cd ../../..
 
-echo --KNeighborRegressor--
-cd ./pyspy/neighbors/KNeighborRegressor
-export PYTHONPATH=../../../benches/neighbors/KNeighborRegressor
+echo --KNeighborsRegressor--
+cd ./pyspy/neighbors/KNeighborsRegressor
+export PYTHONPATH=../../../benches/neighbors/KNeighborsRegressor
 for f in ./*float*.sh
 do
     echo "run '$f'"
