@@ -4,6 +4,18 @@
 Profiling AdaboostClassifier
 ============================
 
+The model is measured through the following profilings,
+they depends on the following parameters.
+
+* *problem*: see :epkg:`find_suitable_problem`
+* *scenario*: see :epkg:`build_custom_scenarios`
+* *N*: batch size
+* *nf*: number of features
+* *ops*: opset
+* anything else: options
+* *by line* or *by fct*: profile show either
+  line number either function names
+
 .. postcontents::
  
 .. runpython::

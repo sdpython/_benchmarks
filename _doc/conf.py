@@ -92,6 +92,8 @@ sphinx_gallery_conf = {
 epkg_dictionary = {
     'asv': 'https://github.com/airspeed-velocity/asv',
     'BLAS': 'https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms',
+    'build_custom_scenarios': 'http://www.xavierdupre.fr/app/mlprodict/helpsphinx/mlprodict/onnxrt/validate/validate_scenarios.html?highlight=build_custom_scenarios#mlprodict.onnxrt.validate.validate_scenarios.build_custom_scenarios',
+    'find_suitable_problem': 'http://www.xavierdupre.fr/app/mlprodict/helpsphinx/mlprodict/onnxrt/validate/validate_problems.html#mlprodict.onnxrt.validate.validate_problems.find_suitable_problem',
     'joblib': 'https://joblib.readthedocs.io/en/latest/',
     'mlprodict': 'http://www.xavierdupre.fr/app/mlprodict/helpsphinx/index.html',
     'numpy': 'https://www.numpy.org/',

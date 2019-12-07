@@ -12,8 +12,11 @@ cd ./pyspy/ensemble/AdaBoostRegressor
 export PYTHONPATH=../../../benches/ensemble/AdaBoostRegressor
 for f in ./*float*.sh
 do
-    echo "run '$f'"
-    bash $f
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
 done
 cd ../../..
 
@@ -22,8 +25,11 @@ cd ./pyspy/ensemble/RandomForestRegressor
 export PYTHONPATH=../../../benches/ensemble/RandomForestRegressor
 for f in ./*float*.sh
 do
-    echo "run '$f'"
-    bash $f
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
 done
 cd ../../..
 
@@ -32,8 +38,11 @@ cd ./pyspy/tree/DecisionTreeRegressor
 export PYTHONPATH=../../../benches/tree/DecisionTreeRegressor
 for f in ./*float*.sh
 do
-    echo "run '$f'"
-    bash $f
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
 done
 cd ../../..
 
@@ -42,8 +51,11 @@ cd ./pyspy/linear_model/LinearRegression
 export PYTHONPATH=../../../benches/linear_model/LinearRegression
 for f in ./*float*.sh
 do
-    echo "run '$f'"
-    bash $f
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
 done
 cd ../../..
 
@@ -52,8 +64,11 @@ cd ./pyspy/neighbors/KNeighborsRegressor
 export PYTHONPATH=../../../benches/neighbors/KNeighborsRegressor
 for f in ./*float*.sh
 do
-    echo "run '$f'"
-    bash $f
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
 done
 cd ../../..
 
@@ -62,8 +77,11 @@ cd ./pyspy/neural_network/MLPRegressor
 export PYTHONPATH=../../../benches/neural_network/MLPRegressor
 for f in ./*float*.sh
 do
-    echo "run '$f'"
-    bash $f
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
 done
 cd ../../..
 
@@ -72,8 +90,11 @@ cd ./pyspy/svm/SVR
 export PYTHONPATH=../../../benches/svm/SVR
 for f in ./*float*.sh
 do
-    echo "run '$f'"
-    bash $f
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
 done
 cd ../../..
 
