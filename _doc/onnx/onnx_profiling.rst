@@ -19,7 +19,7 @@ command line (module :epkg:`mlprodict`).
 
 ::
 
-    python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVC,RandomForestClassifier,DecisionTreeClassifier,AdaBoostClassifier,LogisticRegression,KNeighborsClassifier,MLPClassifier,MultinomialNB,BernoulliNB,OneVsRestClassifier -v 1
+    python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVC,RandomForestClassifier,DecisionTreeClassifier,AdaBoostClassifier,LogisticRegression,KNeighborsClassifier,MLPClassifier,MultinomialNB,BernoulliNB,OneVsRestClassifier -v 1
 
 It generates many files following the same pattern.
 The first file works for the module :epkg:`asv`.

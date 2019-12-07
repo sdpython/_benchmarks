@@ -82,7 +82,7 @@ Raw results
     name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_logreg.perf.csv")
     df = pandas.read_csv(name)
     piv = bench_pivot(df).reset_index(drop=False)
-    piv['speedup_py'] = piv['skl'] / piv['onxpython']
+    piv['speedup_py'] = piv['skl'] / piv['onxpython_compiled']
     piv['speedup_ort'] = piv['skl'] / piv['onxonnxruntime1']
     print(df2rst(piv, number_format=4))
 

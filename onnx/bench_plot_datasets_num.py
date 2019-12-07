@@ -114,6 +114,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         logger.disabled = True
         self.ort = InferenceSession(self.onx.SerializeToString())
         self.oinf = OnnxInference(self.onx, runtime='python')
+        self.oinfc = OnnxInference(self.onx, runtime='python_compiled')
         self.output_name = self.oinf.output_names[-1]
         self.input_name = self.ort.get_inputs()[0].name
 
@@ -132,9 +133,14 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
                          nameo=self.output_name):
             return model.run({namei: X})[nameo]
 
+        def predict_pyrtc(X, model=self.oinfc, namei=self.input_name,
+                         nameo=self.output_name):
+            return model.run({namei: X})[nameo]
+
         return [{'lib': 'ort', 'fct': predict_ort},
                 {'lib': 'skl', 'fct': predict_skl},
-                {'lib': 'pyrt', 'fct': predict_pyrt}]
+                {'lib': 'pyrt', 'fct': predict_pyrt},
+                {'lib': 'pyrtc', 'fct': predict_pyrtc}]
 
     def data(self, N=10, dim=-1, **kwargs):  # pylint: disable=W0221
         if dim != -1:
@@ -146,7 +152,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 
     def validate(self, results, **kwargs):
         nb = 5
-        if len(results) != nb * 3:  # skl, ort, pyrt
+        if len(results) != nb * 4:  # skl, ort, pyrt, pyrtc
             raise RuntimeError(
                 "Expected only 3 results not {0}.".format(len(results)))
         res = {}
@@ -162,7 +168,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             raise RuntimeError(
                 "Expected only 2 results not {0}.".format(len(results)))
         final = {}
-        for diff_name in ['ort', 'pyrt']:
+        for diff_name in ['ort', 'pyrt', 'pyrtc']:
             diffs = []
             for i in range(0, nb):
                 r = res[i]
@@ -231,6 +237,7 @@ print(dfi)
 
 
 def label_fct(la):
+    la = la.replace("onxpython_compiled", "opyc")
     la = la.replace("onxpython", "opy")
     la = la.replace("onxonnxruntime1", "ort")
     la = la.replace("fit_intercept", "fi")

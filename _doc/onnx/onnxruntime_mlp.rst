@@ -23,6 +23,7 @@ Overview
     df = pandas.read_csv(name)
 
     def label_fct(la):
+        la = la.replace("onxpython_compiled", "opy")
         la = la.replace("onxpython", "opy")
         la = la.replace("onxonnxruntime1", "ort")
         la = la.replace("fit_intercept", "fi")
@@ -48,6 +49,7 @@ Detailed graphs
 .. plot::
 
     def label_fct(la):
+        la = la.replace("onxpython_compiled", "opy")
         la = la.replace("onxpython", "opy")
         la = la.replace("onxonnxruntime1", "ort")
         la = la.replace("fit_intercept", "fi")
@@ -105,7 +107,7 @@ Raw results
     name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_mlp.perf.csv")
     df = pandas.read_csv(name)
     piv = bench_pivot(df).reset_index(drop=False)
-    piv['speedup_py'] = piv['skl'] / piv['onxpython']
+    piv['speedup_py'] = piv['skl'] / piv['onxpython_compiled']
     piv['speedup_ort'] = piv['skl'] / piv['onxonnxruntime1']
     print(df2rst(piv, number_format=4))
 

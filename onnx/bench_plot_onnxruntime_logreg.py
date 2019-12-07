@@ -102,6 +102,7 @@ print(dfi)
 
 
 def label_fct(la):
+    la = la.replace("onxpython_compiled", "opy")
     la = la.replace("onxpython", "opy")
     la = la.replace("onxonnxruntime1", "ort")
     la = la.replace("fit_intercept", "fi")
