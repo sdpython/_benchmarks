@@ -28,7 +28,7 @@ they depend on the following parameters.
         extract_information_from_filename,
         make_readable_title)
 
-    pattern = "onnx/profiles_reg/*AdaboostRegressor*.svg"
+    pattern = "onnx/profiles_reg/*AdaBoostRegressor*.svg"
     done = 0
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
