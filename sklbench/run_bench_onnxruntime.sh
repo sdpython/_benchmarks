@@ -15,7 +15,7 @@ cd scikit-onnx-benchmark
 echo "BEGIN" > begin.txt
 
 echo --BENCH--
-python3.7 -m asv run --show-stderr --config asv.conf.json
+python -m asv run --show-stderr --config asv.conf.json
 echo "END" > end.txt
 if [ -d html ]
 then
@@ -23,5 +23,5 @@ then
     rm html -r -f
 fi
 echo --PUBLISH--
-python3.7 -m asv publish --config asv.conf.json -o html || exit 1
-python3.7 asv_exports.py || exit 1
+python -m asv publish --config asv.conf.json -o html || exit 1
+python asv_exports.py || exit 1
