@@ -18,7 +18,7 @@ fi
 cd asv-skl2onnx
 git pull
 echo --BENCH-CREATE--
-python -m mlprodict asv_bench --location . --dims "1,10,100,1000,10000" --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" -v 1 || exit 1
+python -m mlprodict asv_bench --location . -o -1 --dims "1,10,100,1000,10000" --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" -v 1 || exit 1
 echo --BENCH-RUN--
 python -m asv run --show-stderr --config asv.conf.json
 if [ -d html ]
