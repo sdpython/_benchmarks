@@ -1,5 +1,5 @@
 name,version,value
-date,2019-11-27,
+date,2019-12-11,
 python,,"3.7.2 (default, Mar  1 2019, 18:34:21) 
 [GCC 6.3.0 20170516]"
 platform,,linux
@@ -10,8 +10,8 @@ release,,4.9.0-8-amd64
 architecture,,"('64bit', '')"
 mlprodict,0.3,
 numpy,1.17.4,"openblas, language=c"
-onnx,1.6.34,opset=11
-onnxruntime,1.0.991,CPU-MKL-ML
+onnx,1.6.34,opset=12
+onnxruntime,1.1.992,CPU-MKL-ML
 pandas,0.25.3,
-skl2onnx,1.6.99,
-sklearn,0.22.dev1,
+skl2onnx,1.6.992,
+sklearn,0.22,
