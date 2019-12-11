@@ -90,7 +90,7 @@ Detailed graphs
     name = "../../onnx/results/bench_plot_onnxruntime_knn.perf.csv"
     df = pandas.read_csv(name)
 
-    plot_bench_results(df, row_cols=['N', 'n_neighbors'], col_cols='method',
+    plot_bench_results(df, row_cols=['N', 'n_neighbors', 'onnx_options'], col_cols='method',
                        x_value='dim', hue_cols='metric',
                        title=None, label_fct=label_fct,
                        ax=None, box_side=4)

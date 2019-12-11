@@ -84,7 +84,7 @@ def label_fct(la):
     return la
 
 
-plot_bench_results(df, row_cols=['N', 'max_depth'], col_cols='method',
+plot_bench_results(df, row_cols=['N', 'max_depth', 'onnx_options'], col_cols='method',
                    x_value='dim', hue_cols=['n_estimators'],
                    title="%s\nBenchmark scikit-learn / onnxruntime" % model_name,
                    label_fct=label_fct)

@@ -86,7 +86,7 @@ def label_fct(la):
     return la
 
 
-plot_bench_results(df, row_cols=['n_neighbors', 'metric'],
+plot_bench_results(df, row_cols=['n_neighbors', 'metric', 'onnx_options'],
                    col_cols=['leaf_size', 'method'], x_value='N',
                    hue_cols=['dim'],
                    title="%s\nBenchmark scikit-learn / onnxruntime" % model_name,

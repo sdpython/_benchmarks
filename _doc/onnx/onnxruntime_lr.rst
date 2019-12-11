@@ -55,7 +55,7 @@ Detailed graphs
     name = "../../onnx/results/bench_plot_onnxruntime_logreg.perf.csv"
     df = pandas.read_csv(name)
 
-    plot_bench_results(df, row_cols='N', col_cols='method',
+    plot_bench_results(df, row_cols=['N', 'onnx_options'], col_cols='method',
                               hue_cols='fit_intercept',
                      cmp_col_values=('lib', 'skl'),
                      x_value='dim', y_value='mean',

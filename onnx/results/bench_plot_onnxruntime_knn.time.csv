@@ -11,7 +11,7 @@ architecture,,"('64bit', '')"
 mlprodict,0.3,
 numpy,1.17.4,"openblas, language=c"
 onnx,1.6.34,opset=12
-onnxruntime,1.1.992,CPU-MKL-ML
+onnxruntime,1.1.992,CPU-DNNL-MKL-ML
 pandas,0.25.3,
-skl2onnx,1.6.992,
+skl2onnx,1.6.993,
 sklearn,0.22,

@@ -83,11 +83,23 @@ Detailed graphs
     name = "../../onnx/results/bench_plot_onnxruntime_random_forest.perf.csv"
     df = pandas.read_csv(name)
 
-    plot_bench_results(df, row_cols=['N', 'n_estimators'], col_cols='method',
+    def label_fct(la):
+        la = la.replace("onxpython_compiled", "opy")
+        la = la.replace("onxonnxruntime1", "ort")
+        la = la.replace("True", "1")
+        la = la.replace("False", "0")
+        la = la.replace("max_depth", "mxd")
+        la = la.replace("method=predict_proba", "prob")
+        la = la.replace("method=predict", "cl")
+        la = la.replace("n_estimators=", "nt=")
+        return la
+
+    plot_bench_results(df, row_cols=['onnx_options', 'N', 'n_estimators'],
+                       col_cols='method',
                        hue_cols='max_depth',
                        cmp_col_values=('lib', 'skl'),
                        x_value='dim', y_value='mean',
-                       title=None,
+                       title=None, label_fct=label_fct,
                        ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for RandomForestClassifier")
     plt.show()
