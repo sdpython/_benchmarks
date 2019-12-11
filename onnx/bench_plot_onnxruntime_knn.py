@@ -32,6 +32,8 @@ def run_bench(repeat=10, verbose=False):
     pbefore = dict(n_neighbors=[1, 2, 5],
                    leaf_size=[10],
                    dim=[5, 20],
+                   onnx_options=[
+                       None, {KNeighborsClassifier: {'optim': 'cdist'}}],
                    metric=["euclidean"])
     pafter = dict(N=[1, 10, 100])
 

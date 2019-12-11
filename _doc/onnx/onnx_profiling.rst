@@ -93,17 +93,14 @@ The other runtimes are run the same number of times.
         iter = max(100, int(20 / duration * 100)) # 20 seconds
         return iter
 
-
     def setup_profile0(iter, cl, runtime, N, nf, opset, dtype, optim):
         cl.setup(runtime, N, nf, opset, dtype, optim)
         return profile0(iter, cl, runtime, N, nf, opset, dtype, optim)
-
 
     def profile(iter, cl, runtime, N, nf, opset, dtype, optim):
         for i in range(iter):
             cl.time_predict(runtime, N, nf, opset, dtype, optim)
         return iter
-
 
     def setup_profile(iter, cl, runtime, N, nf, opset, dtype, optim):
         cl.setup(runtime, N, nf, opset, dtype, optim)
@@ -113,24 +110,20 @@ The other runtimes are run the same number of times.
     iter = None
     print(datetime.now(), "begin")
 
-
     def profile0_skl(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile0(iter, cl, 'skl', N, nf, opset, dtype, optim)
     iter = profile0_skl(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
-
 
     def profile_skl(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'skl', N, nf, opset, dtype, optim)
     profile_skl(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
 
-
     def profile_pyrt(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'pyrt', N, nf, opset, dtype, optim)
     profile_pyrt(iter, cl, 1, 4, 12, 'float', '')
     print(datetime.now(), "iter", iter)
-
 
     def profile_ort(iter, cl, N, nf, opset, dtype, optim):
         return setup_profile(iter, cl, 'ort', N, nf, opset, dtype, optim)

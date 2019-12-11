@@ -21,6 +21,8 @@ Overview
         la = la.replace("True", "1")
         la = la.replace("False", "0")
         la = la.replace("max_depth", "mxd")
+        la = la.replace("method=predict", "cl")
+        la = la.replace("method=proba", "prob")
         return la
 
     import matplotlib.pyplot as plt
@@ -46,12 +48,13 @@ Detailed graphs
 
     def label_fct(la):
         la = la.replace("onxpython_compiled", "opy")
+        la = la.replace("onxpython", "opy")
         la = la.replace("onxonnxruntime1", "ort")
         la = la.replace("True", "1")
         la = la.replace("False", "0")
         la = la.replace("max_depth", "mxd")
-        la = la.replace("method=predict_proba", "prob")
         la = la.replace("method=predict", "cl")
+        la = la.replace("method=proba", "prob")
         return la
 
     import matplotlib.pyplot as plt

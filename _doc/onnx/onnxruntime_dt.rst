@@ -21,6 +21,8 @@ Overview
         la = la.replace("True", "1")
         la = la.replace("False", "0")
         la = la.replace("max_depth", "mxd")
+        la = la.replace("method=predict_proba", "prob")
+        la = la.replace("method=predict", "cl")
         return la
 
     import matplotlib.pyplot as plt

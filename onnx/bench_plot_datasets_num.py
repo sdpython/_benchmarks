@@ -134,7 +134,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             return model.run({namei: X})[nameo]
 
         def predict_pyrtc(X, model=self.oinfc, namei=self.input_name,
-                         nameo=self.output_name):
+                          nameo=self.output_name):
             return model.run({namei: X})[nameo]
 
         return [{'lib': 'ort', 'fct': predict_ort},
