@@ -30,6 +30,7 @@ they depends on the following parameters.
 
     pattern = "onnx/profiles/*AdaBoostClassifier*.svg"
     pubs = []
+    done = 0
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
         filename = os.path.splitext(os.path.split(name)[-1])[0]
