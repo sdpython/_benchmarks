@@ -26,6 +26,11 @@ Overview
         la = la.replace("fit_intercept=1", "+biais")
         la = la.replace("fit_intercept=True", "+biais")
         la = la.replace("metric=euclidean", "L2")
+        la = la.replace("n_neighbors=", "k")
+        la = la.replace("{<class 'sklearn.neighbors._classification.KNeighborsClassifier'>: {'optim': 'cdist'}}",
+                        "-cdist")
+        la = la.replace("onnx_options=nan", "")
+        la = la.replace("onnx_options=", "-o=")
         return la
 
     import matplotlib.pyplot as plt
@@ -81,6 +86,10 @@ Detailed graphs
         la = la.replace("fit_intercept=True", "+biais")
         la = la.replace("metric=euclidean", "L2")
         la = la.replace("n_neighbors=", "k")
+        la = la.replace("{<class 'sklearn.neighbors._classification.KNeighborsClassifier'>: {'optim': 'cdist'}}",
+                        "-cdist")
+        la = la.replace("onnx_options=nan", "")
+        la = la.replace("onnx_options=", "-o=")
         return la
 
     import matplotlib.pyplot as plt

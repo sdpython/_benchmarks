@@ -14,6 +14,23 @@ Overview
 
 .. plot::
 
+    def label_fct(la):
+        la = la.replace("onxpython_compiled", "opy")
+        la = la.replace("onxonnxruntime1", "ort")
+        la = la.replace("True", "1")
+        la = la.replace("False", "0")
+        la = la.replace("max_depth", "mxd")
+        la = la.replace("method=predict_proba", "prob")
+        la = la.replace("method=predict", "cl")
+        la = la.replace("n_estimators=", "nt=")
+        la = la.replace("fit_intercept=1", "+biais")
+        la = la.replace("fit_intercept=True", "+biais")
+        la = la.replace("{<class 'sklearn.linear_model._logistic.LogisticRegression'>: {'zipmap': 0}}",
+                        "-ZM")
+        la = la.replace("onnx_options=nan", "")
+        la = la.replace("onnx_options=", "-o=")
+        return la
+
     import matplotlib.pyplot as plt
     import pandas
     from pymlbenchmark.plotting import plot_bench_xtime
@@ -26,7 +43,7 @@ Overview
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
                      parallel=(1., 0.5), title=None,
-                     ax=None, box_side=4)
+                     ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for LogisticRegression")
     plt.show()
 
@@ -46,6 +63,10 @@ Detailed graphs
         la = la.replace("n_estimators=", "nt=")
         la = la.replace("fit_intercept=1", "+biais")
         la = la.replace("fit_intercept=True", "+biais")
+        la = la.replace("{<class 'sklearn.linear_model._logistic.LogisticRegression'>: {'zipmap': 0}}",
+                        "-ZM")
+        la = la.replace("onnx_options=nan", "")
+        la = la.replace("onnx_options=", "-o=")
         return la
 
     import matplotlib.pyplot as plt
