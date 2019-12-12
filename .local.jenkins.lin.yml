@@ -27,7 +27,7 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_mlp.py", NAME: "ORT_MLP", TIMEOUT: 2400 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree.py", NAME: "ORT_DT" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree_reg.py", NAME: "ORT_DT_REG" }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", NAME: "ORT_RF" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", NAME: "ORT_RF", TIMEOUT: 3600 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", NAME: "ORT_KNN" }
   - { CMD: "$PYINT -u onnx/bench_plot_skl2onnx_unittest.py", NAME: "ORT_UNIT" }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", NAME: "ORT_CASCADD", TIMEOUT: 1800 }
@@ -38,6 +38,7 @@ script:
   - { CMD: "$PYINT -u modules/bench_plot_re2.py", NAME: "MOD_RE2" }
   # documentation
   - { CMD: "$PYINT -c \"from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])\"", NAME: "UT" }
+  - { CMD: "$PYINT -m pytest", NAME: "TEST" }
   # benchmark
   - { CMD: "bash sklbench/run_sklbenchmark.sh", NAME: "SKLBENCH", TIMEOUT: 12000, SCHEDULER: "H H(3-4) * * 1", CLEAN: "0" }
   - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "H H(7-8) * * 1", CLEAN: "0" }
