@@ -198,7 +198,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 def run_bench(repeat=5, verbose=False):
 
     pbefore = dict(dim=[-1],
-                   model=list(sorted(['XGB', 'HGB',
+                   model=list(sorted(['XGB', 'LGB',
                                       'SVC', 'NuSVC', 'BNB',
                                       'RF', 'DT', 'MNB',
                                       'ADA', 'MLP', 'LR-ZM',
