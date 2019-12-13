@@ -15,6 +15,8 @@ import numpy
 import pandas
 import matplotlib.pyplot as plt
 import sklearn
+from sklearn.experimental import enable_hist_gradient_boosting
+from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
@@ -50,14 +52,15 @@ common_datasets = create_datasets()
 
 
 def get_model(lib):
+    if lib == "sklh":
+        return HistGradientBoostingRegressor(max_depth=6, max_iter=100)
     if lib == "skl":
         return RandomForestRegressor(max_depth=6, n_estimators=100)
-    elif lib == 'xgb':
+    if lib == 'xgb':
         return XGBRegressor(max_depth=6, n_estimators=100)
-    elif lib == 'lgb':
+    if lib == 'lgb':
         return LGBMRegressor(max_depth=6, n_estimators=100)
-    else:
-        raise ValueError("Unknown library '{}'.".format(lib))
+    raise ValueError("Unknown library '{}'.".format(lib))
 
 
 class LibOrtBenchPerfTest(BenchPerfTest):
@@ -145,7 +148,7 @@ class LibOrtBenchPerfTest(BenchPerfTest):
 def run_bench(repeat=10, verbose=False):
 
     pbefore = dict(dim=[-1],
-                   lib=['skl', 'xgb', 'lgb'],
+                   lib=['sklh', 'skl', 'xgb', 'lgb'],
                    dataset=["breast_cancer", "digits"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
                      2000, 5000, 10000, 20000, 50000])

@@ -29,6 +29,8 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.svm import SVC, NuSVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils.testing import ignore_warnings
+from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
 from mlprodict.onnxrt import OnnxInference
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
@@ -36,6 +38,10 @@ from pymlbenchmark.plotting import plot_bench_results, plot_bench_xtime
 from skl2onnx import to_onnx
 from onnxruntime import InferenceSession
 
+from mlprodict.onnx_conv import register_converters, register_rewritten_operators
+
+register_converters()
+register_rewritten_operators()
 
 filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 
@@ -55,30 +61,33 @@ def create_datasets():
 def get_model(model_name):
     if model_name in ("LR", "LR-ZM"):
         return LogisticRegression(solver="liblinear", penalty="l2")
-    elif model_name == "DT":
+    if model_name == "DT":
         return DecisionTreeClassifier(max_depth=6)
-    elif model_name == "RF":
+    if model_name == "RF":
         return RandomForestClassifier(max_depth=6, n_estimators=100)
-    elif model_name == "GBT":
+    if model_name == "GBT":
         return GradientBoostingClassifier(max_depth=4, n_estimators=100)
-    elif model_name in ("KNN", "KNN-cdist"):
+    if model_name in ("KNN", "KNN-cdist"):
         return KNeighborsClassifier(algorithm='brute')
-    elif model_name == "MLP":
+    if model_name == "MLP":
         return MLPClassifier()
-    elif model_name == "MNB":
+    if model_name == "MNB":
         return MultinomialNB()
-    elif model_name == "BNB":
+    if model_name == "BNB":
         return BernoulliNB()
-    elif model_name == "ADA":
+    if model_name == "ADA":
         return AdaBoostClassifier()
-    elif model_name == "SVC":
+    if model_name == "SVC":
         return SVC(probability=True)
-    elif model_name == "NuSVC":
+    if model_name == "NuSVC":
         return NuSVC(probability=True)
-    elif model_name == 'OVR':
+    if model_name == 'OVR':
         return OneVsRestClassifier(DecisionTreeClassifier(max_depth=6))
-    else:
-        raise ValueError("Unknown model name '{}'.".format(model_name))
+    if model_name == "XGB":
+        return XGBClassifier(max_depth=6, n_estimators=100)
+    if model_name == "LGB":
+        return LGBMClassifier(max_depth=6, n_estimators=100)
+    raise ValueError("Unknown model name '{}'.".format(model_name))
 
 
 common_datasets = create_datasets()
@@ -189,7 +198,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 def run_bench(repeat=5, verbose=False):
 
     pbefore = dict(dim=[-1],
-                   model=list(sorted(['SVC', 'NuSVC', 'BNB',
+                   model=list(sorted(['XGB', 'HGB',
+                                      'SVC', 'NuSVC', 'BNB',
                                       'RF', 'DT', 'MNB',
                                       'ADA', 'MLP', 'LR-ZM',
                                       'LR', 'GBT', 'KNN',
