@@ -28,6 +28,7 @@ from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
 from pymlbenchmark.plotting import plot_bench_results, plot_bench_xtime
 from skl2onnx import to_onnx
 from onnxruntime import InferenceSession
+from mlprodict.onnx_conv import register_converters
 
 
 filename = os.path.splitext(os.path.split(__file__)[-1])[0]
@@ -44,6 +45,7 @@ def create_datasets():
     return results
 
 
+register_converters()
 common_datasets = create_datasets()
 
 
@@ -190,18 +192,13 @@ else:
 
 
 def label_fct(la):
-    la = la.replace("onxpython_compiled", "opyc")
-    la = la.replace("onxpython", "opy")
-    la = la.replace("onxonnxruntime1", "ort")
-    la = la.replace("fit_intercept", "fi")
-    la = la.replace("True", "1")
-    la = la.replace("False", "0")
-    la = la.replace("max_depth", "mxd")
+    la = la.replace("-lib=", "")
+    la = la.replace("rt=", "-")
     return la
 
 
-plot_bench_results(df, row_cols=None, col_cols=('dataset', ),
-                   x_value='N', hue_cols=('lib', 'rt'), cmp_col_values='lib',
+plot_bench_results(df, row_cols=('rt',), col_cols=('dataset', ), label_fct=label_fct,
+                   x_value='N', hue_cols=('lib',), cmp_col_values='lib',
                    title="Numerical datasets\nBenchmark scikit-learn, xgboost, lightgbm")
 plt.savefig("%s.curve.png" % filename)
 plt.show()
