@@ -22,6 +22,8 @@ for all models.
     :maxdepth: 1
 
     onnx/onnxruntime_datasets_num
+    onnx/onnxruntime_datasets_num_reg
+    onnx/onnxruntime_ml_ensemble
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
     onnx/onnxruntime_dt_reg
