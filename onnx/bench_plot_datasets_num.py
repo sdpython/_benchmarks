@@ -29,8 +29,8 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.svm import SVC, NuSVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils.testing import ignore_warnings
-from xgboost import XGBRegressor
-from lightgbm import LGBMRegressor
+from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
 from mlprodict.onnxrt import OnnxInference
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
