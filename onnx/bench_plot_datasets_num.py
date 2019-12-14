@@ -37,8 +37,8 @@ from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
 from pymlbenchmark.plotting import plot_bench_results, plot_bench_xtime
 from skl2onnx import to_onnx
 from onnxruntime import InferenceSession
-
 from mlprodict.onnx_conv import register_converters, register_rewritten_operators
+from mlprodict.tools.model_info import analyze_model
 
 register_converters()
 register_rewritten_operators()
@@ -126,6 +126,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         self.oinfc = OnnxInference(self.onx, runtime='python_compiled')
         self.output_name = self.oinf.output_names[-1]
         self.input_name = self.ort.get_inputs()[0].name
+        self.model_info = analyze_model(self.model)
 
     def fcts(self, **kwargs):
 
@@ -191,6 +192,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             final.update({'diff_%s' % diff_name: sum(diffs) / nb,
                           'upper_diff_%s' % diff_name: max(diffs),
                           'lower_diff_%s' % diff_name: min(diffs)})
+        for k, v in self.model_info.items():
+            final['fit_' + k] = v
         return final
 
 

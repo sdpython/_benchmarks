@@ -31,6 +31,7 @@ from pymlbenchmark.plotting import plot_bench_results, plot_bench_xtime
 from skl2onnx import to_onnx
 from onnxruntime import InferenceSession
 from mlprodict.onnx_conv import register_converters
+from mlprodict.tools.model_info import analyze_model
 
 
 filename = os.path.splitext(os.path.split(__file__)[-1])[0]
@@ -78,6 +79,7 @@ class LibOrtBenchPerfTest(BenchPerfTest):
         self.onxs = {}
         self.orts = {}
         self.oinfcs = {}
+        self.model_info = {}
         self.output_name = {}
         self.input_name = {}
         self.models[lib] = get_model(lib)
@@ -85,6 +87,7 @@ class LibOrtBenchPerfTest(BenchPerfTest):
         x = self.datas[lib][0]
         y = self.datas[lib][2]
         self.models[lib].fit(x, y)
+        self.model_info[lib] = analyze_model(self.models[lib])
         try:
             self.onxs[lib] = to_onnx(
                 self.models[lib],
@@ -141,7 +144,10 @@ class LibOrtBenchPerfTest(BenchPerfTest):
         return (res, )
 
     def validate(self, results, **kwargs):
-        return None
+        final = {}
+        for k, v in self.model_info[self.lib_name].items():
+            final['fit_' + k] = v
+        return final
 
 
 @ignore_warnings(category=FutureWarning)
