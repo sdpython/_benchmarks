@@ -182,6 +182,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             diffs = []
             for i in range(0, nb):
                 r = res[i]
+                if diff_name not in r or r[diff_name] is None:
+                    continue
                 bas = numpy.squeeze(r['skl'])
                 onn = numpy.squeeze(r[diff_name].squeeze())
                 if bas.shape != onn.shape:
@@ -189,9 +191,10 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
                         bas.shape, onn.shape, results[0][0]))
                 diff = numpy.max(numpy.abs(onn - bas))
                 diffs.append(diff)
-            final.update({'diff_%s' % diff_name: sum(diffs) / nb,
-                          'upper_diff_%s' % diff_name: max(diffs),
-                          'lower_diff_%s' % diff_name: min(diffs)})
+            if len(diffs) > 0:
+                final.update({'diff_%s' % diff_name: sum(diffs) / nb,
+                              'upper_diff_%s' % diff_name: max(diffs),
+                              'lower_diff_%s' % diff_name: min(diffs)})
         for k, v in self.model_info.items():
             final['fit_' + k] = v
         return final
