@@ -15,7 +15,11 @@ import numpy
 import pandas
 import matplotlib.pyplot as plt
 import sklearn
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
+from sklearn.experimental import enable_hist_gradient_boosting
+from sklearn.ensemble import (
+    RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor,
+    HistGradientBoostingRegressor
+)
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.linear_model import LinearRegression
@@ -61,10 +65,12 @@ def get_model(model_name):
         return LinearRegression()
     if model_name == "DT":
         return DecisionTreeRegressor(max_depth=6)
+    if model_name == 'HGB':        
+        return HistGradientBoostingRegressor(max_depth=6, n_estimators=100)
     if model_name == "RF":
         return RandomForestRegressor(max_depth=6, n_estimators=100)
     if model_name == "GBT":
-        return GradientBoostingRegressor(max_depth=4, n_estimators=100)
+        return GradientBoostingRegressor(max_depth=6, n_estimators=100)
     if model_name in ("KNN", "KNN-cdist"):
         return KNeighborsRegressor(algorithm='brute')
     if model_name == "MLP":
@@ -201,7 +207,7 @@ def run_bench(repeat=5, verbose=False):
                                       'RF', 'DT',
                                       'ADA', 'MLP', 'LR-ZM',
                                       'LR', 'GBT', 'KNN',
-                                      'KNN-cdist'])),
+                                      'KNN-cdist', 'HGB'])),
                    norm=[False, True],
                    dataset=["boston", "diabetes"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
