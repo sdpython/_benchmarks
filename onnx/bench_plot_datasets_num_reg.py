@@ -66,7 +66,7 @@ def get_model(model_name):
     if model_name == "DT":
         return DecisionTreeRegressor(max_depth=6)
     if model_name == 'HGB':        
-        return HistGradientBoostingRegressor(max_depth=6, n_estimators=100)
+        return HistGradientBoostingRegressor(max_depth=6, max_iter=100)
     if model_name == "RF":
         return RandomForestRegressor(max_depth=6, n_estimators=100)
     if model_name == "GBT":
