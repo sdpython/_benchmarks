@@ -16,12 +16,11 @@ import pandas
 import matplotlib.pyplot as plt
 import sklearn
 from sklearn.experimental import enable_hist_gradient_boosting
-from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.utils.testing import ignore_warnings
-from sklearn.datasets import load_breast_cancer, load_digits
+from sklearn.datasets import load_breast_cancer, load_digits, make_classification
 from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
 from mlprodict.onnxrt import OnnxInference
