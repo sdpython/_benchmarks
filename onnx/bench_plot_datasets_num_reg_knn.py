@@ -25,6 +25,7 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -58,11 +59,11 @@ def create_datasets():
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['diabetes'] = [X_train, X_test, y_train, y_test]
 
-    X, y = make_regression(100000, 100)
+    X, y = make_regression(1000, 10)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['rndbin100'] = [X_train, X_test, y_train, y_test]
 
-    X, y = make_regression(100000, 100, n_targets=3)
+    X, y = make_regression(1000, 10, n_targets=3)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['rnd3cl100'] = [X_train, X_test, y_train, y_test]
     return results
@@ -79,6 +80,8 @@ def get_model(model_name):
         return RandomForestRegressor(max_depth=6, n_estimators=100)
     if model_name == "GBT":
         return GradientBoostingRegressor(max_depth=6, n_estimators=100)
+    if model_name in ("KNN", "KNN-cdist"):
+        return KNeighborsRegressor(algorithm='brute')
     if model_name == "MLP":
         return MLPRegressor()
     if model_name == "ADA":
@@ -212,7 +215,8 @@ def run_bench(repeat=5, verbose=False):
                                       'SVR', 'NuSVR',
                                       'RF', 'DT',
                                       'ADA', 'MLP', 'LR-ZM',
-                                      'LR', 'GBT', 'HGB'])),
+                                      'LR', 'GBT', 'KNN',
+                                      'KNN-cdist', 'HGB'])),
                    norm=[False, True],
                    dataset=["boston", "diabetes", "rndbin100"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
