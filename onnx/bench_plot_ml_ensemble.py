@@ -47,7 +47,7 @@ def create_datasets():
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=41)
     results['digits'] = [X_train, X_test, y_train, y_test]
 
-    X, y = make_classification(100000)
+    X, y = make_classification(20000, 20)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['rndbin100'] = [X_train, X_test, y_train, y_test]
     return results
