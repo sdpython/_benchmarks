@@ -39,12 +39,18 @@ filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 
 def create_datasets():
     results = {}
+
     X, y = load_breast_cancer(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['breast_cancer'] = [X_train, X_test, y_train, y_test]
+
     X, y = load_digits(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=41)
     results['digits'] = [X_train, X_test, y_train, y_test]
+
+    X, y = make_classification(100000)
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    results['rndbin100'] = [X_train, X_test, y_train, y_test]
     return results
 
 
@@ -155,7 +161,7 @@ def run_bench(repeat=10, verbose=False):
 
     pbefore = dict(dim=[-1],
                    lib=['sklh', 'skl', 'xgb', 'lgb'],
-                   dataset=["breast_cancer", "digits"])
+                   dataset=["breast_cancer", "digits", "rndbin100"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
                      2000, 5000, 10000, 20000, 50000])
 
