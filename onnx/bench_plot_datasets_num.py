@@ -214,8 +214,7 @@ def run_bench(repeat=5, verbose=False):
                                       'SVC', 'NuSVC', 'BNB',
                                       'RF', 'DT', 'MNB',
                                       'ADA', 'MLP', 'LR-ZM',
-                                      'LR', 'GBT', 'KNN',
-                                      'KNN-cdist', 'OVR'])),
+                                      'LR', 'GBT', 'OVR'])),
                    norm=[False, True],
                    dataset=["breast_cancer", "digits", "rndbin100"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
