@@ -218,7 +218,7 @@ def run_bench(repeat=5, verbose=False):
                                       'LR', 'GBT', 'KNN',
                                       'KNN-cdist', 'HGB'])),
                    norm=[False, True],
-                   dataset=["boston", "diabetes", "rnd3cl100", "rndbin100"])
+                   dataset=["boston", "diabetes", "rndbin100"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
                      2000, 5000, 10000, 20000, 50000])
 
