@@ -58,11 +58,11 @@ def create_datasets():
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['diabetes'] = [X_train, X_test, y_train, y_test]
 
-    X, y = make_regression(100000, 100)
+    X, y = make_regression(20000, 20)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['rndbin100'] = [X_train, X_test, y_train, y_test]
 
-    X, y = make_regression(100000, 100, n_targets=3)
+    X, y = make_regression(20000, 20, n_targets=3)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['rnd3cl100'] = [X_train, X_test, y_train, y_test]
     return results
