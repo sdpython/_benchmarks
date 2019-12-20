@@ -16,8 +16,8 @@ def make_model(data):
     else:
         X, y = make_regression(n_features=20, n_samples=50000)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
-    # model = HistGradientBoostingRegressor(max_depth=6, max_iter=50)
-    model = GradientBoostingRegressor(max_depth=6, n_estimators=100)
+    model = HistGradientBoostingRegressor(max_depth=6, max_iter=100)
+    # model = GradientBoostingRegressor(max_depth=6, n_estimators=100)
     model.fit(X_train, y_train)
     onx = to_onnx(model, X.astype(np.float32))
     onxb = onx.SerializeToString()
