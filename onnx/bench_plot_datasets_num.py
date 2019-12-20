@@ -21,7 +21,7 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB, BernoulliNB
+from sklearn.naive_bayes import BernoulliNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.multiclass import OneVsRestClassifier
@@ -77,8 +77,6 @@ def get_model(model_name):
         return KNeighborsClassifier(algorithm='brute')
     if model_name == "MLP":
         return MLPClassifier()
-    if model_name == "MNB":
-        return MultinomialNB()
     if model_name == "BNB":
         return BernoulliNB()
     if model_name == "ADA":
@@ -212,7 +210,7 @@ def run_bench(repeat=5, verbose=False):
     pbefore = dict(dim=[-1],
                    model=list(sorted(['XGB', 'LGB',
                                       'SVC', 'NuSVC', 'BNB',
-                                      'RF', 'DT', 'MNB',
+                                      'RF', 'DT',
                                       'ADA', 'MLP', 'LR-ZM',
                                       'LR', 'GBT', 'OVR'])),
                    norm=[False, True],
