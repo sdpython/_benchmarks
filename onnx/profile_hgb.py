@@ -27,19 +27,30 @@ print(X.shape)
 oinf = OnnxInference(onxb, runtime="python_compiled")
 
 def f1_pyrt():
-    for i in range(0, 1000):
+    for i in range(0, 200):
         y = oinf.run({'X': X[i: i+10000]})
 
 def f2_skl():
     with sklearn.config_context(assume_finite=True):
-        for i in range(0, 1000):
+        for i in range(0, 200):
             model.predict(X[i: i+10000])
 
 
-begin = time.time()
-print(begin)
+tts = [time.time()]
+print('begin')
+
 f2_skl()
-step = time.time() 
-print(step - begin)
+tts.append(time.time())
+print(tts[-1] - tts[-2])
+
 f1_pyrt()
-print(time.time() - step)
+tts.append(time.time())
+print(tts[-1] - tts[-2])
+
+f2_skl()
+tts.append(time.time())
+print(tts[-1] - tts[-2])
+
+f1_pyrt()
+tts.append(time.time())
+print(tts[-1] - tts[-2])
