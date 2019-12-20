@@ -18,3 +18,4 @@ scikit-learn/*.prof
 scikit-learn/*/joblib
 onnx/BENCH-*.pkl
 _doc/onnx/g.py
+onnx/profile_hgb.svg

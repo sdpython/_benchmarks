@@ -60,11 +60,11 @@ def create_datasets():
 
     X, y = make_regression(20000, 20)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
-    results['rndbin100'] = [X_train, X_test, y_train, y_test]
+    results['rndbin20'] = [X_train, X_test, y_train, y_test]
 
     X, y = make_regression(20000, 20, n_targets=3)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
-    results['rnd3cl100'] = [X_train, X_test, y_train, y_test]
+    results['rnd3cl20'] = [X_train, X_test, y_train, y_test]
     return results
 
 
@@ -214,7 +214,7 @@ def run_bench(repeat=5, verbose=False):
                                       'ADA', 'MLP', 'LR-ZM',
                                       'LR', 'GBT', 'HGB'])),
                    norm=[False, True],
-                   dataset=["boston", "diabetes", "rndbin100"])
+                   dataset=["boston", "diabetes", "rndbin20"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
                      2000, 5000, 10000, 20000, 50000])
 
