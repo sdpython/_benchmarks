@@ -31,7 +31,7 @@ def run_bench(repeat=10, verbose=False):
 
     pbefore = dict(dim=[1, 5, 10, 20, 50, 100, 200],
                    max_depth=[3, 10, 20])
-    pafter = dict(N=[1, 10, 100, 1000])
+    pafter = dict(N=[1, 10, 100, 1000, 10000])
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestBinaryClassification(
         DecisionTreeClassifier, dim=dim, **opts)
