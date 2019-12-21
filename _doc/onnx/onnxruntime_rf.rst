@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-random-forest:
 
-Prediction time scikit-learn / onnxruntime for RandomForestClassifier
-=====================================================================
+Benchmark (ONNX)  for RandomForestClassifier
+============================================
 
 .. contents::
     :local:

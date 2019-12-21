@@ -1,13 +1,13 @@
 
-.. _l-bench-plot-onnxruntime-datasets-nul:
+.. _l-bench-plot-onnxruntime-datasets-nul-reg-knn:
 
-Benchmark (ONNX) for common datasets (classification)
-=====================================================
+Benchmark (ONNX) for common datasets (regression) with k-NN
+===========================================================
 
 .. contents::
     :local:
 
-.. index:: onnxruntime, datasets, breast cancer, digits
+.. index:: onnxruntime, datasets, boston, diabetes
 
 Overview
 ++++++++
@@ -15,30 +15,24 @@ Overview
 The following graph plots the ratio between :epkg:`onnxruntime`
 and :epkg:`scikit-learn`. It looks into multiple models for
 a couple of datasets :
-`breast cancer <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html>`_,
-`digits <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html>`_.
+`boston <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html>`_,
+`diabetes <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html>`_.
 It computes the prediction time for the following models:
 
-* *ADA*: ``AdaBoostClassifier()``
-* *BNB*: ``BernoulliNB()``
-* *DT*: ``DecisionTreeClassifier(max_depth=6)``
-* *GBT*: ``GradientBoostingClassifier(max_depth=6, n_estimators=100)``
-* *KNN*: ``KNeighborsClassifier()``
-* *KNN-cdist*: ``KNeighborsClassifier()``, the conversion to ONNX
+* *ADA*: ``AdaBoostRegressor()``
+* *DT*: ``DecisionTreeRegressor(max_depth=6)``
+* *GBT*: ``GradientBoostingRegressor(max_depth=6, n_estimators=100)``
+* *KNN*: ``KNeighborsRegressor()``
+* *KNN-cdist*: ``KNeighborsRegressor()``, the conversion to ONNX
   is run with option ``{'optim': 'cdist'}`` to use a specific operator
   to compute pairwise distances
-* *LGB*: ``LGBMClassifier(max_depth=6, n_estimators=100)``
-* *LR*: ``LogisticRegression(solver="liblinear", penalty="l2")``
-* *LR-ZM*: ``LogisticRegression(solver="liblinear", penalty="l2")``,
-  the conversion to ONNX is run with option ``{'zipmap': False}``
-  to remove the final zipmap operator.
-* *MLP*: ``MLPClassifier()``
-* *MNB*: ``MultinomialNB()``
-* *NuSVC*: ``NuSVC(probability=True)``
-* *OVR*: ``OneVsRestClassifier(DecisionTreeClassifier(max_depth=6))``
-* *RF*: ``RandomForestClassifier(max_depth=6, n_estimators=100)``
-* *SVC*: ``SVC(probability=True)``
-* *XGB*: ``XGBClassifier(max_depth=6, n_estimators=100)``
+* *LGB*: ``LGBMRegressor(max_depth=6, n_estimators=100)``
+* *LR*: ``LinearRegression(solver="liblinear", penalty="l2")``
+* *MLP*: ``MLPRegressor()``
+* *NuSVR*: ``NuSVC(probability=True)``
+* *RF*: ``RandomForestRegressor(max_depth=6, n_estimators=100)``
+* *SVR*: ``SVC(probability=True)``
+* *XGB*: ``XGBRegressor(max_depth=6, n_estimators=100)``
 
 The predictor follows a `StandardScaler
 <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html>`_ (or a
@@ -63,7 +57,7 @@ Three runtimes are tested:
     import pandas
     from pymlbenchmark.plotting import plot_bench_xtime
 
-    name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
+    name = "../../onnx/results/bench_plot_datasets_num_reg_knn.perf.csv"
     df = pandas.read_csv(name)
     fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
@@ -82,7 +76,7 @@ Graph X = number of observations to predict
     import pandas
     from pymlbenchmark.plotting import plot_bench_results
 
-    name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
+    name = "../../onnx/results/bench_plot_datasets_num_reg_knn.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                        x_value='N',
@@ -103,7 +97,7 @@ observations depending on the batch size.
     import pandas
     from pymlbenchmark.plotting import plot_bench_results
 
-    name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
+    name = "../../onnx/results/bench_plot_datasets_num_reg_knn.perf.csv"
     df = pandas.read_csv(name)
     for c in "min,max,mean,lower,upper,median".split(','):
         df[c] /= df['N']
@@ -121,7 +115,7 @@ Graph of differences between scikit-learn and onnxruntime
     import pandas
     from pymlbenchmark.plotting import plot_bench_results
 
-    name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
+    name = "../../onnx/results/bench_plot_datasets_num_reg_knn.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                        x_value='N', y_value='diff_ort',
@@ -138,7 +132,7 @@ Graph of differences between scikit-learn and python runtime
     import pandas
     from pymlbenchmark.plotting import plot_bench_results
 
-    name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
+    name = "../../onnx/results/bench_plot_datasets_num_reg_knn.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                        x_value='N', y_value='diff_pyrt',
@@ -156,7 +150,7 @@ Configuration
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_datasets_num.time.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_datasets_num_reg_knn.time.csv")
     df = pandas.read_csv(name)
     print(df2rst(df, number_format=4))
 
@@ -174,14 +168,14 @@ Raw results
     from pyquickhelper.pandashelper import df2rst
     from pymlbenchmark.benchmark.bench_helper import bench_pivot
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_datasets_num.perf.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_datasets_num_reg_knn.perf.csv")
     df = pandas.read_csv(name)
     print(df2rst(df, number_format=4))
 
 Benchmark code
 ++++++++++++++
 
-`bench_plot_datasets_num.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_datasets_num.py>`_
+`bench_plot_datasets_num.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_datasets_num_reg_knn.py>`_
 
-.. literalinclude:: ../../onnx/bench_plot_datasets_num.py
+.. literalinclude:: ../../onnx/bench_plot_datasets_num_reg_knn.py
     :language: python

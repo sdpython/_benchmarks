@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-decision-tree:
 
-Prediction time scikit-learn / onnxruntime for DecisionTreeClassifier
-=====================================================================
+Benchmark (ONNX) for DecisionTreeClassifier
+===========================================
 
 .. contents::
     :local:

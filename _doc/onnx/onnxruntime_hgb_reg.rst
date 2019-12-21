@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-decision-tree-reg:
 
-Benchmark (ONNX) for DecisionTreeRegressor
-==========================================
+Benchmark (ONNX) for HistBoostingGradientRegressor
+==================================================
 
 .. contents::
     :local:
@@ -29,7 +29,7 @@ Overview
     import pandas
     from pymlbenchmark.plotting import plot_bench_xtime
 
-    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_hgb.perf.csv"
     df = pandas.read_csv(name)
 
     plot_bench_xtime(df, row_cols='N', col_cols='max_depth',
@@ -61,7 +61,7 @@ Detailed graphs
     import pandas
     from pymlbenchmark.plotting import plot_bench_results
 
-    name = "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv"
+    name = "../../onnx/results/bench_plot_onnxruntime_hgb.perf.csv"
     df = pandas.read_csv(name)
 
     plot_bench_results(df, row_cols='N', col_cols='max_depth',
@@ -83,14 +83,14 @@ Configuration
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.time.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_hgb.time.csv")
     df = pandas.read_csv(name)
     print(df2rst(df, number_format=4))
 
 Raw results
 +++++++++++
 
-:download:`bench_plot_onnxruntime_decision_tree_reg.csv <../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv>`
+:download:`bench_plot_onnxruntime_hgb.csv <../../onnx/results/bench_plot_onnxruntime_hgb.perf.csv>`
 
 .. runpython::
     :rst:
@@ -101,7 +101,7 @@ Raw results
     from pyquickhelper.pandashelper import df2rst
     from pymlbenchmark.benchmark.bench_helper import bench_pivot
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_hgb.perf.csv")
     df = pandas.read_csv(name)
     piv = bench_pivot(df).reset_index(drop=False)
     piv['speedup_py'] = piv['skl'] / piv['onxpython_compiled']
@@ -116,7 +116,7 @@ Raw results
 
     from pyquickhelper.pandashelper import df2rst
     import pandas
-    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_decision_tree_reg.perf.csv")
+    name = os.path.join(__WD__, "../../onnx/results/bench_plot_onnxruntime_hgb.perf.csv")
     df = pandas.read_csv(name)
     df = df[df['lib'] == 'skl']
     print(df2rst(df, number_format=4))
@@ -124,7 +124,8 @@ Raw results
 Benchmark code
 ++++++++++++++
 
-`bench_plot_onnxruntime_decision_tree_reg.py <https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_decision_tree_reg.py>`_
+`bench_plot_onnxruntime_hgb.py
+<https://github.com/sdpython/_benchmarks/blob/master/onnx/bench_plot_onnxruntime_hgb.py>`_
 
-.. literalinclude:: ../../onnx/bench_plot_onnxruntime_decision_tree_reg.py
+.. literalinclude:: ../../onnx/bench_plot_onnxruntime_hgb.py
     :language: python

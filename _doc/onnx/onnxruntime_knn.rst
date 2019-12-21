@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-knn:
 
-Prediction time scikit-learn / onnxruntime for KNeighborsClassifier
-===================================================================
+Benchmark (ONNX) for KNeighborsClassifier
+=========================================
 
 .. contents::
     :local:

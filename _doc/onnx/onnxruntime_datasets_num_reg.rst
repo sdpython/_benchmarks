@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-datasets-nul-reg:
 
-Prediction time scikit-learn / onnxruntime for common datasets (regression)
-===========================================================================
+Benchmark (ONNX) for common datasets (regression)
+=================================================
 
 .. contents::
     :local:

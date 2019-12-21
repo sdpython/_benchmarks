@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-mlpclassifier:
 
-Prediction time scikit-learn / onnxruntime for MLPClassifier
-============================================================
+Benchmark (ONNX) for MLPClassifier
+==================================
 
 .. contents::
     :local:

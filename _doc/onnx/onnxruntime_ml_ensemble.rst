@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-ml-ensemble:
 
-Prediction time scikit-learn / onnxruntime for ensemble
-=======================================================
+Benchmark (ONNX) for ensemble models
+====================================
 
 .. contents::
     :local:

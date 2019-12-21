@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-cascade-add:
 
-Prediction time numpy / onnxruntime for Addition
-================================================
+Benchmark (ONNX) for Addition
+=============================
 
 .. contents::
     :local:

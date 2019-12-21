@@ -8,35 +8,34 @@ with :epkg:`ONNX`.
 .. contents::
     :local:
 
-onxruntime VS scikit-learn
-==========================
+Benchmark for ONNX
+==================
 
-The following benchmark measures the prediction time between
-:epkg:`scikit-learn` and :epkg:`onnxruntime` for different models
-related to *one-off* predictions and *batch* predictions.
-:epkg:`onnxruntime` allows for some models to run batch
-predictions by using broadcasting. It is not available
-for all models.
+The following benchmarks measure the prediction time between
+:epkg:`scikit-learn`, :epkg:`onnxruntime` and :epkg:`mlprodict`
+for different models related to *one-off* predictions
+and *batch* predictions.
 
 .. toctree::
     :maxdepth: 1
 
     onnx/onnxruntime_datasets_num
     onnx/onnxruntime_datasets_num_reg
+    onnx/onnxruntime_datasets_num_reg_knn
     onnx/onnxruntime_ml_ensemble
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
     onnx/onnxruntime_dt_reg
+    onnx/onnxruntime_hgb_reg
     onnx/onnxruntime_knn
     onnx/onnxruntime_rf
     onnx/onnxruntime_mlp
-    onnx/onnx_profiling
 
-onnxruntime specific configurations
-===================================
+Benchmark specific operators (Add, Scaler, ...)
+===============================================
 
-The following benchmark look into simplified models
-to help understand how :epkg:`onnxruntime` works.
+The following benchmarks look into simplified models
+to help understand how runtime behave for specific operators.
 
 .. toctree::
     :maxdepth: 1
@@ -46,13 +45,26 @@ to help understand how :epkg:`onnxruntime` works.
     onnx/onnxruntime_casc_scaler
     onnx/onnxruntime_casc_mlp
 
+Profiling ONNX runtime
+======================
+
+.. toctree::
+    :maxdepth: 2
+
+    onnx/onnx_profiling
+
 ONNX versus other implementations
 =================================
 
-The following benchmarks were implemented in other
-repositories. The first one looks into the implementation
-of a logistic regression with python, C++ or C++ optimization
-provided by other libraries.
+The following pages helps to understand how the runtime
+are implemented.
+
 
 * `Optimisation de code avec cffi, numba, cython
-  <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/cffi_linear_regression.html>`_
+  <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/
+  notebooks/cffi_linear_regression.html>`_
+* :ref:`l-example-profile`
+* :ref:`l-example-onnx-benchmark`
+* :ref:`l-example-parallelism`
+* :ref:`topkcpprst`
+* :ref:`onnxfloatdoubleskldecisiontreesrst`

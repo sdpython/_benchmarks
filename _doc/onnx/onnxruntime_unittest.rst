@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-unittest:
 
-Prediction time scikit-learn / onnxruntime for unit tests
-=========================================================
+Benchmark (ONNX) for sklearn-onnx unit tests
+============================================
 
 .. contents::
     :local:

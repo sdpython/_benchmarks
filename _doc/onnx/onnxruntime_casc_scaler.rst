@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-cascade-scaler:
 
-Prediction time numpy / onnxruntime for Scaler
-==============================================
+Benchmark (ONNX) for Scaler
+===========================
 
 .. contents::
     :local:

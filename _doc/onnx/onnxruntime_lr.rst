@@ -1,8 +1,8 @@
 
 .. _l-bench-plot-onnxruntime-logreg:
 
-Prediction time scikit-learn / onnxruntime for LogisticRegression
-=================================================================
+Benchmark (ONNX) for LogisticRegression
+=======================================
 
 .. contents::
     :local:
