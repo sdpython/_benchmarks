@@ -36,7 +36,7 @@ Overview
     df = pandas.read_csv(name)
 
     plot_bench_xtime(df, row_cols='N', col_cols='onnx_options',
-                     hue_cols='method',
+                     hue_cols='dtype',
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
                      parallel=(1., 0.5), title=None,
@@ -71,7 +71,7 @@ Detailed graphs
     df = pandas.read_csv(name)
 
     plot_bench_results(df, row_cols=('alpha', 'N'), col_cols='onnx_options',
-                              hue_cols='method',
+                              hue_cols='dtype',
                      cmp_col_values=('lib', 'skl'),
                      x_value='dim', y_value='mean',
                      title=None, label_fct=label_fct,
