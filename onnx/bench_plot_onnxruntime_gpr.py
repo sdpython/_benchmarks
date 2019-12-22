@@ -52,20 +52,20 @@ def run_bench(repeat=10, verbose=False):
 #########################
 # Runs the benchmark
 # ++++++++++++++++++
-if False:
-    df = run_bench(verbose=True)
-    df.to_csv("%s.perf.csv" % filename, index=False)
-    print(df.head())
 
-    #########################
-    # Extract information about the machine used
-    # ++++++++++++++++++++++++++++++++++++++++++
+df = run_bench(verbose=True)
+df.to_csv("%s.perf.csv" % filename, index=False)
+print(df.head())
 
-    pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx',
-            'onnxruntime', 'onnx', 'mlprodict']
-    dfi = pandas.DataFrame(machine_information(pkgs))
-    dfi.to_csv("%s.time.csv" % filename, index=False)
-    print(dfi)
+#########################
+# Extract information about the machine used
+# ++++++++++++++++++++++++++++++++++++++++++
+
+pkgs = ['numpy', 'pandas', 'sklearn', 'skl2onnx',
+        'onnxruntime', 'onnx', 'mlprodict']
+dfi = pandas.DataFrame(machine_information(pkgs))
+dfi.to_csv("%s.time.csv" % filename, index=False)
+print(dfi)
 
 #############################
 # Plot the results
@@ -85,6 +85,7 @@ def label_fct(la):
                     'cdist')
     la = la.replace("onnx_options=nan", '-')
     return la
+
 
 name = "bench_plot_onnxruntime_gpr.perf.csv"
 df = pandas.read_csv(name)
