@@ -31,9 +31,9 @@ def run_bench(repeat=10, verbose=False):
 
     pbefore = dict(dim=[1, 5, 10, 20, 50],
                    max_depth=[2, 5, 10],
-                   n_estimators=[1, 10, 100, 1000, 10000],
+                   n_estimators=[1, 10, 100],
                    onnx_options=[None])
-    pafter = dict(N=[1, 10, 100])
+    pafter = dict(N=[1, 10, 100, 1000, 10000])
 
     test = lambda dim=None, **opts: OnnxRuntimeBenchPerfTestRegression(
         GradientBoostingRegressor, dim=dim, **opts)

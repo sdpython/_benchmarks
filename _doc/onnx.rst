@@ -26,6 +26,8 @@ and *batch* predictions.
     onnx/onnxruntime_lr
     onnx/onnxruntime_dt
     onnx/onnxruntime_dt_reg
+    onnx/onnxruntime_gbr_reg
+    onnx/onnxruntime_gpr_reg
     onnx/onnxruntime_hgb_reg
     onnx/onnxruntime_knn
     onnx/onnxruntime_rf

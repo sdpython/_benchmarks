@@ -23,37 +23,37 @@ script:
   # scikit-learn
   - { CMD: "$PYINT -u scikit-learn/bench_plot_gridsearch_cache.py", NAME: "SKL_CACHE", TIMEOUT: 4800 }
   # onnxruntime
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_logreg.py", SCHEDULER: "0 0 4 * *", NAME: "ORT_LR" }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_mlp.py", SCHEDULER: "0 0 4 * *", NAME: "ORT_MLP", TIMEOUT: 2400 }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree.py", SCHEDULER: "0 0 5 * *", NAME: "ORT_DT" }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree_reg.py", SCHEDULER: "0 0 5 * *", NAME: "ORT_DT_REG" }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", SCHEDULER: "0 0 6 * *", NAME: "ORT_RF", TIMEOUT: 3600 }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_gbr.py", SCHEDULER: "0 0 6 * *", NAME: "ORT_GBR", TIMEOUT: 3600 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_logreg.py", SCHEDULER: "0 0 0 * *", NAME: "ORT_LR" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_mlp.py", SCHEDULER: "0 0 1 * *", NAME: "ORT_MLP", TIMEOUT: 2400 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree.py", SCHEDULER: "0 0 2 * *", NAME: "ORT_DT" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_decision_tree_reg.py", SCHEDULER: "0 0 3 * *", NAME: "ORT_DT_REG" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_random_forest.py", SCHEDULER: "0 0 4 * *", NAME: "ORT_RF", TIMEOUT: 3600 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_gbr.py", SCHEDULER: "0 0 5 * *", NAME: "ORT_GBR", TIMEOUT: 3600 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_gpr.py", SCHEDULER: "0 0 6 * *", NAME: "ORT_GPR", TIMEOUT: 3600 }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_hgb.py", SCHEDULER: "0 0 6 * *", NAME: "ORT_HGB", TIMEOUT: 3600 }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", SCHEDULER: "0 0 6 * *", NAME: "ORT_KNN" }
-  - { CMD: "$PYINT -u onnx/bench_plot_skl2onnx_unittest.py", SCHEDULER: "0 0 0 * *", NAME: "ORT_UNIT" }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", SCHEDULER: "0 0 0 * *", NAME: "ORT_CASCADD", TIMEOUT: 1800 }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_scaler.py", SCHEDULER: "0 0 0 * *", NAME: "ORT_CASCSCL", TIMEOUT: 2400 }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_mlp.py", SCHEDULER: "0 0 0 * *", NAME: "ORT_CASCMLP" }
-  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num.py", SCHEDULER: "0 0 0 * *", NAME: "ORT_DSNUM" }
-  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num_reg.py", NAME: "ORT_DSNUM_REG", SCHEDULER: "0 0 1 * *", TIMEOUT: 4800 }
-  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num_reg_knn.py", NAME: "ORT_DSNUM_REG_KNN", SCHEDULER: "0 0 2 * *", TIMEOUT: 2400 }
-  - { CMD: "$PYINT -u onnx/bench_plot_ml_ensemble.py", NAME: "ORT_MLENS", SCHEDULER: "0 0 3 * *" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_hgb.py", SCHEDULER: "0 0 7 * *", NAME: "ORT_HGB", TIMEOUT: 3600 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", SCHEDULER: "0 0 8 * *", NAME: "ORT_KNN" }
+  - { CMD: "$PYINT -u onnx/bench_plot_skl2onnx_unittest.py", SCHEDULER: "0 0 9 * *", NAME: "ORT_UNIT" }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCADD", TIMEOUT: 1800 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_scaler.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCSCL", TIMEOUT: 2400 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_mlp.py", SCHEDULER: "0 0 12 * *", NAME: "ORT_CASCMLP" }
+  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num.py", SCHEDULER: "0 0 13 * *", NAME: "ORT_DSNUM" }
+  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num_reg.py", NAME: "ORT_DSNUM_REG", SCHEDULER: "0 0 14 * *", TIMEOUT: 4800 }
+  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num_reg_knn.py", NAME: "ORT_DSNUM_REG_KNN", SCHEDULER: "0 0 15 * *", TIMEOUT: 2400 }
+  - { CMD: "$PYINT -u onnx/bench_plot_ml_ensemble.py", NAME: "ORT_MLENS", SCHEDULER: "0 0 16 * *" }
   # module
-  - { CMD: "$PYINT -u modules/bench_plot_re2.py", NAME: "MOD_RE2" }
+  - { CMD: "$PYINT -u modules/bench_plot_re2.py", NAME: "MOD_RE2", SCHEDULER: "0 0 17 * *", TIMEOUT: 2400 }
   # documentation
   - { CMD: "$PYINT -c \"from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])\"", NAME: "UT" }
   - { CMD: "$PYINT -m pytest", NAME: "TEST" }
   # benchmark
-  - { CMD: "bash sklbench/run_sklbenchmark.sh", NAME: "SKLBENCH", TIMEOUT: 12000, SCHEDULER: "H H(3-4) * * 1", CLEAN: "0" }
-  - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "H H(7-8) * * 1", CLEAN: "0" }
-  - { CMD: "bash sklbench/run_bench_onnxruntime.sh", NAME: "SKLORT", SCHEDULER: "H H(11-12) * * 1", CLEAN: "0" }
-  - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "H H(7-8) * * 6", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_sklbenchmark.sh", NAME: "SKLBENCH", TIMEOUT: 12000, SCHEDULER: "0 0 18 * *", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "0 0 19 * *", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_bench_onnxruntime.sh", NAME: "SKLORT", SCHEDULER: "0 0 19 * *", CLEAN: "0" }
+  - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "0 0 20 * *", CLEAN: "0" }
   # profile
-  - { CMD: "bash sklbench/run_profile_skl2onnx_classifier.sh", NAME: "SKLPROFILEONNX", SCHEDULER: "0 0 1 * *", TIMEOUT: 7200 }
-  - { CMD: "bash sklbench/run_profile_skl2onnx_regressor.sh", NAME: "SKLPROFILEONNXREG", SCHEDULER: "0 0 2 * *", TIMEOUT: 7200 }
-  - { CMD: "bash sklbench/run_profile_skl2onnx_regressor_knn.sh", NAME: "SKLPROFILEONNXREGKNN", SCHEDULER: "0 0 3 * *", TIMEOUT: 7200 }
+  - { CMD: "bash sklbench/run_profile_skl2onnx_classifier.sh", NAME: "SKLPROFILEONNX", SCHEDULER: "0 0 21 * *", TIMEOUT: 7200 }
+  - { CMD: "bash sklbench/run_profile_skl2onnx_regressor.sh", NAME: "SKLPROFILEONNXREG", SCHEDULER: "0 0 22 * *", TIMEOUT: 7200 }
+  - { CMD: "bash sklbench/run_profile_skl2onnx_regressor_knn.sh", NAME: "SKLPROFILEONNXREGKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
 
 after_script:
   - if [ ${NAME} == "UT" ] then ls dist/html/*.html fi
