@@ -12,16 +12,19 @@ else
 fi
 
 cd scikit-onnx-benchmark
-echo "BEGIN" > begin.txt
 
-echo --BENCH--
-python -m asv run --show-stderr --config asv.conf.json
-echo "END" > end.txt
+echo --CLEAN--
 if [ -d html ]
 then
     echo --REMOVE HTML--
     rm html -r -f
 fi
+
+echo --BENCH--
+echo "BEGIN" > begin.txt
+python -m asv run --show-stderr --config asv.conf.json
+echo "END" > end.txt
+
 echo --PUBLISH--
 python -m asv publish --config asv.conf.json -o html || exit 1
 python asv_exports.py || exit 1

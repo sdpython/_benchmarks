@@ -12,6 +12,12 @@ fi
 
 cd scikit-learn_benchmarks
 
+echo --CLEAN--
+if [ -d ./../dist/html/sklbench_results ]
+then
+    rm ./../dist/html/sklbench_results -r -f
+fi
+
 echo --MACHINE--
 asv machine --yes || exit 1
 
@@ -30,10 +36,6 @@ asv run -b SGDRegressor --append-samples --no-pull --show-stderr || exit 1
 asv run -b SVC --append-samples --no-pull --show-stderr || exit 1
 
 echo --PUBLISH-BENCHMARK--
-if [ -d scikit-learn_benchmarks ]
-then
-    rm ./../dist/html/sklbench_results -r -f
-fi
 asv publish -o ./../dist/html/sklbench_results || exit 1
 
 echo --END--
