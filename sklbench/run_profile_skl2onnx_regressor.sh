@@ -3,13 +3,26 @@ mkdir profiles
 cd profiles
 
 echo --BENCH-CREATE--
-python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVR,RandomForestRegressor,DecisionTreeRegressor,AdaBoostRegressor,LinearRegression,MLPRegressor,HistGradientBoostingRegressor -v 1 || exit 1
+python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVR,GradientBoostingRegressor,RandomForestRegressor,DecisionTreeRegressor,AdaBoostRegressor,LinearRegression,MLPRegressor,HistGradientBoostingRegressor -v 1 || exit 1
 
 echo --PROFILE-RUN--
 
 echo --AdaBoostRegressor--
 cd ./pyspy/ensemble/AdaBoostRegressor
 export PYTHONPATH=../../../benches/ensemble/AdaBoostRegressor
+for f in ./*float*.sh
+do
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
+done
+cd ../../..
+
+echo --GradientBoostingRegressor--
+cd ./pyspy/ensemble/GradientBoostingRegressor
+export PYTHONPATH=../../../benches/ensemble/GradientBoostingRegressor
 for f in ./*float*.sh
 do
     if [[ $f != *64* ]]
