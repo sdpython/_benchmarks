@@ -59,7 +59,7 @@ Three runtimes are tested:
 
     name = "../../onnx/results/bench_plot_datasets_num_reg.perf.csv"
     df = pandas.read_csv(name)
-    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+    fig, ax = plt.subplots(1, 3, figsize=(12, 5))
 
     plot_bench_xtime(df[~df.norm], col_cols='dataset',
                      hue_cols='model',
