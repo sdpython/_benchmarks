@@ -54,19 +54,3 @@ Profiling ONNX runtime
     :maxdepth: 2
 
     onnx/onnx_profiling
-
-ONNX versus other implementations
-=================================
-
-The following pages helps to understand how the runtime
-are implemented.
-
-
-* `Optimisation de code avec cffi, numba, cython
-  <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/
-  notebooks/cffi_linear_regression.html>`_
-* :ref:`l-example-profile`
-* :ref:`l-example-onnx-benchmark`
-* :ref:`l-example-parallelism`
-* :ref:`topkcpprst`
-* :ref:`onnxfloatdoubleskldecisiontreesrst`
