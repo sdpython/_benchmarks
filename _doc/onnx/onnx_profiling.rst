@@ -154,6 +154,7 @@ mlprodict.onnxrt.validate.validate_scenarios.build_custom_scenarios>`_.
 
     onnx_profiling_decision_tree
     onnx_profiling_adaboostclassifier
+    onnx_profiling_gradientboostingclassifier
     onnx_profiling_randomforestclassifier
     onnx_profiling_bernoulli
     onnx_profiling_knn
