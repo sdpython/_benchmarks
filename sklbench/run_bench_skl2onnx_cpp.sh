@@ -14,7 +14,7 @@ else
     git submodule update --init --recursive
     cd ..
 fi
--n
+
 cd asv-skl2onnx
 
 echo --CLEAN--
@@ -28,7 +28,7 @@ echo --GIT-PULL--
 git pull
 
 echo --BENCH-CREATE--
-python -m mlprodict asv_bench --location . -o 11 -op 11 -n 4,20,100 --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVR,SVC,NuSVC,NuSVR,LinearSVC,LinearSVR,RandomForestRegressor,RandomForestClassifier,DecisionTreeRegressor,DecisionTreeClassifier,AdaBoostClassifier,AdaBoostRegressor,LinearRegression,LogisticRegression,HistGradientBoostingRegressor -v 1 || exit 1
+python -m mlprodict asv_bench --location . -o -1 -n 4,20,100 --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVR,SVC,NuSVC,NuSVR,LinearSVC,LinearSVR,RandomForestRegressor,RandomForestClassifier,DecisionTreeRegressor,DecisionTreeClassifier,AdaBoostClassifier,AdaBoostRegressor,LinearRegression,LogisticRegression,HistGradientBoostingRegressor -v 1 || exit 1
 
 echo --BENCH-RUN--
 python -m asv run --show-stderr --config asv.conf.json

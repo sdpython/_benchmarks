@@ -24,7 +24,7 @@ then
     rm html -r -f
 fi
 
-echo --GIT-PULL-
+echo --GIT-PULL--
 git pull
 
 echo --BENCH-CREATE--
