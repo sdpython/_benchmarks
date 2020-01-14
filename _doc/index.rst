@@ -26,8 +26,6 @@ Others benchmarks with :epkg:`asv` and :epkg:`onnx`:
   <http://www.xavierdupre.fr/app/benches/scikit-learn_benchmarks/index.html>`_
 * `Prediction with scikit-learn and ONNX benchmark
   <http://www.xavierdupre.fr/app/benches/asv-skl2onnx/index.html>`_
-* `onnxruntime vs scikit-learn for comparison
-  <http://www.xavierdupre.fr/app/benches/scikit-onnx-benchmark/index.html>`_
 
 Smaller benchmarks:
 
