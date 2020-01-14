@@ -29,16 +29,16 @@ they depends on the following parameters.
         make_readable_title)
 
     pattern = "onnx/profiles/*AdaBoostClassifier*.svg"
-    pubs = []
     done = 0
+    pubs = []
     for name in glob.glob(pattern):
         name = name.replace("\\", "/")
         filename = os.path.splitext(os.path.split(name)[-1])[0]
         title = make_readable_title(
             extract_information_from_filename(filename))
-        pubs.append((title, filename))
+        pubs.append((title, filename, name))
     pubs.sort()
-    for title, filename in pubs:
+    for title, filename, name in pubs:
         print(title)
         print("+" * len(title))
         print()

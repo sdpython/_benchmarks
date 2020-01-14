@@ -36,9 +36,9 @@ they depend on the following parameters.
         filename = os.path.splitext(os.path.split(name)[-1])[0]
         title = make_readable_title(
             extract_information_from_filename(filename))
-        pubs.append((title, filename))
+        pubs.append((title, filename, name))
     pubs.sort()
-    for title, filename in pubs:
+    for title, filename, name in pubs:
         print(title)
         print("+" * len(title))
         print()
