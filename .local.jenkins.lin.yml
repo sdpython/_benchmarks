@@ -51,6 +51,7 @@ script:
   - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "0 0 20 * *", CLEAN: "0" }
   # profile
   - { CMD: "bash sklbench/run_profile_skl2onnx_classifier.sh", NAME: "SKLPROFILEONNX", SCHEDULER: "0 0 21 * *", TIMEOUT: 7200 }
+  - { CMD: "bash sklbench/run_profile_skl2onnx_classifier_knn.sh", NAME: "SKLPROFILEONNXKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
   - { CMD: "bash sklbench/run_profile_skl2onnx_regressor.sh", NAME: "SKLPROFILEONNXREG", SCHEDULER: "0 0 22 * *", TIMEOUT: 7200 }
   - { CMD: "bash sklbench/run_profile_skl2onnx_regressor_knn.sh", NAME: "SKLPROFILEONNXREGKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
 

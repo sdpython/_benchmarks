@@ -3,7 +3,7 @@ mkdir profiles
 cd profiles
 
 echo --BENCH-CREATE--
-python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVC,RandomForestClassifier,DecisionTreeClassifier,GradientBoostingClassifier,AdaBoostClassifier,LogisticRegression,KNeighborsClassifier,MLPClassifier,MultinomialNB,BernoulliNB,OneVsRestClassifier -v 1 || exit 1
+python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pyspy 1 --runtime "scikit-learn,python_compiled,onnxruntime1" --conf_params "project,asv-skl2onnx;project_url,https://github.com/sdpython/asv-skl2onnx" --models SVC,RandomForestClassifier,DecisionTreeClassifier,GradientBoostingClassifier,AdaBoostClassifier,LogisticRegression,MLPClassifier,MultinomialNB,BernoulliNB,OneVsRestClassifier,HistGradientBoostingClassifier -v 1 || exit 1
 
 echo --PROFILE-RUN--
 
@@ -98,9 +98,9 @@ do
 done
 cd ../../..
 
-echo --KNeighborsClassifier--
-cd ./pyspy/neighbors/KNeighborsClassifier
-export PYTHONPATH=../../../benches/neighbors/KNeighborsClassifier
+echo --HistGradientBoostingClassifier--
+cd ./pyspy/neighbors/HistGradientBoostingClassifier
+export PYTHONPATH=../../../benches/neighbors/HistGradientBoostingClassifier
 for f in ./*float*.sh
 do
     if [[ $f != *64* ]]
