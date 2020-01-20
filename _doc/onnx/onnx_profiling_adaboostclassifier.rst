@@ -28,7 +28,7 @@ they depends on the following parameters.
         extract_information_from_filename,
         make_readable_title)
 
-    pattern = "onnx/profiles/*AdaBoostClassifier*.svg"
+    pattern = "onnx/profiles/*AdaBoostClas*.svg"
     done = 0
     pubs = []
     for name in glob.glob(pattern):
