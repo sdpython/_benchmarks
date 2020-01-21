@@ -7,6 +7,19 @@ python -m mlprodict asv_bench --location . -n "4,50" -d "1,1000" -o -1 --add_pys
 
 echo --PROFILE-RUN--
 
+echo --HistGradientBoostingClassifier--
+cd ./pyspy/ensemble/HistGradientBoostingClassifier
+export PYTHONPATH=../../../benches/ensemble/HistGradientBoostingClassifier
+for f in ./*float*.sh
+do
+    if [[ $f != *64* ]]
+    then
+        echo "run '$f'"
+        bash $f
+    fi
+done
+cd ../../..
+
 echo --AdaBoostClassifier--
 cd ./pyspy/ensemble/AdaBoostClassifier
 export PYTHONPATH=../../../benches/ensemble/AdaBoostClassifier
@@ -88,19 +101,6 @@ cd ../../..
 echo --MultinomialNB--
 cd ./pyspy/naive_bayes/MultinomialNB
 export PYTHONPATH=../../../benches/naive_bayes/MultinomialNB
-for f in ./*float*.sh
-do
-    if [[ $f != *64* ]]
-    then
-        echo "run '$f'"
-        bash $f
-    fi
-done
-cd ../../..
-
-echo --HistGradientBoostingClassifier--
-cd ./pyspy/neighbors/HistGradientBoostingClassifier
-export PYTHONPATH=../../../benches/neighbors/HistGradientBoostingClassifier
 for f in ./*float*.sh
 do
     if [[ $f != *64* ]]
