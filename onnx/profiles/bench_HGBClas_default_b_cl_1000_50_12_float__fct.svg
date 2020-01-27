@@ -1,0 +1,407 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" width="1200" height="550" onload="init(evt)" viewBox="0 0 1200 550" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><!--Flame graph stack visualization. See https://github.com/brendangregg/FlameGraph for latest version, and http://www.brendangregg.com/flamegraphs.html for examples.--><!--NOTES: --><defs><linearGradient id="background" y1="0" y2="1" x1="0" x2="0"><stop stop-color="#eeeeee" offset="5%"/><stop stop-color="#eeeeb0" offset="95%"/></linearGradient></defs><style type="text/css">
+text { font-family:"Verdana"; font-size:12px; fill:rgb(0,0,0); }
+#title { text-anchor:middle; font-size:17px; }
+#search { opacity:0.1; cursor:pointer; }
+#search:hover, #search.show { opacity:1; }
+#subtitle { text-anchor:middle; font-color:rgb(160,160,160); }
+#unzoom { cursor:pointer; }
+#frames > *:hover { stroke:black; stroke-width:0.5; cursor:pointer; }
+.hide { display:none; }
+.parent { opacity:0.5; }
+</style><script type="text/ecmascript"><![CDATA[var nametype = 'Function:';
+var fontsize = 12;
+var fontwidth = 0.59;
+var xpad = 10;
+var inverted = true;
+var searchcolor = 'rgb(230,0,230)';
+var fluiddrawing = true;]]><![CDATA["use strict";
+var details, searchbtn, unzoombtn, matchedtxt, svg, searching, frames;
+function init(evt) {
+    details = document.getElementById("details").firstChild;
+    searchbtn = document.getElementById("search");
+    unzoombtn = document.getElementById("unzoom");
+    matchedtxt = document.getElementById("matched");
+    svg = document.getElementsByTagName("svg")[0];
+    frames = document.getElementById("frames");
+    searching = 0;
+
+    // Use GET parameters to restore a flamegraph's state.
+    var restore_state = function() {
+        var params = get_params();
+        if (params.x && params.y)
+            zoom(find_group(document.querySelector('[x="' + params.x + '"][y="' + params.y + '"]')));
+        if (params.s)
+            search(params.s);
+    };
+
+    if (fluiddrawing) {
+        // Make width dynamic so the SVG fits its parent's width.
+        svg.removeAttribute("width");
+        // Edge requires us to have a viewBox that gets updated with size changes.
+        var isEdge = /Edge\/\d./i.test(navigator.userAgent);
+        if (!isEdge) {
+          svg.removeAttribute("viewBox");
+        }
+        var update_for_width_change = function() {
+            if (isEdge) {
+                svg.attributes.viewBox.value = "0 0 " + svg.width.baseVal.value + " " + svg.height.baseVal.value;
+            }
+
+            // Keep consistent padding on left and right of frames container.
+            frames.attributes.width.value = svg.width.baseVal.value - xpad * 2;
+
+            // Text truncation needs to be adjusted for the current width.
+            var el = frames.children;
+            for(var i = 0; i < el.length; i++) {
+                update_text(el[i]);
+            }
+
+            // Keep search elements at a fixed distance from right edge.
+            var svgWidth = svg.width.baseVal.value;
+            searchbtn.attributes.x.value = svgWidth - xpad - 100;
+            matchedtxt.attributes.x.value = svgWidth - xpad - 100;
+        };
+        window.addEventListener('resize', function() {
+            update_for_width_change();
+        });
+        // This needs to be done asynchronously for Safari to work.
+        setTimeout(function() {
+            unzoom();
+            update_for_width_change();
+            restore_state();
+        }, 0);
+    } else {
+        restore_state();
+    }
+}
+// event listeners
+window.addEventListener("click", function(e) {
+    var target = find_group(e.target);
+    if (target) {
+        if (target.nodeName == "a") {
+            if (e.ctrlKey === false) return;
+            e.preventDefault();
+        }
+        if (target.classList.contains("parent")) unzoom();
+        zoom(target);
+
+        // set parameters for zoom state
+        var el = target.querySelector("rect");
+        if (el && el.attributes && el.attributes.y && el.attributes._orig_x) {
+            var params = get_params()
+            params.x = el.attributes._orig_x.value;
+            params.y = el.attributes.y.value;
+            history.replaceState(null, null, parse_params(params));
+        }
+    }
+    else if (e.target.id == "unzoom") {
+        unzoom();
+
+        // remove zoom state
+        var params = get_params();
+        if (params.x) delete params.x;
+        if (params.y) delete params.y;
+        history.replaceState(null, null, parse_params(params));
+    }
+    else if (e.target.id == "search") search_prompt();
+}, false)
+// mouse-over for info
+// show
+window.addEventListener("mouseover", function(e) {
+    var target = find_group(e.target);
+    if (target) details.nodeValue = nametype + " " + g_to_text(target);
+}, false)
+// clear
+window.addEventListener("mouseout", function(e) {
+    var target = find_group(e.target);
+    if (target) details.nodeValue = ' ';
+}, false)
+// ctrl-F for search
+window.addEventListener("keydown",function (e) {
+    if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+        e.preventDefault();
+        search_prompt();
+    }
+}, false)
+// functions
+function get_params() {
+    var params = {};
+    var paramsarr = window.location.search.substr(1).split('&');
+    for (var i = 0; i < paramsarr.length; ++i) {
+        var tmp = paramsarr[i].split("=");
+        if (!tmp[0] || !tmp[1]) continue;
+        params[tmp[0]]  = decodeURIComponent(tmp[1]);
+    }
+    return params;
+}
+function parse_params(params) {
+    var uri = "?";
+    for (var key in params) {
+        uri += key + '=' + encodeURIComponent(params[key]) + '&';
+    }
+    if (uri.slice(-1) == "&")
+        uri = uri.substring(0, uri.length - 1);
+    if (uri == '?')
+        uri = window.location.href.split('?')[0];
+    return uri;
+}
+function find_child(node, selector) {
+    var children = node.querySelectorAll(selector);
+    if (children.length) return children[0];
+    return;
+}
+function find_group(node) {
+    var parent = node.parentElement;
+    if (!parent) return;
+    if (parent.id == "frames") return node;
+    return find_group(parent);
+}
+function orig_save(e, attr, val) {
+    if (e.attributes["_orig_" + attr] != undefined) return;
+    if (e.attributes[attr] == undefined) return;
+    if (val == undefined) val = e.attributes[attr].value;
+    e.setAttribute("_orig_" + attr, val);
+}
+function orig_load(e, attr) {
+    if (e.attributes["_orig_"+attr] == undefined) return;
+    e.attributes[attr].value = e.attributes["_orig_" + attr].value;
+    e.removeAttribute("_orig_" + attr);
+}
+function g_to_text(e) {
+    var text = find_child(e, "title").firstChild.nodeValue;
+    return (text)
+}
+function g_to_func(e) {
+    var func = g_to_text(e);
+    // if there's any manipulation we want to do to the function
+    // name before it's searched, do it here before returning.
+    return (func);
+}
+function update_text(e) {
+    var r = find_child(e, "rect");
+    var t = find_child(e, "text");
+    var w = parseFloat(r.attributes.width.value) * frames.attributes.width.value / 100 - 3;
+    var txt = find_child(e, "title").textContent.replace(/\([^(]*\)$/,"");
+    t.attributes.x.value = format_percent((parseFloat(r.attributes.x.value) + (100 * 3 / frames.attributes.width.value)));
+    // Smaller than this size won't fit anything
+    if (w < 2 * fontsize * fontwidth) {
+        t.textContent = "";
+        return;
+    }
+    t.textContent = txt;
+    // Fit in full text width
+    if (/^ *\$/.test(txt) || t.getComputedTextLength() < w)
+        return;
+    for (var x = txt.length - 2; x > 0; x--) {
+        if (t.getSubStringLength(0, x + 2) <= w) {
+            t.textContent = txt.substring(0, x) + "..";
+            return;
+        }
+    }
+    t.textContent = "";
+}
+// zoom
+function zoom_reset(e) {
+    if (e.attributes != undefined) {
+        orig_load(e, "x");
+        orig_load(e, "width");
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_reset(c[i]);
+    }
+}
+function zoom_child(e, x, ratio) {
+    if (e.attributes != undefined) {
+        if (e.attributes.x != undefined) {
+            orig_save(e, "x");
+            e.attributes.x.value = format_percent((parseFloat(e.attributes.x.value) - x) * ratio);
+            if (e.tagName == "text") {
+                e.attributes.x.value = format_percent(parseFloat(find_child(e.parentNode, "rect[x]").attributes.x.value) + (100 * 3 / frames.attributes.width.value));
+            }
+        }
+        if (e.attributes.width != undefined) {
+            orig_save(e, "width");
+            e.attributes.width.value = format_percent(parseFloat(e.attributes.width.value) * ratio);
+        }
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_child(c[i], x, ratio);
+    }
+}
+function zoom_parent(e) {
+    if (e.attributes) {
+        if (e.attributes.x != undefined) {
+            orig_save(e, "x");
+            e.attributes.x.value = "0.0%";
+        }
+        if (e.attributes.width != undefined) {
+            orig_save(e, "width");
+            e.attributes.width.value = "100.0%";
+        }
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_parent(c[i]);
+    }
+}
+function zoom(node) {
+    var attr = find_child(node, "rect").attributes;
+    var width = parseFloat(attr.width.value);
+    var xmin = parseFloat(attr.x.value);
+    var xmax = xmin + width;
+    var ymin = parseFloat(attr.y.value);
+    var ratio = 100 / width;
+    // XXX: Workaround for JavaScript float issues (fix me)
+    var fudge = 0.001;
+    unzoombtn.classList.remove("hide");
+    var el = frames.children;
+    for (var i = 0; i < el.length; i++) {
+        var e = el[i];
+        var a = find_child(e, "rect").attributes;
+        var ex = parseFloat(a.x.value);
+        var ew = parseFloat(a.width.value);
+        // Is it an ancestor
+        if (!inverted) {
+            var upstack = parseFloat(a.y.value) > ymin;
+        } else {
+            var upstack = parseFloat(a.y.value) < ymin;
+        }
+        if (upstack) {
+            // Direct ancestor
+            if (ex <= xmin && (ex+ew+fudge) >= xmax) {
+                e.classList.add("parent");
+                zoom_parent(e);
+                update_text(e);
+            }
+            // not in current path
+            else
+                e.classList.add("hide");
+        }
+        // Children maybe
+        else {
+            // no common path
+            if (ex < xmin || ex + fudge >= xmax) {
+                e.classList.add("hide");
+            }
+            else {
+                zoom_child(e, xmin, ratio);
+                update_text(e);
+            }
+        }
+    }
+}
+function unzoom() {
+    unzoombtn.classList.add("hide");
+    var el = frames.children;
+    for(var i = 0; i < el.length; i++) {
+        el[i].classList.remove("parent");
+        el[i].classList.remove("hide");
+        zoom_reset(el[i]);
+        update_text(el[i]);
+    }
+}
+// search
+function reset_search() {
+    var el = document.querySelectorAll("#frames rect");
+    for (var i = 0; i < el.length; i++) {
+        orig_load(el[i], "fill")
+    }
+    var params = get_params();
+    delete params.s;
+    history.replaceState(null, null, parse_params(params));
+}
+function search_prompt() {
+    if (!searching) {
+        var term = prompt("Enter a search term (regexp " +
+            "allowed, eg: ^ext4_)", "");
+        if (term != null) {
+            search(term)
+        }
+    } else {
+        reset_search();
+        searching = 0;
+        searchbtn.classList.remove("show");
+        searchbtn.firstChild.nodeValue = "Search"
+        matchedtxt.classList.add("hide");
+        matchedtxt.firstChild.nodeValue = ""
+    }
+}
+function search(term) {
+    var re = new RegExp(term);
+    var el = frames.children;
+    var matches = new Object();
+    var maxwidth = 0;
+    for (var i = 0; i < el.length; i++) {
+        var e = el[i];
+        var func = g_to_func(e);
+        var rect = find_child(e, "rect");
+        if (func == null || rect == null)
+            continue;
+        // Save max width. Only works as we have a root frame
+        var w = parseFloat(rect.attributes.width.value);
+        if (w > maxwidth)
+            maxwidth = w;
+        if (func.match(re)) {
+            // highlight
+            var x = parseFloat(rect.attributes.x.value);
+            orig_save(rect, "fill");
+            rect.attributes.fill.value = searchcolor;
+            // remember matches
+            if (matches[x] == undefined) {
+                matches[x] = w;
+            } else {
+                if (w > matches[x]) {
+                    // overwrite with parent
+                    matches[x] = w;
+                }
+            }
+            searching = 1;
+        }
+    }
+    if (!searching)
+        return;
+    var params = get_params();
+    params.s = term;
+    history.replaceState(null, null, parse_params(params));
+
+    searchbtn.classList.add("show");
+    searchbtn.firstChild.nodeValue = "Reset Search";
+    // calculate percent matched, excluding vertical overlap
+    var count = 0;
+    var lastx = -1;
+    var lastw = 0;
+    var keys = Array();
+    for (k in matches) {
+        if (matches.hasOwnProperty(k))
+            keys.push(k);
+    }
+    // sort the matched frames by their x location
+    // ascending, then width descending
+    keys.sort(function(a, b){
+        return a - b;
+    });
+    // Step through frames saving only the biggest bottom-up frames
+    // thanks to the sort order. This relies on the tree property
+    // where children are always smaller than their parents.
+    var fudge = 0.0001;    // JavaScript floating point
+    for (var k in keys) {
+        var x = parseFloat(keys[k]);
+        var w = matches[keys[k]];
+        if (x >= lastx + lastw - fudge) {
+            count += w;
+            lastx = x;
+            lastw = w;
+        }
+    }
+    // display matched percent
+    matchedtxt.classList.remove("hide");
+    var pct = 100 * count / maxwidth;
+    if (pct != 100) pct = pct.toFixed(1);
+    matchedtxt.firstChild.nodeValue = "Matched: " + pct + "%";
+}
+function format_percent(n) {
+    return n.toFixed(4) + "%";
+}
+]]></script><rect x="0" y="0" width="100%" height="550" fill="url(#background)"/><text id="title" x="50.0000%" y="24.00">py-spy</text><text id="details" x="10" y="533.00"> </text><text id="unzoom" class="hide" x="10" y="24.00">Reset Zoom</text><text id="search" x="1090" y="24.00">Search</text><text id="matched" x="1090" y="533.00"> </text><svg id="frames" x="10" width="1180"><g><title>onnxruntime::ml::TreeEnsembleClassifier&lt;float&gt;::ProcessTreeNode (onnxruntime/capi/onnxruntime_pybind11_state.so) (450 samples, 32.92%)</title><rect x="2.2677%" y="340" width="32.9188%" height="15" fill="rgb(227,0,7)"/><text x="2.5177%" y="350.50">onnxruntime::ml::TreeEnsembleClassifier&lt;float&gt;::Proce..</text></g><g><title>onnxruntime::ml::TreeEnsembleClassifier&lt;float&gt;::Compute (onnxruntime/capi/onnxruntime_pybind11_state.so) (466 samples, 34.09%)</title><rect x="1.3899%" y="324" width="34.0892%" height="15" fill="rgb(217,0,24)"/><text x="1.6399%" y="334.50">onnxruntime::ml::TreeEnsembleClassifier&lt;float&gt;::Compute..</text></g><g><title>onnxruntime::InferenceSession::Run (onnxruntime/capi/onnxruntime_pybind11_state.so) (469 samples, 34.31%)</title><rect x="1.3168%" y="244" width="34.3087%" height="15" fill="rgb(221,193,54)"/><text x="1.5668%" y="254.50">onnxruntime::InferenceSession::Run (onnxruntime/capi/onn..</text></g><g><title>onnxruntime::InferenceSession::Run (onnxruntime/capi/onnxruntime_pybind11_state.so) (469 samples, 34.31%)</title><rect x="1.3168%" y="260" width="34.3087%" height="15" fill="rgb(248,212,6)"/><text x="1.5668%" y="270.50">onnxruntime::InferenceSession::Run (onnxruntime/capi/onn..</text></g><g><title>onnxruntime::utils::ExecuteGraph (onnxruntime/capi/onnxruntime_pybind11_state.so) (468 samples, 34.24%)</title><rect x="1.3899%" y="276" width="34.2356%" height="15" fill="rgb(208,68,35)"/><text x="1.6399%" y="286.50">onnxruntime::utils::ExecuteGraph (onnxruntime/capi/onnxr..</text></g><g><title>onnxruntime::utils::ExecuteGraphImpl (onnxruntime/capi/onnxruntime_pybind11_state.so) (468 samples, 34.24%)</title><rect x="1.3899%" y="292" width="34.2356%" height="15" fill="rgb(232,128,0)"/><text x="1.6399%" y="302.50">onnxruntime::utils::ExecuteGraphImpl (onnxruntime/capi/o..</text></g><g><title>onnxruntime::SequentialExecutor::Execute (onnxruntime/capi/onnxruntime_pybind11_state.so) (468 samples, 34.24%)</title><rect x="1.3899%" y="308" width="34.2356%" height="15" fill="rgb(207,160,47)"/><text x="1.6399%" y="318.50">onnxruntime::SequentialExecutor::Execute (onnxruntime/ca..</text></g><g><title>profile_ort (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (480 samples, 35.11%)</title><rect x="1.1704%" y="68" width="35.1134%" height="15" fill="rgb(228,23,34)"/><text x="1.4204%" y="78.50">profile_ort (bench_HGBClas_default_b_cl_1000_50_12_float_..</text></g><g><title>setup_profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (480 samples, 35.11%)</title><rect x="1.1704%" y="84" width="35.1134%" height="15" fill="rgb(218,30,26)"/><text x="1.4204%" y="94.50">setup_profile (bench_HGBClas_default_b_cl_1000_50_12_floa..</text></g><g><title>profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (480 samples, 35.11%)</title><rect x="1.1704%" y="100" width="35.1134%" height="15" fill="rgb(220,122,19)"/><text x="1.4204%" y="110.50">profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py)</text></g><g><title>time_predict (mlprodict/asv_benchmark/common_asv_skl.py) (479 samples, 35.04%)</title><rect x="1.2436%" y="116" width="35.0402%" height="15" fill="rgb(250,228,42)"/><text x="1.4936%" y="126.50">time_predict (mlprodict/asv_benchmark/common_asv_skl.py)</text></g><g><title>&lt;lambda&gt; (mlprodict/asv_benchmark/common_asv_skl.py) (479 samples, 35.04%)</title><rect x="1.2436%" y="132" width="35.0402%" height="15" fill="rgb(240,193,28)"/><text x="1.4936%" y="142.50">&lt;lambda&gt; (mlprodict/asv_benchmark/common_asv_skl.py)</text></g><g><title>run (mlprodict/onnxrt/onnx_inference.py) (479 samples, 35.04%)</title><rect x="1.2436%" y="148" width="35.0402%" height="15" fill="rgb(216,20,37)"/><text x="1.4936%" y="158.50">run (mlprodict/onnxrt/onnx_inference.py)</text></g><g><title>_run_whole_runtime (mlprodict/onnxrt/onnx_inference.py) (479 samples, 35.04%)</title><rect x="1.2436%" y="164" width="35.0402%" height="15" fill="rgb(206,188,39)"/><text x="1.4936%" y="174.50">_run_whole_runtime (mlprodict/onnxrt/onnx_inference.py)</text></g><g><title>run (mlprodict/onnxrt/ops_whole/session.py) (479 samples, 35.04%)</title><rect x="1.2436%" y="180" width="35.0402%" height="15" fill="rgb(217,207,13)"/><text x="1.4936%" y="190.50">run (mlprodict/onnxrt/ops_whole/session.py)</text></g><g><title>run (onnxruntime/capi/session.py) (479 samples, 35.04%)</title><rect x="1.2436%" y="196" width="35.0402%" height="15" fill="rgb(231,73,38)"/><text x="1.4936%" y="206.50">run (onnxruntime/capi/session.py)</text></g><g><title>pybind11::cpp_function::dispatcher (onnxruntime/capi/onnxruntime_pybind11_state.so) (478 samples, 34.97%)</title><rect x="1.3168%" y="212" width="34.9671%" height="15" fill="rgb(225,20,46)"/><text x="1.5668%" y="222.50">pybind11::cpp_function::dispatcher (onnxruntime/capi/onnx..</text></g><g><title>void pybind11::cpp_function::initialize&lt;onnxruntime::python::addObjectMethods(pybind11::module&amp;)::{lambda(onnxruntime::InferenceSession*, std::vector&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, std::allocator&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;, std::map&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, pybind11::object, std::less&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const, pybind11::object&gt; &gt; &gt;, OrtRunOptions*)#8}, std::vector&lt;pybind11::object, std::allocator&lt;pybind11::object&gt; &gt;, onnxruntime::InferenceSession*, std::vector&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, std::allocator&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;, std::map&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, pybind11::object, std::less&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const, pybind11::object&gt; &gt; &gt;, OrtRunOptions*, pybind11::name, pybind11::is_method, pybind11::sibling&gt;(onnxruntime::python::addObjectMethods(pybind11::module&amp;)::{lambda(onnxruntime::InferenceSession*, std::vector&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, std::allocator&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;, std::map&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, pybind11::object, std::less&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const, pybind11::object&gt; &gt; &gt;, OrtRunOptions*)#8}&amp;&amp;, std::vector&lt;pybind11::object, std::allocator&lt;pybind11::object&gt; &gt; (*)(onnxruntime::InferenceSession*, std::vector&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, std::allocator&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt;, std::map&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;, pybind11::object, std::less&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt;, std::allocator&lt;std::pair&lt;std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const, pybind11::object&gt; &gt; &gt;, OrtRunOptions*), pybind11::name const, pybind11::is_method&amp;, pybind11::sibling)::{lambda(pybind11::detail::function_call&amp;)#3}::_FUN (onnxruntime/capi/onnxruntime_pybind11_state.so) (478 samples, 34.97%)</title><rect x="1.3168%" y="228" width="34.9671%" height="15" fill="rgb(210,31,41)"/><text x="1.5668%" y="238.50">void pybind11::cpp_function::initialize&lt;onnxruntime::pyth..</text></g><g><title>0x7fee29194ab9 (libgomp.so.1.0.0) (32 samples, 2.34%)</title><rect x="36.4301%" y="420" width="2.3409%" height="15" fill="rgb(221,200,47)"/><text x="36.6801%" y="430.50">0..</text></g><g><title>0x7fee29193daa (libgomp.so.1.0.0) (31 samples, 2.27%)</title><rect x="38.7710%" y="436" width="2.2677%" height="15" fill="rgb(226,26,5)"/><text x="39.0210%" y="446.50">0..</text></g><g><title>std::map&lt;long, long, std::less&lt;long&gt;, std::allocator&lt;std::pair&lt;long const, long&gt; &gt; &gt;::find (stl_map.h) (125 samples, 9.14%)</title><rect x="45.8669%" y="468" width="9.1441%" height="15" fill="rgb(249,33,26)"/><text x="46.1169%" y="478.50">std::map&lt;long..</text></g><g><title>std::_Rb_tree&lt;long, std::pair&lt;long const, long&gt;, std::_Select1st&lt;std::pair&lt;long const, long&gt; &gt;, std::less&lt;long&gt;, std::allocator&lt;std::pair&lt;long const, long&gt; &gt; &gt;::find (stl_tree.h) (125 samples, 9.14%)</title><rect x="45.8669%" y="484" width="9.1441%" height="15" fill="rgb(235,183,28)"/><text x="46.1169%" y="494.50">std::_Rb_tree..</text></g><g><title>std::_Rb_tree&lt;long, std::pair&lt;long const, long&gt;, std::_Select1st&lt;std::pair&lt;long const, long&gt; &gt;, std::less&lt;long&gt;, std::allocator&lt;std::pair&lt;long const, long&gt; &gt; &gt;::_M_lower_bound (stl_tree.h) (116 samples, 8.49%)</title><rect x="46.5252%" y="500" width="8.4857%" height="15" fill="rgb(221,5,38)"/><text x="46.7752%" y="510.50">std::_Rb_tre..</text></g><g><title>_run (mlprodict/onnxrt/ops_cpu/op_tree_ensemble_classifier.py) (261 samples, 19.09%)</title><rect x="36.2838%" y="196" width="19.0929%" height="15" fill="rgb(247,18,42)"/><text x="36.5338%" y="206.50">_run (mlprodict/onnxrt/ops_cpu..</text></g><g><title>pybind11::cpp_function::dispatcher (pybind11.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="212" width="19.0198%" height="15" fill="rgb(241,131,45)"/><text x="36.6070%" y="222.50">pybind11::cpp_function::dispat..</text></g><g><title>void pybind11::cpp_function::initialize&lt;pybind11::cpp_function::cpp_function&lt;pybind11::tuple, RuntimeTreeEnsembleClassifierFloat, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;)#1}, pybind11::tuple, RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::cpp_function::cpp_function&lt;pybind11::tuple, RuntimeTreeEnsembleClassifierFloat, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;&amp;&amp;)#1}, pybind11::tuple (*)(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;), pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(pybind11::detail::function_call&amp;)#3}::_FUN (pybind11.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="228" width="19.0198%" height="15" fill="rgb(249,31,29)"/><text x="36.6070%" y="238.50">void pybind11::cpp_function::i..</text></g><g><title>void pybind11::cpp_function::initialize&lt;pybind11::cpp_function::cpp_function&lt;pybind11::tuple, RuntimeTreeEnsembleClassifierFloat, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;)#1}, pybind11::tuple, RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::cpp_function::cpp_function&lt;pybind11::tuple, RuntimeTreeEnsembleClassifierFloat, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;&amp;&amp;)#1}, pybind11::tuple (*)(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;), pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(pybind11::detail::function_call&amp;)#3}::operator() const (pybind11.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="244" width="19.0198%" height="15" fill="rgb(225,111,53)"/><text x="36.6070%" y="254.50">void pybind11::cpp_function::i..</text></g><g><title>pybind11::detail::argument_loader&lt;RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt; &gt;::call&lt;pybind11::tuple, pybind11::detail::void_type, pybind11::cpp_function::cpp_function&lt;pybind11::tuple, RuntimeTreeEnsembleClassifierFloat, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;&amp;)#1}&gt; &amp;&amp; (cast.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="260" width="19.0198%" height="15" fill="rgb(238,160,17)"/><text x="36.6070%" y="270.50">pybind11::detail::argument_loa..</text></g><g><title>pybind11::detail::argument_loader&lt;RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt; &gt;::call_impl&lt;pybind11::tuple, pybind11::cpp_function::cpp_function&lt;pybind11::tuple, RuntimeTreeEnsembleClassifierFloat, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;&amp;)#1}, (unsigned long)0, (unsigned long)1, pybind11::detail::void_type&gt; (cast.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="276" width="19.0198%" height="15" fill="rgb(214,148,48)"/><text x="36.6070%" y="286.50">pybind11::detail::argument_loa..</text></g><g><title>pybind11::cpp_function::cpp_function&lt;pybind11::tuple, RuntimeTreeEnsembleClassifierFloat, pybind11::array_t&lt;float, 16&gt;, pybind11::name, pybind11::is_method, pybind11::sibling, char [48]&gt;(pybind11::name const, pybind11::is_method&amp;, pybind11::sibling, char [48])::{lambda(RuntimeTreeEnsembleClassifierFloat const*, pybind11::array_t&lt;float, 16&gt;)#1}::operator() const (pybind11.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="292" width="19.0198%" height="15" fill="rgb(232,36,49)"/><text x="36.6070%" y="302.50">pybind11::cpp_function::cpp_fu..</text></g><g><title>pybind11::array_t&lt;float, 16&gt;::~array_t (numpy.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="308" width="19.0198%" height="15" fill="rgb(209,103,24)"/><text x="36.6070%" y="318.50">pybind11::array_t&lt;float, 16&gt;::..</text></g><g><title>pybind11::array::~array (numpy.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="324" width="19.0198%" height="15" fill="rgb(229,88,8)"/><text x="36.6070%" y="334.50">pybind11::array::~array (numpy..</text></g><g><title>pybind11::buffer::~buffer (pytypes.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="340" width="19.0198%" height="15" fill="rgb(213,181,19)"/><text x="36.6070%" y="350.50">pybind11::buffer::~buffer (pyt..</text></g><g><title>pybind11::object::~object (pytypes.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="356" width="19.0198%" height="15" fill="rgb(254,191,54)"/><text x="36.6070%" y="366.50">pybind11::object::~object (pyt..</text></g><g><title>pybind11::handle::dec_ref &amp; (pytypes.h) (260 samples, 19.02%)</title><rect x="36.3570%" y="372" width="19.0198%" height="15" fill="rgb(241,83,37)"/><text x="36.6070%" y="382.50">pybind11::handle::dec_ref &amp; (p..</text></g><g><title>RuntimeTreeEnsembleClassifier&lt;float&gt;::compute (mlprodict/onnxrt/ops_cpu/op_tree_ensemble_classifier_.cpp) (260 samples, 19.02%)</title><rect x="36.3570%" y="388" width="19.0198%" height="15" fill="rgb(233,36,39)"/><text x="36.6070%" y="398.50">RuntimeTreeEnsembleClassifier&lt;..</text></g><g><title>pybind11::gil_scoped_release::~gil_scoped_release (pybind11.h) (259 samples, 18.95%)</title><rect x="36.4301%" y="404" width="18.9466%" height="15" fill="rgb(226,3,54)"/><text x="36.6801%" y="414.50">pybind11::gil_scoped_release::..</text></g><g><title>GOMP_parallel (libgomp.so.1.0.0) (227 samples, 16.61%)</title><rect x="38.7710%" y="420" width="16.6057%" height="15" fill="rgb(245,192,40)"/><text x="39.0210%" y="430.50">GOMP_parallel (libgomp.so...</text></g><g><title>RuntimeTreeEnsembleClassifier&lt;float&gt;::compute_gil_free [clone ._omp_fn.1] (mlprodict/onnxrt/ops_cpu/op_tree_ensemble_classifier_.cpp) (196 samples, 14.34%)</title><rect x="41.0388%" y="436" width="14.3380%" height="15" fill="rgb(238,167,29)"/><text x="41.2888%" y="446.50">RuntimeTreeEnsembleCla..</text></g><g><title>RuntimeTreeEnsembleClassifier&lt;float&gt;::ProcessTreeNode (mlprodict/onnxrt/ops_cpu/op_tree_ensemble_classifier_.cpp) (195 samples, 14.26%)</title><rect x="41.1119%" y="452" width="14.2648%" height="15" fill="rgb(232,182,51)"/><text x="41.3619%" y="462.50">RuntimeTreeEnsembleCla..</text></g><g><title>profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (262 samples, 19.17%)</title><rect x="36.2838%" y="100" width="19.1661%" height="15" fill="rgb(231,60,39)"/><text x="36.5338%" y="110.50">profile (bench_HGBClas_default..</text></g><g><title>time_predict (mlprodict/asv_benchmark/common_asv_skl.py) (262 samples, 19.17%)</title><rect x="36.2838%" y="116" width="19.1661%" height="15" fill="rgb(208,69,12)"/><text x="36.5338%" y="126.50">time_predict (mlprodict/asv_be..</text></g><g><title>&lt;lambda&gt; (mlprodict/asv_benchmark/common_asv_skl.py) (262 samples, 19.17%)</title><rect x="36.2838%" y="132" width="19.1661%" height="15" fill="rgb(235,93,37)"/><text x="36.5338%" y="142.50">&lt;lambda&gt; (mlprodict/asv_benchm..</text></g><g><title>run (mlprodict/onnxrt/onnx_inference.py) (262 samples, 19.17%)</title><rect x="36.2838%" y="148" width="19.1661%" height="15" fill="rgb(213,116,39)"/><text x="36.5338%" y="158.50">run (mlprodict/onnxrt/onnx_inf..</text></g><g><title>_run_sequence_runtime_compiled (mlprodict/onnxrt/onnx_inference.py) (262 samples, 19.17%)</title><rect x="36.2838%" y="164" width="19.1661%" height="15" fill="rgb(222,207,29)"/><text x="36.5338%" y="174.50">_run_sequence_runtime_compiled..</text></g><g><title>compiled_run (&lt;string&gt;) (262 samples, 19.17%)</title><rect x="36.2838%" y="180" width="19.1661%" height="15" fill="rgb(206,96,30)"/><text x="36.5338%" y="190.50">compiled_run (&lt;string&gt;)</text></g><g><title>profile_pyrtc (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (265 samples, 19.39%)</title><rect x="36.2838%" y="68" width="19.3855%" height="15" fill="rgb(218,138,4)"/><text x="36.5338%" y="78.50">profile_pyrtc (bench_HGBClas_d..</text></g><g><title>setup_profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (265 samples, 19.39%)</title><rect x="36.2838%" y="84" width="19.3855%" height="15" fill="rgb(250,191,14)"/><text x="36.5338%" y="94.50">setup_profile (bench_HGBClas_d..</text></g><g><title>0x7fee47397a8c (libgomp-3300acd3.so.1.0.0) (15 samples, 1.10%)</title><rect x="56.5472%" y="228" width="1.0973%" height="15" fill="rgb(239,60,40)"/><text x="56.7972%" y="238.50"></text></g><g><title>0x7fee47397a92 (libgomp-3300acd3.so.1.0.0) (20 samples, 1.46%)</title><rect x="58.1565%" y="228" width="1.4631%" height="15" fill="rgb(206,27,48)"/><text x="58.4065%" y="238.50"></text></g><g><title>0x7fee4739687a (libgomp-3300acd3.so.1.0.0) (70 samples, 5.12%)</title><rect x="56.1083%" y="212" width="5.1207%" height="15" fill="rgb(225,35,8)"/><text x="56.3583%" y="222.50">0x7fee..</text></g><g><title>0x7fee47397a96 (libgomp-3300acd3.so.1.0.0) (22 samples, 1.61%)</title><rect x="59.6196%" y="228" width="1.6094%" height="15" fill="rgb(250,213,24)"/><text x="59.8696%" y="238.50"></text></g><g><title>0x7fee376e2072 (sklearn/ensemble/_hist_gradient_boosting/_predictor.cpython-37m-x86_64-linux-gnu.so) (71 samples, 5.19%)</title><rect x="56.1083%" y="196" width="5.1939%" height="15" fill="rgb(247,123,22)"/><text x="56.3583%" y="206.50">0x7fee..</text></g><g><title>0x7fee473978f0 (libgomp-3300acd3.so.1.0.0) (28 samples, 2.05%)</title><rect x="61.3021%" y="228" width="2.0483%" height="15" fill="rgb(231,138,38)"/><text x="61.5521%" y="238.50">0..</text></g><g><title>0x7fee473978f3 (libgomp-3300acd3.so.1.0.0) (29 samples, 2.12%)</title><rect x="63.3504%" y="228" width="2.1214%" height="15" fill="rgb(231,145,46)"/><text x="63.6004%" y="238.50">0..</text></g><g><title>0x7fee473978f7 (libgomp-3300acd3.so.1.0.0) (31 samples, 2.27%)</title><rect x="65.4718%" y="228" width="2.2677%" height="15" fill="rgb(251,118,11)"/><text x="65.7218%" y="238.50">0..</text></g><g><title>0x7fee473978f9 (libgomp-3300acd3.so.1.0.0) (79 samples, 5.78%)</title><rect x="67.7396%" y="228" width="5.7791%" height="15" fill="rgb(217,147,25)"/><text x="67.9896%" y="238.50">0x7fee4..</text></g><g><title>0x7fee473978fd (libgomp-3300acd3.so.1.0.0) (85 samples, 6.22%)</title><rect x="73.5187%" y="228" width="6.2180%" height="15" fill="rgb(247,81,37)"/><text x="73.7687%" y="238.50">0x7fee47..</text></g><g><title>0x7fee376d9c9e (sklearn/ensemble/_hist_gradient_boosting/_predictor.cpython-37m-x86_64-linux-gnu.so) (280 samples, 20.48%)</title><rect x="61.3021%" y="212" width="20.4828%" height="15" fill="rgb(209,12,38)"/><text x="61.5521%" y="222.50">0x7fee376d9c9e (sklearn/ensemble..</text></g><g><title>0x7fee47397900 (libgomp-3300acd3.so.1.0.0) (28 samples, 2.05%)</title><rect x="79.7366%" y="228" width="2.0483%" height="15" fill="rgb(227,1,9)"/><text x="79.9866%" y="238.50">0..</text></g><g><title>0x7fee473978f3 (libgomp-3300acd3.so.1.0.0) (19 samples, 1.39%)</title><rect x="82.7359%" y="212" width="1.3899%" height="15" fill="rgb(248,47,43)"/><text x="82.9859%" y="222.50"></text></g><g><title>0x7fee473978f9 (libgomp-3300acd3.so.1.0.0) (32 samples, 2.34%)</title><rect x="84.7110%" y="212" width="2.3409%" height="15" fill="rgb(221,10,30)"/><text x="84.9610%" y="222.50">0..</text></g><g><title>0x7fee473978fd (libgomp-3300acd3.so.1.0.0) (42 samples, 3.07%)</title><rect x="87.0519%" y="212" width="3.0724%" height="15" fill="rgb(210,229,1)"/><text x="87.3019%" y="222.50">0x7..</text></g><g><title>0x7fee376e207a (sklearn/ensemble/_hist_gradient_boosting/_predictor.cpython-37m-x86_64-linux-gnu.so) (411 samples, 30.07%)</title><rect x="61.3021%" y="196" width="30.0658%" height="15" fill="rgb(222,148,37)"/><text x="61.5521%" y="206.50">0x7fee376e207a (sklearn/ensemble/_hist_gradient_..</text></g><g><title>0x7fee47397900 (libgomp-3300acd3.so.1.0.0) (17 samples, 1.24%)</title><rect x="90.1244%" y="212" width="1.2436%" height="15" fill="rgb(234,67,33)"/><text x="90.3744%" y="222.50"></text></g><g><title>0x7fee473978f9 (libgomp-3300acd3.so.1.0.0) (33 samples, 2.41%)</title><rect x="93.4162%" y="228" width="2.4140%" height="15" fill="rgb(247,98,35)"/><text x="93.6662%" y="238.50">0x..</text></g><g><title>0x7fee473978fd (libgomp-3300acd3.so.1.0.0) (38 samples, 2.78%)</title><rect x="95.8303%" y="228" width="2.7798%" height="15" fill="rgb(247,138,52)"/><text x="96.0803%" y="238.50">0x..</text></g><g><title>0x7fee376e207f (sklearn/ensemble/_hist_gradient_boosting/_predictor.cpython-37m-x86_64-linux-gnu.so) (105 samples, 7.68%)</title><rect x="91.3680%" y="196" width="7.6811%" height="15" fill="rgb(213,79,30)"/><text x="91.6180%" y="206.50">0x7fee376e2..</text></g><g><title>0x7fee4739644e (libgomp-3300acd3.so.1.0.0) (105 samples, 7.68%)</title><rect x="91.3680%" y="212" width="7.6811%" height="15" fill="rgb(246,177,23)"/><text x="91.6180%" y="222.50">0x7fee47396..</text></g><g><title>predict (sklearn/ensemble/_hist_gradient_boosting/predictor.py) (593 samples, 43.38%)</title><rect x="55.8888%" y="180" width="43.3797%" height="15" fill="rgb(230,62,27)"/><text x="56.1388%" y="190.50">predict (sklearn/ensemble/_hist_gradient_boosting/predictor.py)</text></g><g><title>_raw_predict (sklearn/ensemble/_hist_gradient_boosting/gradient_boosting.py) (598 samples, 43.75%)</title><rect x="55.7425%" y="164" width="43.7454%" height="15" fill="rgb(216,154,8)"/><text x="55.9925%" y="174.50">_raw_predict (sklearn/ensemble/_hist_gradient_boosting/gradient_boosting..</text></g><g><title>profile_skl (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (603 samples, 44.11%)</title><rect x="55.6693%" y="68" width="44.1112%" height="15" fill="rgb(244,35,45)"/><text x="55.9193%" y="78.50">profile_skl (bench_HGBClas_default_b_cl_1000_50_12_float_.py)</text></g><g><title>setup_profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (603 samples, 44.11%)</title><rect x="55.6693%" y="84" width="44.1112%" height="15" fill="rgb(251,115,12)"/><text x="55.9193%" y="94.50">setup_profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py)</text></g><g><title>profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (603 samples, 44.11%)</title><rect x="55.6693%" y="100" width="44.1112%" height="15" fill="rgb(240,54,50)"/><text x="55.9193%" y="110.50">profile (bench_HGBClas_default_b_cl_1000_50_12_float_.py)</text></g><g><title>time_predict (mlprodict/asv_benchmark/common_asv_skl.py) (603 samples, 44.11%)</title><rect x="55.6693%" y="116" width="44.1112%" height="15" fill="rgb(233,84,52)"/><text x="55.9193%" y="126.50">time_predict (mlprodict/asv_benchmark/common_asv_skl.py)</text></g><g><title>&lt;lambda&gt; (mlprodict/asv_benchmark/common_asv_skl.py) (602 samples, 44.04%)</title><rect x="55.7425%" y="132" width="44.0380%" height="15" fill="rgb(207,117,47)"/><text x="55.9925%" y="142.50">&lt;lambda&gt; (mlprodict/asv_benchmark/common_asv_skl.py)</text></g><g><title>predict_proba (sklearn/ensemble/_hist_gradient_boosting/gradient_boosting.py) (602 samples, 44.04%)</title><rect x="55.7425%" y="148" width="44.0380%" height="15" fill="rgb(249,43,39)"/><text x="55.9925%" y="158.50">predict_proba (sklearn/ensemble/_hist_gradient_boosting/gradient_boostin..</text></g><g><title>all (1,367 samples, 100%)</title><rect x="0.0000%" y="36" width="100.0000%" height="15" fill="rgb(209,38,44)"/><text x="0.2500%" y="46.50"></text></g><g><title>&lt;module&gt; (bench_HGBClas_default_b_cl_1000_50_12_float_.py) (1,367 samples, 100.00%)</title><rect x="0.0000%" y="52" width="100.0000%" height="15" fill="rgb(236,212,23)"/><text x="0.2500%" y="62.50">&lt;module&gt; (bench_HGBClas_default_b_cl_1000_50_12_float_.py)</text></g></svg></svg>

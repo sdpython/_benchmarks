@@ -1,8 +1,8 @@
 
-.. _l-bench-plot-onnxprofiling-reg-hgb:
+.. _l-bench-plot-onnxprofiling-clas-hgb:
 
-Profiling HistGradientBoostingRegressor
-=======================================
+Profiling HistGradientBoostingClassifier
+========================================
 
 The same model is measured through the following profilings,
 they depend on the following parameters.
@@ -28,7 +28,7 @@ they depend on the following parameters.
         extract_information_from_filename,
         make_readable_title)
 
-    pattern = "onnx/profiles_reg/*HGBReg*.svg"
+    pattern = "onnx/profiles_reg/*HGBClas*.svg"
     done = 0
     pubs = []
     for name in glob.glob(pattern):
@@ -47,4 +47,4 @@ they depend on the following parameters.
         print()
         done += 1
     if done == 0:
-        print("No file found.", os.path.abspath("onnx/profiles_reg"))
+        print("No file found.", os.path.abspath("onnx/profiles"))
