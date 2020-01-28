@@ -120,8 +120,12 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             options = {id(skl_model): {'zipmap': False}}
         else:
             options = None
-        self.onx = to_onnx(self.model, self.datas[0].astype(
-            numpy.float32), options=options)
+        try:
+            self.onx = to_onnx(self.model, self.datas[0].astype(
+                numpy.float32), options=options)
+        except RuntimeError as e:
+            raise RuntimeError(
+                "Unable to convert model {}.".format(self.model)) from e
         logger = getLogger("skl2onnx")
         logger.propagate = False
         logger.disabled = True
