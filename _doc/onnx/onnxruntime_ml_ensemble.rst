@@ -25,12 +25,12 @@ Overview
 
     name = "../../onnx/results/bench_plot_ml_ensemble.perf.csv"
     df = pandas.read_csv(name)
-    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+    fig, ax = plt.subplots(3, 2, figsize=(12, 5))
 
     plot_bench_results(df, row_cols=('rt',), col_cols=('dataset', ), label_fct=label_fct,
                        x_value='N', hue_cols=('lib',), cmp_col_values='lib',
                        title="Numerical datasets\nBenchmark scikit-learn, xgboost, lightgbm",
-                       ax=ax)
+                       ax=ax, fontsize='large')
     fig.show()
 
 Configuration

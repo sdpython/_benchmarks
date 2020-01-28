@@ -37,7 +37,7 @@ Overview
                      hue_cols=['activation'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     label_fct=label_fct,
+                     label_fct=label_fct, fontsize='large',
                      parallel=(1., 2.))
 
     plt.suptitle("Acceleration onnxruntime / scikit-learn for MLPClassifier")
@@ -68,7 +68,7 @@ Detailed graphs
 
     plot_bench_results(df, row_cols=['N', 'hidden_layer_sizes'],
                        col_cols='method',
-                       hue_cols='activation',
+                       hue_cols='activation', fontsize='large',
                        cmp_col_values=('lib', 'skl'),
                        x_value='dim', y_value='mean',
                        title=None, label_fct=label_fct,

@@ -42,7 +42,7 @@ Overview
                      hue_cols='fit_intercept',
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None,
+                     parallel=(1., 0.5), title=None, fontsize='large',
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for LogisticRegression")
     plt.show()
@@ -77,11 +77,11 @@ Detailed graphs
     df = pandas.read_csv(name)
 
     plot_bench_results(df, row_cols=['N', 'onnx_options'], col_cols='method',
-                              hue_cols='fit_intercept',
-                     cmp_col_values=('lib', 'skl'),
-                     x_value='dim', y_value='mean',
-                     title=None, label_fct=label_fct,
-                     ax=None, box_side=4)
+                       hue_cols='fit_intercept',
+                       cmp_col_values=('lib', 'skl'),
+                       x_value='dim', y_value='mean',  fontsize='large',
+                       title=None, label_fct=label_fct,
+                       ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for LogisticRegression")
     plt.show()
 

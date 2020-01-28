@@ -37,7 +37,7 @@ Overview
                      hue_cols=['n_estimators'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None,
+                     parallel=(1., 0.5), title=None, fontsize='large',
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for GradientBoostingRegressor")
     plt.show()
@@ -66,7 +66,7 @@ Overview
                      hue_cols=['max_depth'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None,
+                     parallel=(1., 0.5), title=None, fontsize='large',
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for GradientBoostingRegressor")
     plt.show()
@@ -98,7 +98,7 @@ Detailed graphs
                        col_cols='method',
                        hue_cols='max_depth',
                        cmp_col_values=('lib', 'skl'),
-                       x_value='dim', y_value='mean',
+                       x_value='dim', y_value='mean', fontsize='large',
                        title=None, label_fct=label_fct,
                        ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for GradientBoostingRegressor")

@@ -44,7 +44,7 @@ Overview
     name = "../../onnx/results/bench_plot_onnxruntime_casc_add.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='N', col_cols='dim',
-                       x_value='nbnode',
+                       x_value='nbnode', fontsize='large',
                        title="%s\nBenchmark numpy / onnxruntime" % "Cascade Add");
 
     plt.suptitle("Acceleration onnxruntime / numpy for Add")

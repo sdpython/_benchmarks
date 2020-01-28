@@ -28,7 +28,7 @@ they depend on the following parameters.
         extract_information_from_filename,
         make_readable_title)
 
-    pattern = "onnx/profiles_reg/*HGBClas*.svg"
+    pattern = "onnx/profiles/*HGBClas*.svg"
     done = 0
     pubs = []
     for name in glob.glob(pattern):

@@ -68,7 +68,7 @@ Three runtimes are tested:
     fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
     plot_bench_xtime(df[~df.norm], col_cols='dataset',
-                     hue_cols='model',
+                     hue_cols='model', fontsize='large',
                      title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime",
                      ax=ax)
     fig.show()
@@ -85,7 +85,7 @@ Graph X = number of observations to predict
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
-                       x_value='N',
+                       x_value='N', fontsize='large',
                        title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
     plt.show()
 
@@ -108,7 +108,7 @@ observations depending on the batch size.
     for c in "min,max,mean,lower,upper,median".split(','):
         df[c] /= df['N']
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
-                       x_value='N',
+                       x_value='N', fontsize='large',
                        title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
     plt.show()
 
@@ -124,7 +124,7 @@ Graph of differences between scikit-learn and onnxruntime
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
-                       x_value='N', y_value='diff_ort',
+                       x_value='N', y_value='diff_ort', fontsize='large',
                        err_value=('lower_diff_ort', 'upper_diff_ort'),
                        title="Numerical datasets\Absolute difference scikit-learn / onnxruntime")
     plt.show()
@@ -141,7 +141,7 @@ Graph of differences between scikit-learn and python runtime
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
     plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
-                       x_value='N', y_value='diff_pyrt',
+                       x_value='N', y_value='diff_pyrt', fontsize='large',
                        err_value=('lower_diff_pyrt', 'upper_diff_pyrt'),
                        title="Numerical datasets\Absolute difference scikit-learn / python runtime")
     plt.show()

@@ -36,7 +36,7 @@ Overview
                      hue_cols='method',
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None,
+                     parallel=(1., 0.5), title=None, fontsize='large',
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for DecisionTreeRegressor")
     plt.show()
@@ -64,12 +64,12 @@ Detailed graphs
     name = "../../onnx/results/bench_plot_onnxruntime_hgb.perf.csv"
     df = pandas.read_csv(name)
 
-    plot_bench_results(df, row_cols='N', col_cols='max_depth',
-                              hue_cols='method',
-                     cmp_col_values=('lib', 'skl'),
-                     x_value='dim', y_value='mean',
-                     title=None, label_fct=label_fct,
-                     ax=None, box_side=4)
+    plot_bench_results(df, row_cols=('N', 'n_estimators'), col_cols='max_depth',
+                       hue_cols='method',
+                       cmp_col_values=('lib', 'skl'),
+                       x_value='dim', y_value='mean',
+                       title=None, label_fct=label_fct, fontsize='large',
+                       ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for HistBoostingGradientRegressor")
     plt.show()
 
