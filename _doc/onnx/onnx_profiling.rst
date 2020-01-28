@@ -170,6 +170,7 @@ mlprodict.onnxrt.validate.validate_scenarios.build_custom_scenarios>`_.
     onnx_profiling_reg_decision_tree
     onnx_profiling_reg_adaboost
     onnx_profiling_reg_randomforest
+    onnx_profiling_reg_gradientboosting
     onnx_profiling_reg_hgb
     onnx_profiling_reg_knn
     onnx_profiling_reg_linear
