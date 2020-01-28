@@ -67,29 +67,29 @@ def create_datasets():
 def get_model(model_name):
     if model_name in ("LR", "LR-ZM"):
         return LogisticRegression(solver="liblinear", penalty="l2")
-    if model_name == "DT":
+    if model_name in ("DT", 'DT-ZM'):
         return DecisionTreeClassifier(max_depth=6)
-    if model_name == "RF":
+    if model_name in ("RF", "RF-ZM"):
         return RandomForestClassifier(max_depth=6, n_estimators=100)
-    if model_name == "GBT":
+    if model_name in ("GBT", "GBT-ZM"):
         return GradientBoostingClassifier(max_depth=4, n_estimators=100)
-    if model_name in ("KNN", "KNN-cdist"):
+    if model_name in ("KNN", "KNN-cdist", 'KNN-ZM', 'KNN-cdist-ZM'):
         return KNeighborsClassifier(algorithm='brute')
-    if model_name == "MLP":
+    if model_name in ("MLP", 'MLP-ZM'):
         return MLPClassifier()
-    if model_name == "BNB":
+    if model_name in ("BNB", 'BNB-ZM'):
         return BernoulliNB()
-    if model_name == "ADA":
+    if model_name in ("ADA", "ADA-ZM"):
         return AdaBoostClassifier()
-    if model_name == "SVC":
+    if model_name in ("SVC", 'SVC-ZM'):
         return SVC(probability=True)
-    if model_name == "NuSVC":
+    if model_name in ("NuSVC", 'NuSVC-ZM'):
         return NuSVC(probability=True)
-    if model_name == 'OVR':
+    if model_name in ('OVR', 'OVR-ZM'):
         return OneVsRestClassifier(DecisionTreeClassifier(max_depth=6))
-    if model_name == "XGB":
+    if model_name in ("XGB", "XGB-ZM"):
         return XGBClassifier(max_depth=6, n_estimators=100)
-    if model_name == "LGB":
+    if model_name in ("LGB", "LGB-ZM"):
         return LGBMClassifier(max_depth=6, n_estimators=100)
     raise ValueError("Unknown model name '{}'.".format(model_name))
 
@@ -208,11 +208,11 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 def run_bench(repeat=5, verbose=False):
 
     pbefore = dict(dim=[-1],
-                   model=list(sorted(['XGB', 'LGB',
-                                      'SVC', 'NuSVC', 'BNB',
-                                      'RF', 'DT',
-                                      'ADA', 'MLP', 'LR-ZM',
-                                      'LR', 'GBT', 'OVR'])),
+                   model=list(sorted(['XGB-ZM', 'LGB-ZM',
+                                      'SVC-ZM', 'NuSVC-ZM', 'BNB-ZM',
+                                      'RF-ZM', 'DT-ZM',
+                                      'ADA-ZM', 'MLP-ZM', 'LR-ZM',
+                                      'LR', 'GBT-ZM', 'OVR-ZM'])),
                    norm=[False, True],
                    dataset=["breast_cancer", "digits", "rndbin100"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,

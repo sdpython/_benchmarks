@@ -45,7 +45,7 @@ Overview
                      hue_cols=['metric'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None, fontsize=24,
+                     parallel=(1., 0.5), title=None, fontsize=12,
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for KNeighborsClassifier")
     plt.show()
@@ -63,7 +63,7 @@ Overview
                      hue_cols=['n_neighbors'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None, fontsize=24,
+                     parallel=(1., 0.5), title=None, fontsize=12,
                      ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for KNeighborsClassifier")
     plt.show()
@@ -103,7 +103,7 @@ Detailed graphs
 
     plot_bench_results(df, row_cols=['N', 'n_neighbors', 'onnx_options'], col_cols='method',
                        x_value='dim', hue_cols='metric',
-                       title=None, label_fct=label_fct, fontsize=24,
+                       title=None, label_fct=label_fct, fontsize=12,
                        ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for KNeighborsClassifier")
     plt.show()

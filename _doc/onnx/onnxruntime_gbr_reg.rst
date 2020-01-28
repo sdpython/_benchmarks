@@ -33,7 +33,8 @@ Overview
     name = "../../onnx/results/bench_plot_onnxruntime_gbr.perf.csv"
     df = pandas.read_csv(name)
 
-    plot_bench_xtime(df, row_cols='N', col_cols='method',
+    plot_bench_xtime(df, row_cols='N',
+                     col_cols=['method', 'max_depth'],
                      hue_cols=['n_estimators'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
@@ -62,7 +63,8 @@ Overview
     name = "../../onnx/results/bench_plot_onnxruntime_gbr.perf.csv"
     df = pandas.read_csv(name)
 
-    plot_bench_xtime(df, row_cols='N', col_cols='method',
+    plot_bench_xtime(df, row_cols='N',
+                     col_cols=['method', 'n_estimators'],
                      hue_cols=['max_depth'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
