@@ -37,7 +37,7 @@ Overview
                      hue_cols=['n_estimators'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None, fontsize='large',
+                     parallel=(1., 0.5), title=None, fontsize=24,
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for RandomForestClassifier")
     plt.show()
@@ -66,7 +66,7 @@ Overview
                      hue_cols=['max_depth'],
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None, fontsize='large',
+                     parallel=(1., 0.5), title=None, fontsize=24,
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for RandomForestClassifier")
     plt.show()
@@ -96,7 +96,7 @@ Detailed graphs
 
     plot_bench_results(df, row_cols=['onnx_options', 'N', 'n_estimators'],
                        col_cols='method',
-                       hue_cols='max_depth', fontsize='large',
+                       hue_cols='max_depth', fontsize=24,
                        cmp_col_values=('lib', 'skl'),
                        x_value='dim', y_value='mean',
                        title=None, label_fct=label_fct,

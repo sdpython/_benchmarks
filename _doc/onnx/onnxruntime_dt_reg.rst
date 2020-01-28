@@ -36,7 +36,7 @@ Overview
                      hue_cols='method',
                      cmp_col_values=('lib', 'skl'),
                      x_value='mean', y_value='xtime',
-                     parallel=(1., 0.5), title=None, fontsize='large',
+                     parallel=(1., 0.5), title=None, fontsize=24,
                      ax=None, box_side=4, label_fct=label_fct)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for DecisionTreeRegressor")
     plt.show()
@@ -68,7 +68,7 @@ Detailed graphs
                        hue_cols='method',
                        cmp_col_values=('lib', 'skl'),
                        x_value='dim', y_value='mean',
-                       title=None, label_fct=label_fct, fontsize='large',
+                       title=None, label_fct=label_fct, fontsize=24,
                      ax=None, box_side=4)
     plt.suptitle("Acceleration onnxruntime / scikit-learn for DecisionTreeRegressor")
     plt.show()

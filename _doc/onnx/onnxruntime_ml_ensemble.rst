@@ -30,7 +30,7 @@ Overview
     plot_bench_results(df, row_cols=('rt',), col_cols=('dataset', ), label_fct=label_fct,
                        x_value='N', hue_cols=('lib',), cmp_col_values='lib',
                        title="Numerical datasets\nBenchmark scikit-learn, xgboost, lightgbm",
-                       ax=ax, fontsize='large')
+                       ax=ax, fontsize=24)
     fig.show()
 
 Configuration

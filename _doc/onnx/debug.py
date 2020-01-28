@@ -21,10 +21,10 @@ for di, degree in enumerate(sorted(set(df.degree))):
         for interaction_only in sorted(set(df.interaction_only)):
             a = ax[di, pos]
             if di == ax.shape[0] - 1:
-                a.set_xlabel("N observations", fontsize='x-small')
+                a.set_xlabel("N observations", fontsize=24)
             if pos == 0:
                 a.set_ylabel("Time (s) degree={}".format(degree),
-                             fontsize='x-small')
+                             fontsize=24)
 
             for color, dim in zip('brgyc', sorted(set(df.dim))):
                 subset = df[(df.degree == degree) & (df.dim == dim) &
@@ -40,10 +40,10 @@ for di, degree in enumerate(sorted(set(df.degree))):
                 subset.plot(x="N", y="time_current", label=label, ax=a,
                             logx=True, logy=True, c=color)
 
-            a.legend(loc=0, fontsize='x-small')
+            a.legend(loc=0, fontsize=24)
             if di == 0:
                 a.set_title("order={} interaction_only={}".format(
-                    order, interaction_only), fontsize='x-small')
+                    order, interaction_only), fontsize=24)
             pos += 1
 
 plt.suptitle("Benchmark for PolynomialFeatures")
