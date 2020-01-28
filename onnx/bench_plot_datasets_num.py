@@ -123,7 +123,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         try:
             self.onx = to_onnx(self.model, self.datas[0].astype(
                 numpy.float32), options=options)
-        except RuntimeError as e:
+        except (RuntimeError, NameError) as e:
             raise RuntimeError(
                 "Unable to convert model {}.".format(self.model)) from e
         logger = getLogger("skl2onnx")
