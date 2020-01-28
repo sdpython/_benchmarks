@@ -33,7 +33,7 @@ def run_bench(repeat=10, verbose=False):
                    leaf_size=[10],
                    dim=[5, 20],
                    onnx_options=[
-                       None, {KNeighborsClassifier: {'optim': 'cdist'}}],
+                       None, {KNeighborsClassifier: {'optim': 'cdist', 'zipmap': False}}],
                    metric=["euclidean"])
     pafter = dict(N=[1, 10, 100])
 
