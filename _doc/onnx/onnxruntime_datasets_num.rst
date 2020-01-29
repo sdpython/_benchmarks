@@ -55,7 +55,10 @@ Three runtimes are tested:
 * `pyrt`: :epkg:`mlprodict`, it relies on :epkg:`numpy`
   for most of the operators except trees and svm which
   use a modified version of the C++ code embedded in
-  :epkg:`onnxruntime`.
+  :epkg:`onnxruntime`,
+* :epkg:`pyrtc`: same runtime as *pyrt* but the graph
+  logic is replaced by a function dynamically compiled
+  when the ONNX file is loaded.
 
 .. plot::
 
@@ -65,7 +68,7 @@ Three runtimes are tested:
 
     name = "../../onnx/results/bench_plot_datasets_num.perf.csv"
     df = pandas.read_csv(name)
-    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+    fig, ax = plt.subplots(1, 3, figsize=(12, 5))
 
     plot_bench_xtime(df[~df.norm], col_cols='dataset',
                      hue_cols='model', fontsize=24,

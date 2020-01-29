@@ -49,7 +49,10 @@ Three runtimes are tested:
 * `pyrt`: :epkg:`mlprodict`, it relies on :epkg:`numpy`
   for most of the operators except trees and svm which
   use a modified version of the C++ code embedded in
-  :epkg:`onnxruntime`.
+  :epkg:`onnxruntime`,
+* :epkg:`pyrtc`: same runtime as *pyrt* but the graph
+  logic is replaced by a function dynamically compiled
+  when the ONNX file is loaded.
 
 .. plot::
 
@@ -62,7 +65,7 @@ Three runtimes are tested:
     fig, ax = plt.subplots(1, 3, figsize=(12, 5))
 
     plot_bench_xtime(df[~df.norm], col_cols='dataset',
-                     hue_cols='model', fontsize=24,
+                     hue_cols='model', fontsize=12,
                      title="Numerical datasets - norm=False\nBenchmark scikit-learn / onnxruntime",
                      ax=ax)
     fig.show()
