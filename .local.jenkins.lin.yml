@@ -12,11 +12,11 @@ virtualenv:
   - path: {{ospathjoin(root_path, pickname("$NAME_JENKINS", project_name + "_$VERSION_$DIST_$NAME"), "_venv")}}
   
 before_script:
-  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ pyquickhelper jyquickhelper mlinsights pymlbenchmark wrapclib --upgrade --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ skl2onnx onnxmltools onnx onnxruntime onnxconverter_common --upgrade --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ mlprodict mlinsights pandas_streaming --upgrade --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ asv scikit-learn --upgrade --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install xgboost lightgbm py-spy
+  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ pyquickhelper jyquickhelper mlinsights pymlbenchmark wrapclib --upgrade --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ skl2onnx onnxmltools onnx onnxruntime onnxconverter_common --upgrade --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ mlprodict mlinsights pandas_streaming --upgrade --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ asv scikit-learn --upgrade --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install xgboost lightgbm py-spy --upgrade
   - $PYINT -m pip freeze
 
 script:
