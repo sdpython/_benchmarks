@@ -41,7 +41,7 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCADD", TIMEOUT: 1800 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_scaler.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCSCL", TIMEOUT: 2400 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_mlp.py", SCHEDULER: "0 0 12 * *", NAME: "ORT_CASCMLP" }
-  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num.py", SCHEDULER: "0 0 13 * *", NAME: "ORT_DSNUM" }
+  - { CMD: "$PYINT -u onnx/bench_plot_datasets_num.py", SCHEDULER: "0 0 13 * *", NAME: "ORT_DSNUM", TIMEOUT: 7200 }
   - { CMD: "$PYINT -u onnx/bench_plot_datasets_num_reg.py", NAME: "ORT_DSNUM_REG", SCHEDULER: "0 0 14 * *", TIMEOUT: 4800 }
   - { CMD: "$PYINT -u onnx/bench_plot_datasets_num_reg_knn.py", NAME: "ORT_DSNUM_REG_KNN", SCHEDULER: "0 0 15 * *", TIMEOUT: 2400 }
   - { CMD: "$PYINT -u onnx/bench_plot_ml_ensemble.py", NAME: "ORT_MLENS", SCHEDULER: "0 0 16 * *" }
