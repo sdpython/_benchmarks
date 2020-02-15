@@ -27,6 +27,7 @@ from pymlbenchmark.plotting import plot_bench_results
 from skl2onnx.common.data_types import FloatTensorType
 from skl2onnx.algebra.onnx_ops import OnnxAdd
 from onnxruntime import InferenceSession
+from mlprodict.tools.asv_options_helper import get_opset_number_from_onnx
 
 ################################
 # Benchmark
@@ -45,7 +46,8 @@ def generate_onnx_graph(dim, nbnode, input_name='X1'):
         i1 = node
     i2 = random_binary_classification(1, dim)[0].astype(numpy.float32)
     matrices.append(i2)
-    node = OnnxAdd(i1, i2, output_names=['Y'])
+    node = OnnxAdd(i1, i2, output_names=['Y'],
+                   op_version=target_opset=get_opset_number_from_onnx())
     onx = node.to_onnx([(input_name, FloatTensorType((None, dim)))],
                        outputs=[('Y', FloatTensorType((None, dim)))])
     return onx, matrices
