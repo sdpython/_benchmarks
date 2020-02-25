@@ -28,9 +28,11 @@ class TestNames(ExtTestCase):
         fold_cls = os.path.join(this, "..")
         
         exp = {'AdaBoostClassifier', 'BernoulliNB', 'DecisionTreeClassifier',
-               'GradientBoostingClassifier', 'LogisticRegression',
+               'GradientBoostingClassifier', 'GradientBoostingRegressor',
+               'LogisticRegression',
                'MLPClassifier', 'RandomForestClassifier', 'AdaBoostRegressor',
                'DecisionTreeRegressor', 'HistGradientBoostingRegressor',
+               'HistGradientBoostingClassifier',
                'KNeighborsRegressor', 'LinearRegression',
                'LogisticRegression', 'MLPRegressor', 'RandomForestRegressor',
                'RandomForestClassifier', 'SVR', 'SVC'}
