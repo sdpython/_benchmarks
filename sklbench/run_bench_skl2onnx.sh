@@ -23,6 +23,11 @@ then
     echo --REMOVE HTML--
     rm html -r -f
 fi
+echo --CLEAN-ENV--
+if [ -d env ]
+then
+    rm env -r -f
+fi
 
 echo --GIT-PULL--
 git pull

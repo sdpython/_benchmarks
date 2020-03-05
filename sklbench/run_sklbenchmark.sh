@@ -17,6 +17,11 @@ if [ -d ./../dist/html/sklbench_results ]
 then
     rm ./../dist/html/sklbench_results -r -f
 fi
+echo --CLEAN ENV--
+if [ -d env ]
+then
+    rm env -r -f
+fi
 
 echo --MACHINE--
 asv machine --yes || exit 1
