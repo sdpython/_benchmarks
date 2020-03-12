@@ -30,6 +30,7 @@ from pymlbenchmark.plotting import plot_bench_results
 from onnxruntime import InferenceSession
 from mlprodict.onnxrt.onnx_inference_manipulations import enumerate_model_node_outputs
 from mlprodict.sklapi import OnnxTransformer
+from mlprodict.tools import get_ir_version_from_onnx
 
 ################################
 # Trains a MLPClassifier
@@ -45,6 +46,7 @@ model.fit(X, y)
 # Converting
 from skl2onnx import to_onnx
 model_onnx = to_onnx(model, X.astype(numpy.float32))
+model_onnx.ir_version = get_ir_version_from_onnx()
 
 ##################################
 # Display the ONNX graph

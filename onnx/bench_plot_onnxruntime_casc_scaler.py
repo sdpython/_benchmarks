@@ -27,6 +27,7 @@ from pymlbenchmark.plotting import plot_bench_results
 from skl2onnx.common.data_types import FloatTensorType
 from skl2onnx.algebra.onnx_ops import OnnxScaler
 from onnxruntime import InferenceSession
+from mlprodict.tools import get_ir_version_from_onnx
 
 ################################
 # Benchmark
@@ -49,6 +50,7 @@ def generate_onnx_graph(dim, nbnode, input_name='X1'):
     node = OnnxScaler(i1, offset=i2, scale=scale, output_names=['Y'])
     onx = node.to_onnx([(input_name, FloatTensorType((None, dim)))],
                        outputs=[('Y', FloatTensorType((None, dim)))])
+    onx.ir_version = get_ir_version_from_onnx()
     return onx, matrices
 
 
