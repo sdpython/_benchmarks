@@ -90,7 +90,7 @@ def test5(oinf, X_test, number, repeat, name, **data):
     res['name'] = name
     res['runtime'] = 'mlprodict'
     res['version'] = pyrt_version
-    res['batch'] = "y"
+    res['batch'] = "n"
     res.update(data)
     return res
 
