@@ -19,3 +19,8 @@ scikit-learn/*/joblib
 onnx/BENCH-*.pkl
 _doc/onnx/g.py
 onnx/profile_hgb.svg
+onnxruntime/test1-rf/*.pkl
+onnxruntime/test1-rf/*.onnx
+onnxruntime/test1-rf/*.pb
+onnxruntime/test1-rf/*.csv
+onnxruntime/test1-rf/*.xlsx
