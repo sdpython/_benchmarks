@@ -43,7 +43,7 @@ def generate_onnx_graph(dim, nbnode, input_name='X1'):
     for i in range(nbnode - 1):
         i2 = random_binary_classification(1, dim)[0].astype(numpy.float32)
         matrices.append(i2)
-        node = OnnxAdd(i1, i2)
+        node = OnnxAdd(i1, i2, op_version=get_opset_number_from_onnx())
         i1 = node
     i2 = random_binary_classification(1, dim)[0].astype(numpy.float32)
     matrices.append(i2)
