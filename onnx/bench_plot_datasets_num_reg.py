@@ -66,7 +66,7 @@ def create_datasets():
 
 
 def get_model(model_name):
-    if model_name in ("LR", "LR-ZM"):
+    if model_name == "LR":
         return LinearRegression()
     if model_name == "DT":
         return DecisionTreeRegressor(max_depth=6)
@@ -113,8 +113,6 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
 
         if '-cdist' in model:
             options = {id(skl_model): {'optim': 'cdist'}}
-        elif "-ZM" in model:
-            options = {id(skl_model): {'zipmap': False}}
         else:
             options = None
         self.onx = to_onnx(self.model, self.datas[0].astype(
@@ -211,7 +209,7 @@ def run_bench(repeat=5, verbose=False):
                        model=list(sorted(['XGB', 'LGB',
                                           'SVR', 'NuSVR',
                                           'RF', 'DT',
-                                          'ADA', 'MLP', 'LR-ZM',
+                                          'ADA', 'MLP',
                                           'LR', 'GBT', 'HGB'])),
                        norm=[False, True],
                        dataset=["boston", "diabetes", "rndbin20"])
