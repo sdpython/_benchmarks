@@ -5,10 +5,7 @@ import os
 import sys
 import shutil
 import sphinx_gallery.gen_gallery
-
-# import sphinx_modern_theme_modified
-import sphinx_readable_theme
-# import alabaster
+import alabaster
 
 this = os.path.abspath(os.path.dirname(__file__))
 new_paths = [os.path.join(this, '..', 'scikit-learn', 'results')]
@@ -20,7 +17,7 @@ for np in new_paths:
 # -- Project information -----------------------------------------------------
 
 project = 'Benchmarks about Machine Learning'
-copyright = '2019, Xavier Dupré'
+copyright = '2020, Xavier Dupré'
 author = 'Xavier Dupré'
 version = '0.2'
 release = version
@@ -28,15 +25,13 @@ release = version
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    "sphinx_readable_theme",
-    # "alabaster",
     'sphinx.ext.intersphinx',
     'sphinx.ext.imgmath',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     "sphinx.ext.autodoc",
     'sphinx.ext.githubpages',
-    # "sphinx_gallery.gen_gallery",
+    "sphinx_gallery.gen_gallery",
     'sphinx.ext.autodoc',
     "sphinxcontrib.blockdiag",
     "pyquickhelper.sphinxext.sphinx_runpython_extension",
@@ -64,15 +59,8 @@ pygments_style = 'default'
 # -- Options for HTML output -------------------------------------------------
 
 html_static_path = ['_static']
-
-# html_theme = "sphinx_modern_theme_modified"
-html_theme = "readable"
-# html_theme = "alabaster"
-
-# html_theme_path = [sphinx_modern_theme_modified.get_html_theme_path()]
-html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
-# html_theme_path = [alabaster.get_path()]
-
+html_theme = "alabaster"
+html_theme_path = [alabaster.get_path()]
 html_logo = "logo_main.png"
 
 # -- Options for intersphinx extension ---------------------------------------
