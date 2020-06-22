@@ -15,11 +15,11 @@ install:
   - $PYINT -m pip install --upgrade pip
 
 before_script:
-  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ pyquickhelper cpyquickhelper jyquickhelper mlinsights pymlbenchmark wrapclib --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ onnxruntime
-  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ skl2onnx onnxmltools onnx onnxconverter_common
-  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ mlprodict mlinsights pandas_streaming --extra-index-url=https://pypi.python.org/simple/
-  - $PYINT -m pip install --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ asv scikit-learn --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --upgrade --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ pyquickhelper cpyquickhelper jyquickhelper mlinsights pymlbenchmark wrapclib --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --upgrade --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ onnxruntime
+  - $PYINT -m pip install --upgrade --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ skl2onnx onnxmltools onnx onnxconverter_common
+  - $PYINT -m pip install --upgrade --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ mlprodict mlinsights pandas_streaming --extra-index-url=https://pypi.python.org/simple/
+  - $PYINT -m pip install --upgrade --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ asv scikit-learn --extra-index-url=https://pypi.python.org/simple/
   - $PYINT -m pip install --upgrade xgboost lightgbm py-spy
   - $PYINT -m pip freeze
 

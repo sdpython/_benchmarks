@@ -9,7 +9,7 @@ virtualenv:
   
 install:
   - pip install --upgrade pip
-  - pip install --no-cache-dir --no-deps --index http://localhost:8067/simple/ pyquickhelper jyquickhelper mlinsights
+  - pip install --upgrade --no-cache-dir --no-deps --index http://localhost:8067/simple/ pyquickhelper jyquickhelper mlinsights
   - pip freeze
   - pip freeze > pip_freeze.txt
 
