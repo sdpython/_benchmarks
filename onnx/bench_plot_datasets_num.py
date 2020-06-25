@@ -29,7 +29,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.svm import SVC, NuSVC
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 from mlprodict.onnxrt import OnnxInference
@@ -38,6 +38,7 @@ from pymlbenchmark.benchmark import BenchPerf, BenchPerfTest
 from pymlbenchmark.plotting import plot_bench_results, plot_bench_xtime
 from skl2onnx import to_onnx
 from onnxruntime import InferenceSession
+from onnxruntime.capi.onnxruntime_pybind11_state import Fail as OrtFail
 from mlprodict.onnx_conv import register_converters, register_rewritten_operators
 from mlprodict.tools.model_info import analyze_model
 from mlprodict.tools.asv_options_helper import get_opset_number_from_onnx, get_ir_version_from_onnx
@@ -132,9 +133,14 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         logger = getLogger("skl2onnx")
         logger.propagate = False
         logger.disabled = True
-        self.ort = InferenceSession(self.onx.SerializeToString())
         self.oinf = OnnxInference(self.onx, runtime='python')
         self.oinfc = OnnxInference(self.onx, runtime='python_compiled')
+        try:
+            self.ort = InferenceSession(self.onx.SerializeToString())
+        except OrtFail as e:
+            raise RuntimeError(
+                "Unable to load model {}\n--SUMMARY--\n{}".format(
+                    self.model, self.oinfc)) from e
         self.output_name = self.oinf.output_names[-1]
         self.input_name = self.ort.get_inputs()[0].name
         self.model_info = analyze_model(self.model)
