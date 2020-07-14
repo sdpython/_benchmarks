@@ -14,7 +14,7 @@ import pandas
 import matplotlib.pyplot as plt
 import sklearn
 from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from scipy.special import expit
 from pymlbenchmark.context import machine_information
@@ -30,7 +30,8 @@ filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 def run_bench(repeat=10, verbose=False):
 
     pbefore = dict(dim=[1, 5, 10, 20], alpha=[0.1, 1., 10.],
-                   onnx_options=[None, {GaussianProcessRegressor: {'optim': 'cdist'}}],
+                   onnx_options=[
+                       None, {GaussianProcessRegressor: {'optim': 'cdist'}}],
                    dtype=[numpy.float32, numpy.float64])
     pafter = dict(N=[1, 10, 100, 1000])
 
@@ -91,12 +92,13 @@ name = "bench_plot_onnxruntime_gpr.perf.csv"
 df = pandas.read_csv(name)
 
 plot_bench_results(df, row_cols=('alpha', 'N'), col_cols='onnx_options',
-                          hue_cols='dtype',
-                 cmp_col_values=('lib', 'skl'),
-                 x_value='dim', y_value='mean',
-                 title=None, label_fct=label_fct,
-                 ax=None, box_side=4)
-plt.suptitle("Acceleration onnxruntime / scikit-learn for GaussianProcessRegressor")
+                   hue_cols='dtype',
+                   cmp_col_values=('lib', 'skl'),
+                   x_value='dim', y_value='mean',
+                   title=None, label_fct=label_fct,
+                   ax=None, box_side=4)
+plt.suptitle(
+    "Acceleration onnxruntime / scikit-learn for GaussianProcessRegressor")
 
 plt.savefig("%s.png" % filename)
 # plt.show()

@@ -25,7 +25,7 @@ def train_model(X_train, y_train, **kwargs):
 
 def main():
     X_train, X_test, y_train, y_test = get_data()
-    
+
     fullname = "data-%d-nf%d.pkl" % X_train.shape
     pkl = dict(X_test=X_test)
     with open(fullname, "wb") as f:
@@ -45,17 +45,17 @@ def main():
         model = train_model(
             X_train, y_train,
             n_estimators=200, max_depth=depth)
-        
+
         name = model.__class__.__name__
         fullname = '%s-d%02d-nf%d.pkl' % (name, depth, X_train.shape[1])
         with open(fullname, 'wb') as f:
             pickle.dump(model, f)
-        
+
         onx = to_onnx(model, X_train[:1])
         onxb = onx.SerializeToString()
         fullname = '%s-d%02d-nf%d.onnx' % (name, depth, X_train.shape[1])
         with open(fullname, 'wb') as f:
             f.write(onxb)
-        
+
 
 main()

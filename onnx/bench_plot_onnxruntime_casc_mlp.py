@@ -19,7 +19,7 @@ import numpy
 import pandas
 import matplotlib.pyplot as plt
 import sklearn
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from sklearn.neural_network import MLPClassifier
 from pyquickhelper.loghelper import run_cmd, sys_path_append
@@ -112,7 +112,8 @@ class GraphORtBenchPerfTest(BenchPerfTest):
         for k, v in self.onnx_models.items():
             def fct(X, onx=v.onnxrt_):
                 out = onx.run({'X': X.astype(numpy.float32)})
-                return out['output_label']
+                name = onx.output_names[0]
+                return out[name]
             fcts.append(dict(lib='ort', method='ox_' + k, fct=fct))
 
         return fcts

@@ -16,12 +16,12 @@ from mlprodict.onnxrt import OnnxInference
 
 def loop_model(sess, X_test):
     for i in range(X_test.shape[0]):
-        sess.run(None, {'X': X_test[i: i+1]})
+        sess.run(None, {'X': X_test[i: i + 1]})
 
 
 def loop_model2(oinf, X_test):
     for i in range(X_test.shape[0]):
-        oinf.run({'X': X_test[i: i+1]})
+        oinf.run({'X': X_test[i: i + 1]})
 
 
 def test1(model, X_test, number, repeat, name, **data):
@@ -35,7 +35,7 @@ def test1(model, X_test, number, repeat, name, **data):
     res['batch'] = "y"
     res.update(data)
     return res
-    
+
 
 def test2(sess, X_test, number, repeat, name, **data):
     input = {'input': X_test}
@@ -95,11 +95,10 @@ def test5(oinf, X_test, number, repeat, name, **data):
     return res
 
 
-
 def main(nf=20, number=1, repeat=5):
     files = glob.glob("*nf%d.pkl" % nf)
     print(files)
-    
+
     # data
     X_test = None
     for name in files:
@@ -113,7 +112,7 @@ def main(nf=20, number=1, repeat=5):
 
     # scikit-learn
     obs = []
-    
+
     pbar = tqdm(files)
     for name in pbar:
         if 'data' in name:
@@ -139,7 +138,7 @@ def main(nf=20, number=1, repeat=5):
         # onnxruntime - single
         obs.append(
             test3(sess, X_test, number, repeat, name, model_size=size))
-        
+
         # mlprodict
         pbar.set_postfix(rt="mlp")
         obs.append(
@@ -148,14 +147,13 @@ def main(nf=20, number=1, repeat=5):
         # onnxruntime - single
         obs.append(
             test5(oinf, X_test, number, repeat, name, model_size=size))
-        
-    
+
     df = pandas.DataFrame(obs)
     df.to_csv("result-nf%d-%s.csv" % (nf, ort_version), index=False)
     df.to_excel("result-nf%d-%s.xlsx" % (nf, ort_version), index=False)
     print(df)
     return df
-        
+
 
 with config_context(assume_finite=True):
     main()

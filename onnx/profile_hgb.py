@@ -29,14 +29,17 @@ X = X.astype(np.float32)
 print(X.shape)
 oinf = OnnxInference(onxb, runtime="python_compiled")
 
+
 def f1_pyrt():
     for i in range(0, 500):
-        y = oinf.run({'X': X[i: i+10000]})
+        y = oinf.run({'X': X[i: i + 10000]})
+
 
 def f2_skl():
     with sklearn.config_context(assume_finite=True):
         for i in range(0, 500):
-            model.predict(X[i: i+10000])
+            model.predict(X[i: i + 10000])
+
 
 if X.shape[0] < 12000:
     rows = []

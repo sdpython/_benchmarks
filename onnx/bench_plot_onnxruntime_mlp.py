@@ -14,7 +14,7 @@ import pandas
 import matplotlib.pyplot as plt
 import sklearn
 from sklearn.neural_network import MLPClassifier
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from scipy.special import expit
 from pymlbenchmark.context import machine_information

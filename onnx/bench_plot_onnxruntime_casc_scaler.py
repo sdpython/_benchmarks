@@ -17,7 +17,7 @@ import numpy
 import pandas
 import matplotlib.pyplot as plt
 import sklearn
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from pyquickhelper.loghelper import run_cmd, sys_path_append
 from pymlbenchmark.benchmark import BenchPerfTest, BenchPerf

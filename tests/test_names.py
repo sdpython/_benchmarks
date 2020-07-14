@@ -26,7 +26,7 @@ class TestNames(ExtTestCase):
         doc = os.path.join(this, "..", "_doc", "onnx")
         fold_reg = os.path.join(this, "..", "onnx", "profiles_reg")
         fold_cls = os.path.join(this, "..")
-        
+
         exp = {'AdaBoostClassifier', 'BernoulliNB', 'DecisionTreeClassifier',
                'GradientBoostingClassifier', 'GradientBoostingRegressor',
                'LogisticRegression',
@@ -36,7 +36,7 @@ class TestNames(ExtTestCase):
                'KNeighborsRegressor', 'LinearRegression',
                'LogisticRegression', 'MLPRegressor', 'RandomForestRegressor',
                'RandomForestClassifier', 'SVR', 'SVC'}
-        
+
         # Extract patterns.
         doc_files = glob.glob(os.path.join(doc, 'onnx_profiling_*.rst'))
         for name in doc_files:
@@ -44,11 +44,11 @@ class TestNames(ExtTestCase):
                 content = f.read()
             reg = re.compile("pattern = \\\"(onnx/profiles.*.svg)\\\"")
             pats = reg.findall(content)[0]
-            
+
             pats = [os.path.join(fold_reg, pats),
                     os.path.join(fold_cls, pats)]
             svgs = glob.glob(pats[0]) + glob.glob(pats[1])
-            
+
             if len(svgs) == 0 and 'knn' not in name:
                 raise AssertionError(
                     "Unable to find any file for '{}' in\n{}.".format(

@@ -19,8 +19,7 @@ from sklearn.datasets import load_boston, load_diabetes, make_regression
 from sklearn.experimental import enable_hist_gradient_boosting
 from sklearn.ensemble import (
     RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor,
-    HistGradientBoostingRegressor
-)
+    HistGradientBoostingRegressor)
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.linear_model import LinearRegression
@@ -31,7 +30,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.svm import SVR, NuSVR
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
 from mlprodict.onnxrt import OnnxInference
@@ -75,7 +74,7 @@ def get_model(model_name):
         return LinearRegression()
     if model_name == "DT":
         return DecisionTreeRegressor(max_depth=6)
-    if model_name == 'HGB':        
+    if model_name == 'HGB':
         return HistGradientBoostingRegressor(max_depth=6, max_iter=100)
     if model_name == "RF":
         return RandomForestRegressor(max_depth=6, n_estimators=100)

@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import sklearn
 from sklearn.experimental import enable_hist_gradient_boosting
 from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from sklearn.utils.extmath import softmax
 from scipy.special import expit
 from pymlbenchmark.context import machine_information
