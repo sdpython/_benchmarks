@@ -31,7 +31,6 @@ extensions = [
     'sphinx.ext.viewcode',
     "sphinx.ext.autodoc",
     'sphinx.ext.githubpages',
-    "sphinx_gallery.gen_gallery",
     'sphinx.ext.autodoc',
     "sphinxcontrib.blockdiag",
     "pyquickhelper.sphinxext.sphinx_runpython_extension",
@@ -66,13 +65,39 @@ html_logo = "logo_main.png"
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
-
-# -- Options for Sphinx Gallery ----------------------------------------------
-
-sphinx_gallery_conf = {
-    'examples_dirs': 'examples',
-    'gallery_dirs': 'auto_examples',
+intersphinx_mapping = {
+    'joblib': ('https://joblib.readthedocs.io/en/latest/', None),
+    'python': ('https://docs.python.org/{.major}'.format(
+        sys.version_info), None),
+    'matplotlib': ('https://matplotlib.org/', None),
+    'mlinsights': (
+        'http://www.xavierdupre.fr/app/mlinsights/helpsphinx/', None),
+    'mlprodict': (
+        'http://www.xavierdupre.fr/app/mlprodict/helpsphinx/', None),
+    'numpy': ('https://docs.scipy.org/doc/numpy/', None),
+    'pyquickhelper': (
+        'http://www.xavierdupre.fr/app/pyquickhelper/helpsphinx/', None),
+    'onnxmltools': (
+        'http://www.xavierdupre.fr/app/onnxmltools/helpsphinx/index.html',
+        None),
+    'onnxruntime': (
+        'http://www.xavierdupre.fr/app/onnxruntime/helpsphinx/index.html',
+        None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/reference', None),
+    'seaborn': ('https://seaborn.pydata.org/', None),
+    'scikit-learn': (
+        'https://scikit-learn.org/stable/',
+        None),
+    'sklearn': (
+        'https://scikit-learn.org/stable/',
+        None),
+    'skl2onnx': (
+        'http://www.xavierdupre.fr/app/sklearn-onnx/helpsphinx/index.html',
+        None),
+    'sklearn-onnx': (
+        'http://www.xavierdupre.fr/app/sklearn-onnx/helpsphinx/index.html',
+        None),
 }
 
 # -- shortcuts ---------------------------------------------------------------
