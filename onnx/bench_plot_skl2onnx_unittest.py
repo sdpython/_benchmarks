@@ -131,11 +131,14 @@ print(dfi)
 # Shows errors.
 # +++++++++++++
 
-err = df[~df.stderr.isnull()]
-err = err[["_model", "stderr"]]
-err.to_csv(filename + ".err.csv", index=False)
-print(err)
-
+if 'stderr' in df.columns:
+    err = df[~df.stderr.isnull()]
+    err = err[["_model", "stderr"]]
+    err.to_csv(filename + ".err.csv", index=False)
+    print(err)
+else:
+    print('no error.')
+    df['stderr'] = numpy.nan
 
 #############################
 # Plot the results by time
