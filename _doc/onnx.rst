@@ -46,6 +46,7 @@ to help understand how runtime behave for specific operators.
     onnx/onnxruntime_casc_add
     onnx/onnxruntime_casc_scaler
     onnx/onnxruntime_casc_mlp
+    onnx/onnxruntime_reduce_sum
 
 Profiling ONNX runtime
 ======================

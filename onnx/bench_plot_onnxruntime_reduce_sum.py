@@ -96,7 +96,7 @@ def fct_filter_test(N=None, edims=None, axes=None):
 @ignore_warnings(category=FutureWarning)
 def run_bench(repeat=20, number=10, verbose=False):
 
-    pbefore = dict(edims=[(10, 10), (100, 100), (50, 100, 10)],
+    pbefore = dict(edims=[(10, 10), (100, 100), (50, 20, 10)],
                    axes=[(1, ), (2, ), (1, 2)])
     pafter = dict(N=[1, 10, 100, 1000, 2000, 5000])
 
