@@ -99,7 +99,7 @@ class GraphOrtBenchPerfTest(BenchPerfTest):
         if self.torch is not None:
 
             def predict_torch(X, Xtf, Xtr):
-                return self.torch.sum(Xtr, axis=self.axes)
+                return self.torch.sum(Xtr, dim=self.axes)
 
             fcts.append({'lib': 'torch', 'fct': predict_torch})
 
