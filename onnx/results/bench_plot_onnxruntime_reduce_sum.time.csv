@@ -9,7 +9,7 @@ processor,,
 release,,4.9.0-8-amd64
 architecture,,"('64bit', '')"
 mlprodict,0.4.1308,
-numpy,1.19.2,"openblas, language=c"
+numpy,1.18.5,"openblas, language=c"
 onnx,1.7.1078,opset=12
 onnxruntime,1.5.991,CPU-MKL-ML
 pandas,1.1.2,
