@@ -63,24 +63,44 @@ class GraphOrtBenchPerfTest(BenchPerfTest):
                 "Issue\n{}".format(self.onx)) from e
         self.rtpy = OnnxInference(as_string, runtime='python_compiled')
 
+        try:
+            import tensorflow as tf
+        except ImportError:
+            tf = None
+        self.tf = tf
+
     def fcts(self, **kwargs):
 
-        def predict_ort(X, model=self.ort):
+        def predict_ort(X, Xtf, model=self.ort):
             return self.ort.run(None, {self.input_name: X})[0]
 
-        def predict_rtpy(X, model=self.ort):
+        def predict_rtpy(X, Xtf, model=self.ort):
             return self.rtpy.run({self.input_name: X})['Y']
 
-        def predict_npy(X):
+        def predict_npy(X, Xtf):
             return numpy.sum(X, axis=self.axes)
 
-        return [{'lib': 'ort', 'fct': predict_ort},
+        fcts = [{'lib': 'ort', 'fct': predict_ort},
                 {'lib': 'npy', 'fct': predict_npy},
                 {'lib': 'rtpy', 'fct': predict_rtpy}]
 
+        if self.tf is not None:
+
+            def predict_tf(X, Xtf):
+                return self.tf.math.reduce_sum(Xtf, axis=self.axes)
+
+            fcts.append({'lib': 'tf', 'fct': predict_tf})
+
+        return fcts
+
     def data(self, N=10, edims=None, **kwargs):  # pylint: disable=W0221
         new_dims = list((N,) + tuple(edims))
-        return (numpy.random.rand(*new_dims).astype(numpy.float32), )
+        arr = numpy.random.rand(*new_dims).astype(numpy.float32)
+        if self.tf is None:
+            tfarr = None
+        else:
+            tfarr = self.tf.convert_to_tensor(arr)
+        return (arr, tfarr)
 
 
 def fct_filter_test(N=None, edims=None, axes=None):
@@ -88,7 +108,6 @@ def fct_filter_test(N=None, edims=None, axes=None):
         return True
     for a in axes:
         if a > len(edims):
-            print('-', N, edims, axes)
             return False    
     return True
 
@@ -97,7 +116,7 @@ def fct_filter_test(N=None, edims=None, axes=None):
 def run_bench(repeat=20, number=10, verbose=False):
 
     pbefore = dict(edims=[(10, 10), (100, 100), (50, 20, 10)],
-                   axes=[(1, ), (2, ), (1, 2)])
+                   axes=[(1, ), (2, )])
     pafter = dict(N=[1, 10, 100, 1000, 2000, 5000])
 
     test = lambda edims=None, axes=None, **opts: GraphOrtBenchPerfTest(edims=edims, axes=axes, **opts)
