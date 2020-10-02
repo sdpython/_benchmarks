@@ -127,7 +127,7 @@ def run_bench(repeat=20, number=10, verbose=False):
 
     pbefore = dict(edims=[(10, 10), (100, 50), (50, 20, 10)],
                    axes=[(1, ), (2, )])
-    pafter = dict(N=[1, 10, 100, 1000, 2000, 5000])
+    pafter = dict(N=[1, 10, 100, 1000, 2000, 3000])
 
     test = lambda edims=None, axes=None, **opts: GraphOrtBenchPerfTest(edims=edims, axes=axes, **opts)
     bp = BenchPerf(pbefore, pafter, test,
