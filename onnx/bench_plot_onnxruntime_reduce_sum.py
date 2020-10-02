@@ -68,16 +68,21 @@ class GraphOrtBenchPerfTest(BenchPerfTest):
         except ImportError:
             tf = None
         self.tf = tf
+        try:
+            import torch
+        except ImportError:
+            torch = None
+        self.torch = torch
 
     def fcts(self, **kwargs):
 
-        def predict_ort(X, Xtf, model=self.ort):
+        def predict_ort(X, Xtf, Xtr, model=self.ort):
             return self.ort.run(None, {self.input_name: X})[0]
 
-        def predict_rtpy(X, Xtf, model=self.ort):
+        def predict_rtpy(X, Xtf, Xtr, model=self.ort):
             return self.rtpy.run({self.input_name: X})['Y']
 
-        def predict_npy(X, Xtf):
+        def predict_npy(X, Xtf, Xtr):
             return numpy.sum(X, axis=self.axes)
 
         fcts = [{'lib': 'ort', 'fct': predict_ort},
@@ -86,21 +91,26 @@ class GraphOrtBenchPerfTest(BenchPerfTest):
 
         if self.tf is not None:
 
-            def predict_tf(X, Xtf):
+            def predict_tf(X, Xtf, Xtr):
                 return self.tf.math.reduce_sum(Xtf, axis=self.axes)
 
             fcts.append({'lib': 'tf', 'fct': predict_tf})
+
+        if self.torch is not None:
+
+            def predict_torch(X, Xtf, Xtr):
+                return self.torch.sum(Xtr, axis=self.axes)
+
+            fcts.append({'lib': 'torch', 'fct': predict_torch})
 
         return fcts
 
     def data(self, N=10, edims=None, **kwargs):  # pylint: disable=W0221
         new_dims = list((N,) + tuple(edims))
         arr = numpy.random.rand(*new_dims).astype(numpy.float32)
-        if self.tf is None:
-            tfarr = None
-        else:
-            tfarr = self.tf.convert_to_tensor(arr)
-        return (arr, tfarr)
+        tfarr = None if self.tf is None else self.tf.convert_to_tensor(arr)
+        trarr = None if self.torch is None else self.torch.Tensor(arr)
+        return (arr, tfarr, trarr)
 
 
 def fct_filter_test(N=None, edims=None, axes=None):
@@ -115,7 +125,7 @@ def fct_filter_test(N=None, edims=None, axes=None):
 @ignore_warnings(category=FutureWarning)
 def run_bench(repeat=20, number=10, verbose=False):
 
-    pbefore = dict(edims=[(10, 10), (100, 100), (50, 20, 10)],
+    pbefore = dict(edims=[(10, 10), (100, 50), (50, 20, 10)],
                    axes=[(1, ), (2, )])
     pafter = dict(N=[1, 10, 100, 1000, 2000, 5000])
 
