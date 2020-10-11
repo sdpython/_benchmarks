@@ -24,3 +24,7 @@ onnxruntime/test1-rf/*.onnx
 onnxruntime/test1-rf/*.pb
 onnxruntime/test1-rf/*.csv
 onnxruntime/test1-rf/*.xlsx
+sandbox/*.pkl
+sandbox/*.csv
+sandbox/*.xlsx
+sandbox/*.svg
