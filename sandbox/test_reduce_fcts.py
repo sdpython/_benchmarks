@@ -75,6 +75,7 @@ def test(x, x_shape, y_shape, axes, op='ReduceSum', repeat=100):
     max_pool = helper.make_node(op, ['X'], ['Y'], axes=axes, keepdims=1)
     graph = helper.make_graph([max_pool], 'graph', [X], [Y])
     model = helper.make_model(graph, producer_name='model')
+    model.opset_import[0].version = 12
     sess = ort.InferenceSession(model.SerializeToString())
     start_at = time.clock()
     for i in range(0, repeat):
