@@ -61,6 +61,8 @@ script:
   - { CMD: "bash sklbench/run_profile_skl2onnx_classifier_knn.sh", NAME: "SKLPROFILEONNXKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
   - { CMD: "bash sklbench/run_profile_skl2onnx_regressor.sh", NAME: "SKLPROFILEONNXREG", SCHEDULER: "0 0 22 * *", TIMEOUT: 7200 }
   - { CMD: "bash sklbench/run_profile_skl2onnx_regressor_knn.sh", NAME: "SKLPROFILEONNXREGKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
+  # benchmark skl2onnx
+  - { CMD: "bash skl2onnx/run.sh", NAME: "SKL2ONNX", SCHEDULER: "0 0 4 * *", TIMEOUT: 3600 }
 
 after_script:
   - if [ ${NAME} == "UT" ] then ls dist/html/*.html fi
