@@ -2,7 +2,7 @@
 language: python
 
 python:
-  - { PATH: "{{replace(Python37, '\\', '\\\\')}}", VERSION: 3.7, DIST: std }  
+  - { PATH: "{{replace(Python39, '\\', '\\\\')}}", VERSION: 3.9, DIST: std }  
 
 virtualenv:
   - path: {{ospathjoin(root_path, pickname("%NAME_JENKINS%", project_name + "_%VERSION%_%DIST%_%NAME%"), "_venv")}}
@@ -14,22 +14,22 @@ install:
   - pip freeze > pip_freeze.txt
 
 script:
-  - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
+  - if [ ${VERSION} == "3.9" and ${DIST} == "std" ]
       then 
         --CMD=python -u scikit-learn/bench_plot_polynomial_features.py;;
         --NAME=SKL_POLYF;;
       fi
-  - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
+  - if [ ${VERSION} == "3.9" and ${DIST} == "std" ]
       then 
         --CMD=python -u scikit-learn/bench_plot_polynomial_features_partial_fit.py;;
         --NAME=SKL_POLYF_PF;;
       fi
-  - if [ ${VERSION} == "3.6" and ${DIST} == "std" ]
+  - if [ ${VERSION} == "3.9" and ${DIST} == "std" ]
       then 
         --CMD=python -u onnx/bench_plot_onnxruntime_random_forest.py;;
         --NAME=ORT_RF;;
       fi
-  - if [ ${VERSION} == "3.7" and ${DIST} == "std" ]
+  - if [ ${VERSION} == "3.9" and ${DIST} == "std" ]
       then 
         --CMD=python -c "from sphinx.cmd.build import build_main;build_main(['-j2','-v','-T','-b','html','-d','dist/doctrees','_doc','dist/html'])";;
         --NAME=UT;;
