@@ -19,7 +19,7 @@ from sklearn.preprocessing import MinMaxScaler, KBinsDiscretizer, PolynomialFeat
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
-from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 import sklearn.utils
 from mlinsights.mlbatch import PipelineCache, MLCache
 
@@ -183,4 +183,6 @@ plot_bench_results(df, row_cols=['N'],
                    hue_cols=['test'],
                    cmp_col_values='test',
                    title="GridSearchCV\nBenchmark caching strategies")
-# plt.show()
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

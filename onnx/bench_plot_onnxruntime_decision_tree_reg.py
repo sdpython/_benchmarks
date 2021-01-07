@@ -87,4 +87,7 @@ plot_bench_results(df, row_cols='N', col_cols='max_depth',
                    title="%s\nBenchmark scikit-learn / onnxruntime" % model_name,
                    label_fct=label_fct)
 plt.savefig("%s.png" % filename)
-# plt.show()
+
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

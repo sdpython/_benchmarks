@@ -213,4 +213,7 @@ if __name__ == '__main__':
     plt.savefig("results/bench_plot_onnxruntime_svm_reg.png")
     df.to_csv("results/bench_plot_onnxruntime_svm_reg.csv", index=False)
     df.to_excel("results/bench_plot_onnxruntime_svm_reg.xlsx", index=False)
-    # plt.show()
+
+    import sys
+    if "--quiet" not in sys.argv:
+        plt.show()

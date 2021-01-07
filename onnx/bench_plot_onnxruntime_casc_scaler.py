@@ -171,3 +171,7 @@ image = plt.imread("graph.%d.dot.png" % nbnode)
 plt.imshow(image)
 plt.axis('off')
 plt.savefig("%s.%d.node.png" % (filename, nbnode))
+
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

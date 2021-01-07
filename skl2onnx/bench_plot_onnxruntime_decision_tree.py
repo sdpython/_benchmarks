@@ -14,12 +14,7 @@ import matplotlib.pyplot as plt
 import pandas
 from sklearn import config_context
 from sklearn.tree import DecisionTreeClassifier
-try:
-    # scikit-learn >= 0.22
-    from sklearn.utils._testing import ignore_warnings
-except ImportError:
-    # scikit-learn < 0.22
-    from sklearn.utils.testing import ignore_warnings
+from sklearn.utils._testing import ignore_warnings
 from skl2onnx import convert_sklearn
 from skl2onnx.common.data_types import FloatTensorType
 from onnxruntime import InferenceSession
@@ -225,4 +220,7 @@ if __name__ == '__main__':
     plt.savefig("results/bench_plot_onnxruntime_decision_tree.png")
     df.to_csv("results/bench_plot_onnxruntime_decision_tree.csv", index=False)
     df.to_excel("results/bench_plot_onnxruntime_decision_tree.xlsx", index=False)
-    # plt.show()
+
+    import sys
+    if "--quiet" not in sys.argv:
+        plt.show()

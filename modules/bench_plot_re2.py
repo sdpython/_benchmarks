@@ -106,4 +106,6 @@ plot_bench_results(df, row_cols=['N'],
                    title="re2\nBenchmark re / re2")
 
 import matplotlib.pyplot as plt
-plt.show()
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

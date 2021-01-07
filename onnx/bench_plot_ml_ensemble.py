@@ -215,4 +215,7 @@ plot_bench_results(df, row_cols=('rt',), col_cols=('dataset', ), label_fct=label
                    x_value='N', hue_cols=('lib',), cmp_col_values='lib',
                    title="Numerical datasets\nBenchmark scikit-learn, xgboost, lightgbm")
 plt.savefig("%s.curve.png" % filename)
-plt.show()
+
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

@@ -101,4 +101,7 @@ plt.suptitle(
     "Acceleration onnxruntime / scikit-learn for GaussianProcessRegressor")
 
 plt.savefig("%s.png" % filename)
-# plt.show()
+
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

@@ -285,4 +285,7 @@ plot_bench_results(df, row_cols='model', col_cols=('dataset', 'norm'),
                    x_value='N',
                    title="Numerical datasets\nBenchmark scikit-learn / onnxruntime")
 plt.savefig("%s.curve.png" % filename)
-# plt.show()
+
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

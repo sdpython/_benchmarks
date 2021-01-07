@@ -28,3 +28,5 @@ sandbox/*.pkl
 sandbox/*.csv
 sandbox/*.xlsx
 sandbox/*.svg
+sklbench/*.csv
+sklbench/jb-*

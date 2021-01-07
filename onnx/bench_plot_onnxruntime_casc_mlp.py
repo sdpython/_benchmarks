@@ -201,3 +201,7 @@ fig, ax = plt.subplots(1, 2, figsize=(14, 6))
 data[['skl_proba', 'onnx_proba']].plot(ax=ax[0])
 data.plot(ax=ax[1])
 fig.savefig("%s.graph.png" % filename)
+
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

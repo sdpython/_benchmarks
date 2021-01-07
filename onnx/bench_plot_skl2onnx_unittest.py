@@ -181,4 +181,6 @@ ax.set_title("Ratio onnxruntime / scikit-learn\nLower is better")
 fig.tight_layout()
 fig.savefig("%s.model.png" % filename)
 
-# plt.show()
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()

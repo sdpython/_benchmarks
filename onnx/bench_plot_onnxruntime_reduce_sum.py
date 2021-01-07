@@ -183,3 +183,7 @@ plot_bench_results(df, row_cols='edims', col_cols='axes',
                    label_fct=label_fct)
 
 plt.savefig("%s.node.png" % filename)
+
+import sys
+if "--quiet" not in sys.argv:
+    plt.show()
