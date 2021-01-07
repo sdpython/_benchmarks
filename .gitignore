@@ -26,7 +26,14 @@ onnxruntime/test1-rf/*.csv
 onnxruntime/test1-rf/*.xlsx
 sandbox/*.pkl
 sandbox/*.csv
+sandbox/results/*.csv
+sandbox/results/*.xlsx
 sandbox/*.xlsx
 sandbox/*.svg
 sklbench/*.csv
 sklbench/jb-*
+sklbench/*.onnx
+sklbench/*.pkl
+sklbench/*.pb
+sklbench/*.png
+

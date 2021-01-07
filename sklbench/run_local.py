@@ -8,10 +8,12 @@ for fold in ["skl2onnx", "onnx"]:
     names = os.listdir(f)
     for name in names:
         fullname = os.path.join(f, name)
-        short = os.path.split(name)[0]
+        short, ext = os.path.splitext(name)
+        if ext != '.py':
+            continue
         cmd = ["python %CDIR%/{}/{} --quiet".format(fold, name),
-               "copy {}*.csv %CDIR%\\{}\\results".format(short, fold),
-               "copy {}*.xlsx %CDIR%\\{}\\results".format(short, fold)]
+               "copy results\\{}*.csv %CDIR%\\{}\\results".format(short, fold),
+               "copy results\\{}*.xlsx %CDIR%\\{}\\results".format(short, fold)]
         print("\n".join(cmd))
         print()
 
