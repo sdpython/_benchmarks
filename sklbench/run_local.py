@@ -11,10 +11,12 @@ for fold in ["skl2onnx", "onnx"]:
         short, ext = os.path.splitext(name)
         if ext != '.py':
             continue
-        cmd = ["python %CDIR%/{}/{} --quiet".format(fold, name),
-               "copy results\\{}*.csv %CDIR%\\{}\\results".format(short, fold),
-               "copy results\\{}*.xlsx %CDIR%\\{}\\results".format(short, fold)]
+        cmd = ["echo ---- RUN {}".format(name),
+               "set NAME=results\\{}.csv".format(short),
+               "if exists %NAME% goto next_{}:".format(short),
+               "python %CDIR%/{}/{} --quiet".format(fold, name),
+               "copy results\\%NAME%.csv %CDIR%\\{}\\results".format(fold),
+               "copy results\\%NAME%.xlsx %CDIR%\\{}\\results".format(fold),
+               ":next_{}:".format(short)]
         print("\n".join(cmd))
         print()
-
-    
