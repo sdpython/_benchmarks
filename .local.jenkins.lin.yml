@@ -21,7 +21,6 @@ before_script:
   - $PYINT -m pip install --upgrade --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ mlprodict mlinsights pandas_streaming --extra-index-url=https://pypi.python.org/simple/
   - $PYINT -m pip install --upgrade --no-cache-dir --no-deps --upgrade --index http://localhost:8067/simple/ asv scikit-learn --extra-index-url=https://pypi.python.org/simple/
   - $PYINT -m pip install --upgrade xgboost lightgbm py-spy
-  - if [ ${NAME} == "ORT_REDSUM" ] then $PYINT -m pip install tensorflow torch fi
   - $PYINT -m pip freeze
 
 script:
