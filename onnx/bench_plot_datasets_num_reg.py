@@ -213,7 +213,7 @@ def run_bench(repeat=5, verbose=False):
                        norm=[False, True],
                        dataset=["boston", "diabetes", "rndbin20"])
         pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
-                         2000, 5000, 10000, 20000, 50000])
+                         2000, 5000, 10000, 20000])
     else:
         pbefore = dict(dim=[-1],
                        model=list(sorted(['DT', 'HGB'])),
