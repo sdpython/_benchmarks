@@ -25,12 +25,15 @@ from pymlbenchmark.benchmark import BenchPerfTest, BenchPerf
 from pymlbenchmark.context import machine_information
 from pymlbenchmark.plotting import plot_bench_results
 from skl2onnx.common.data_types import FloatTensorType
-from skl2onnx.algebra.onnx_ops import OnnxReduceSum
+from skl2onnx.algebra.onnx_ops import OnnxReduceSumApi11
 from onnxruntime import InferenceSession
 from onnxruntime.capi.onnxruntime_pybind11_state import Fail
 from mlprodict.onnxrt import OnnxInference
 from mlprodict.tools.asv_options_helper import (
     get_opset_number_from_onnx, get_ir_version_from_onnx)
+
+
+TARGET_OPSET = 13
 
 ################################
 # Benchmark
@@ -40,11 +43,12 @@ from mlprodict.tools.asv_options_helper import (
 def generate_onnx_graph(edims, axes, input_name='X'):
     """Generates a series of consecutive additions."""
 
-    node = OnnxReduceSum(input_name, axes=list(axes),
-                         op_version=get_opset_number_from_onnx(),
-                         output_names=['Y'])
+    node = OnnxReduceSumApi11(input_name, axes=list(axes),
+                              op_version=TARGET_OPSET,
+                              output_names=['Y'])
     onx = node.to_onnx([(input_name, FloatTensorType((None,) + tuple(edims)))],
-                       outputs=[('Y', FloatTensorType())])
+                       outputs=[('Y', FloatTensorType())],
+                       target_opset=TARGET_OPSET)
     return onx
 
 
