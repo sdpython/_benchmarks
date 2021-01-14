@@ -10,23 +10,23 @@ import time
 import tensorflow as tf
 
 
-cases_pf = [ 
-            #x_shape y_shape, axes
-            [[5,5,2],               [-1,-1,-1],    [1, 1, 1, 1, 1, 1]],
-            [[5,5,2],               [-1,-1,-1],    [2, 2, 2, 2, 2, 2]],
-            
-            [[1000, 50, 20, 10],    [-1,-1,-1,-1], [1, 1, 1, 1, 1, 1, 1, 1]],
-            [[1000, 50, 20, 10],    [-1,-1,-1,-1], [2, 2, 2, 2, 2, 2, 2, 2]],
-            
-            [[100,200,4096],        [-1,-1,-1],    [1, 1, 1, 1, 1, 1]],
-            [[100,200,4096],        [-1,-1,-1],    [2, 2, 2, 2, 2, 2]],
+cases_pf = [
+    # x_shape y_shape, axes
+    [[5, 5, 2], [-1, -1, -1], [1, 1, 1, 1, 1, 1]],
+    [[5, 5, 2], [-1, -1, -1], [2, 2, 2, 2, 2, 2]],
 
-            [[10,10,512,512],       [-1,-1,-1,-1], [1, 1, 1, 1, 1, 1, 1, 1]],
-            [[10,10,512,512],       [-1,-1,-1,-1], [2, 2, 2, 2, 2, 2, 2, 2]],
+    [[1000, 50, 20, 10], [-1, -1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1]],
+    [[1000, 50, 20, 10], [-1, -1, -1, -1], [2, 2, 2, 2, 2, 2, 2, 2]],
 
-            [[2,2,256,256,256],     [-1,-1,-1,-1,-1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
-            [[2,2,256,256,256],     [-1,-1,-1,-1,-1], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]],
-        ]
+    [[100, 200, 4096], [-1, -1, -1], [1, 1, 1, 1, 1, 1]],
+    [[100, 200, 4096], [-1, -1, -1], [2, 2, 2, 2, 2, 2]],
+
+    [[10, 10, 512, 512], [-1, -1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1]],
+    [[10, 10, 512, 512], [-1, -1, -1, -1], [2, 2, 2, 2, 2, 2, 2, 2]],
+
+    [[2, 2, 256, 256, 256], [-1, -1, -1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+    [[2, 2, 256, 256, 256], [-1, -1, -1, -1, -1], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]],
+]
 
 
 def test(x, x_shape, y_shape, pads, op='Pad', repeat=100):
@@ -58,10 +58,10 @@ def get_tf_pad(Xtf, raw_pads, repeat=100):
     start_at = time.perf_counter()
     for i in range(0, repeat):
         y = tf.pad(
-                tf.pad(
-                    tf.pad(Xtf, tfpad, constant_values=5.5),
-                    tfpad, constant_values=5.5),
-                tfpad, constant_values=5.5)
+            tf.pad(
+                tf.pad(Xtf, tfpad, constant_values=5.5),
+                tfpad, constant_values=5.5),
+            tfpad, constant_values=5.5)
     t = time.perf_counter() - start_at
     ny = y.numpy()
     return ny, t
@@ -74,10 +74,10 @@ def get_numpy_pad(X, raw_pads, repeat=100):
     start_at = time.perf_counter()
     for i in range(0, repeat):
         y = np.pad(
-                np.pad(
-                    np.pad(X, paddings, constant_values=5.5),
-                    paddings, constant_values=5.5),
-                paddings, constant_values=5.5)
+            np.pad(
+                np.pad(X, paddings, constant_values=5.5),
+                paddings, constant_values=5.5),
+            paddings, constant_values=5.5)
     t = time.perf_counter() - start_at
     return y, t
 
@@ -91,7 +91,8 @@ for op in ['Pad']:
         # if i != 30: continue
         x = np.random.uniform(size=case[0]).astype(np.float32)
         ort_y, lasped = test(x, case[0], case[1], case[2], op=op)
-        tf_y, lasped_tf = get_tf_pad(tf.convert_to_tensor(x), np.array(case[2]))
+        tf_y, lasped_tf = get_tf_pad(
+            tf.convert_to_tensor(x), np.array(case[2]))
         np_y, lasped_np = get_numpy_pad(x, np.array(case[2]))
         o = dict(case=str(i), shape=case[0], paddings=case[2],
                  ort=lasped, tf=lasped_tf, size=x.size,
@@ -99,12 +100,13 @@ for op in ['Pad']:
                  np=lasped_tf, ratio_np=lasped / lasped_np)
         if not np.allclose(ort_y, tf_y):
             all_pass = False
-            print ("Mismatch on", case)
+            print("Mismatch on", case)
             o['mismatch'] = np.max(np.abs(ort_y.ravel() - tf_y.ravel()))
             filename = "error-%s-%d.pkl" % (op, i)
             with open(filename, "wb") as f:
-                pickle.dump(dict(x=x, ort_y=ort_y, tf_y=tf_y, err=o['mismatch']), f)
-            #break
+                pickle.dump(
+                    dict(x=x, ort_y=ort_y, tf_y=tf_y, err=o['mismatch']), f)
+            # break
         obs.append(o)
 
 df = DataFrame(obs)
@@ -118,6 +120,4 @@ else:
     print(df.T)
 
 if all_pass:
-    print ("All cases passed!")
-
- 
+    print("All cases passed!")

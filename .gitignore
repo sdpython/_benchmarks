@@ -1,5 +1,6 @@
 build
 dist
+tensorflow-onnx/_models
 modules/*.png
 modules/*.csv
 onnx/*.png
@@ -15,6 +16,7 @@ scikit-learn/*.csv
 scikit-learn/*.onnx
 scikit-learn/*.prof
 *.dot
+*.pyc
 scikit-learn/*/joblib
 onnx/BENCH-*.pkl
 _doc/onnx/g.py

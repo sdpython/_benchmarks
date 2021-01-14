@@ -124,7 +124,8 @@ def bench(n_obs, n_features, kernels,
                         if len(p1.shape) == 1 and len(p2.shape) == 2:
                             p2 = p2.ravel()
                         try:
-                            assert_almost_equal(p1.ravel(), p2.ravel(), decimal=3)
+                            assert_almost_equal(
+                                p1.ravel(), p2.ravel(), decimal=3)
                         except AssertionError as e:
                             warnings.warn(str(e))
     return res
@@ -157,7 +158,7 @@ def plot_results(df, verbose=False):
             if verbose:
                 print(subset)
 
-            label="skl %s" % kernel
+            label = "skl %s" % kernel
             subset.plot(x="nfeat", y="time_skl", label=label, ax=a,
                         logx=True, logy=True, c=color, style='--', lw=5)
             label = "ort %s" % kernel
@@ -207,7 +208,8 @@ if __name__ == '__main__':
         {"name": "onnxruntime", "version": onnxruntime.__version__},
         {"name": "skl2onnx", "version": skl2onnx.__version__},
     ])
-    df.to_csv("results/bench_plot_onnxruntime_decision_tree_reg.time.csv", index=False)
+    df.to_csv(
+        "results/bench_plot_onnxruntime_decision_tree_reg.time.csv", index=False)
     print(df)
     df = run_bench(verbose=True)
     plt.savefig("results/bench_plot_onnxruntime_svm_reg.png")

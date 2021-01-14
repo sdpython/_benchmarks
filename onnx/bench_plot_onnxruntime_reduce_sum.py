@@ -118,7 +118,7 @@ def fct_filter_test(N=None, edims=None, axes=None):
         return True
     for a in axes:
         if a > len(edims):
-            return False    
+            return False
     return True
 
 
@@ -129,7 +129,8 @@ def run_bench(repeat=20, number=10, verbose=False):
                    axes=[(1, ), (2, )])
     pafter = dict(N=[1, 10, 100, 1000, 2000, 5000])
 
-    test = lambda edims=None, axes=None, **opts: GraphOrtBenchPerfTest(edims=edims, axes=axes, **opts)
+    test = lambda edims=None, axes=None, **opts: GraphOrtBenchPerfTest(
+        edims=edims, axes=axes, **opts)
     bp = BenchPerf(pbefore, pafter, test,
                    filter_test=fct_filter_test)
 

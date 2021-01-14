@@ -2,6 +2,7 @@ import numpy
 from pandas import DataFrame, read_csv
 import matplotlib.pyplot as plt
 
+
 def autolabel(ax, rects):
     for rect in rects:
         height = rect.get_height()
@@ -45,9 +46,9 @@ def linear_models():
             ax.set_xticklabels(labels)
             autolabel(ax, rects1)
             for tick in ax.xaxis.get_major_ticks():
-                tick.label.set_fontsize(8) 
+                tick.label.set_fontsize(8)
             for tick in ax.yaxis.get_major_ticks():
-                tick.label.set_fontsize(8) 
+                tick.label.set_fontsize(8)
             pos += 1
 
     fig.tight_layout()
@@ -84,9 +85,9 @@ def svm_models():
         ax.set_xticklabels(labels)
         autolabel(ax, rects1)
         for tick in ax.xaxis.get_major_ticks():
-            tick.label.set_fontsize(8) 
+            tick.label.set_fontsize(8)
         for tick in ax.yaxis.get_major_ticks():
-            tick.label.set_fontsize(8) 
+            tick.label.set_fontsize(8)
         pos += 1
 
     fig.tight_layout()
@@ -130,9 +131,9 @@ def rf_models():
                     ax.set_xticklabels(labels)
                     autolabel(ax, rects1)
                     for tick in ax.xaxis.get_major_ticks():
-                        tick.label.set_fontsize(8) 
+                        tick.label.set_fontsize(8)
                     for tick in ax.yaxis.get_major_ticks():
-                        tick.label.set_fontsize(8) 
+                        tick.label.set_fontsize(8)
                     pos += 1
 
     fig.tight_layout()

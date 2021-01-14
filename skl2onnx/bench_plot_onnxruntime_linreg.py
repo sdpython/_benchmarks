@@ -123,7 +123,8 @@ def bench(n_obs, n_features, fit_intercepts, methods,
                         if len(p1.shape) == 1 and len(p2.shape) == 2:
                             p2 = p2.ravel()
                             try:
-                                assert_almost_equal(p1.ravel(), p2.ravel(), decimal=5)
+                                assert_almost_equal(
+                                    p1.ravel(), p2.ravel(), decimal=5)
                             except AssertionError as e:
                                 warnings.warn(str(e))
     return res

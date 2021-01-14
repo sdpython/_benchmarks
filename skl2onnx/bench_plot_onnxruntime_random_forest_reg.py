@@ -42,7 +42,7 @@ def fcts_model(X, y, max_depth, n_estimators, n_jobs):
 
     if False:
         import treelite.sklearn
-        import treelite_runtime 
+        import treelite_runtime
         try:
             lite = treelite.sklearn.import_model(rf)
             name = "lite{}.dll".format(id(rf))
@@ -66,7 +66,7 @@ def fcts_model(X, y, max_depth, n_estimators, n_jobs):
     return {'predict': (
         predict_skl_predict,
         predict_onnxrt_predict,
-        None, # predict_treelite_predict if lite_predictor is not None else None
+        None,  # predict_treelite_predict if lite_predictor is not None else None
     )}
 
 
@@ -92,7 +92,8 @@ def bench(n_obs, n_features, max_depths, n_estimatorss, n_jobss,
         for n_jobs in n_jobss:
             for max_depth in max_depths:
                 for n_estimators in n_estimatorss:
-                    fcts = fcts_model(X_train, y_train, max_depth, n_estimators, n_jobs)
+                    fcts = fcts_model(X_train, y_train,
+                                      max_depth, n_estimators, n_jobs)
 
                     for n in n_obs:
                         for method in methods:
@@ -161,7 +162,8 @@ def bench(n_obs, n_features, max_depths, n_estimatorss, n_jobss,
                                 if len(p1.shape) == 1 and len(p2.shape) == 2:
                                     p2 = p2.ravel()
                                 try:
-                                    assert_almost_equal(p1.ravel(), p2.ravel(), decimal=5)
+                                    assert_almost_equal(
+                                        p1.ravel(), p2.ravel(), decimal=5)
                                 except AssertionError as e:
                                     warnings.warn(str(e))
     return res
@@ -260,12 +262,14 @@ if __name__ == '__main__':
         {"name": "treelite", "version": treelite.__version__},
         {"name": "treelite_runtime", "version": treelite_runtime.__version__},
     ])
-    df.to_csv("results/bench_plot_onnxruntime_decision_tree_reg.time.csv", index=False)
+    df.to_csv(
+        "results/bench_plot_onnxruntime_decision_tree_reg.time.csv", index=False)
     print(df)
     df = run_bench(verbose=True)
-    #plt.savefig("results/bench_plot_onnxruntime_random_forest_reg.png")
+    # plt.savefig("results/bench_plot_onnxruntime_random_forest_reg.png")
     df.to_csv("results/bench_plot_onnxruntime_random_forest_reg.csv", index=False)
-    df.to_excel("results/bench_plot_onnxruntime_random_forest_reg.xlsx", index=False)
+    df.to_excel(
+        "results/bench_plot_onnxruntime_random_forest_reg.xlsx", index=False)
 
     import sys
     if "--quiet" not in sys.argv:

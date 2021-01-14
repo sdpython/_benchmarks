@@ -27,7 +27,6 @@ def measure_time(fct, imgs):
     return results, times
 
 
-
 # Download model from https://tfhub.dev/google/bit/m-r50x1/1
 # python -m tf2onnx.convert --saved-model "bit_m-r50x1_1" --output bit50x1.onnx --opset 12
 ort = ort.InferenceSession('bit50x1.onnx')

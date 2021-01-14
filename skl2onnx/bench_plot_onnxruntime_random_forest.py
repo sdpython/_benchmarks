@@ -81,7 +81,8 @@ def bench(n_obs, n_features, max_depths, n_estimatorss, n_jobss,
         for n_jobs in n_jobss:
             for max_depth in max_depths:
                 for n_estimators in n_estimatorss:
-                    fcts = fcts_model(X_train, y_train, max_depth, n_estimators, n_jobs)
+                    fcts = fcts_model(X_train, y_train,
+                                      max_depth, n_estimators, n_jobs)
 
                     for n in n_obs:
                         for method in methods:
