@@ -1,0 +1,792 @@
+
+#########################################
+
+ProfilerCall
+------------------------------------------------------
+profile 0
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=skl
+method=predict
+number=1
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+repeat=10
+skl_nb_base_estimators=1
+--
+         159001 function calls in 0.146 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.001    0.000    0.146    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.001    0.000    0.145    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:35(predict_skl_predict)
+     1000    0.003    0.000    0.144    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:1020(predict)
+     5000    0.007    0.000    0.095    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:59(inner_f)
+     1000    0.013    0.000    0.082    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:118(_forward_pass_fast)
+     1000    0.003    0.000    0.046    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:369(_validate_data)
+     1000    0.011    0.000    0.040    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:404(check_array)
+     2000    0.004    0.000    0.037    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:977(check_is_fitted)
+     2000    0.015    0.000    0.030    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:1037(<listcomp>)
+     1000    0.003    0.000    0.029    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\preprocessing\_label.py:355(inverse_transform)
+     1000    0.010    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\preprocessing\_label.py:616(_inverse_binarize_thresholding)
+    46000    0.011    0.000    0.011    0.000 {method 'endswith' of 'str' objects}
+     2000    0.009    0.000    0.011    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\extmath.py:118(safe_sparse_dot)
+     1000    0.004    0.000    0.009    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:187(_num_samples)
+     1000    0.004    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:83(_assert_all_finite)
+     1000    0.006    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:47(inplace_relu)
+    13000    0.003    0.000    0.006    0.000 {built-in method builtins.isinstance}
+     1000    0.001    0.000    0.005    0.000 c:\Python387_x64\lib\warnings.py:165(simplefilter)
+     1000    0.002    0.000    0.004    0.000 c:\Python387_x64\lib\warnings.py:181(_add_filter)
+    15000    0.004    0.000    0.004    0.000 {method 'startswith' of 'str' objects}
+     3000    0.003    0.000    0.003    0.000 {built-in method numpy.array}
+     1000    0.003    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:25(inplace_logistic)
+     6000    0.002    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\scipy\sparse\base.py:1205(isspmatrix)
+    11000    0.003    0.000    0.003    0.000 {built-in method builtins.hasattr}
+     1000    0.000    0.000    0.003    0.000 c:\Python387_x64\lib\abc.py:96(__instancecheck__)
+     1000    0.001    0.000    0.002    0.000 {built-in method _abc._abc_instancecheck}
+     1000    0.002    0.000    0.002    0.000 c:\Python387_x64\lib\warnings.py:458(__enter__)
+     2000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:14(asarray)
+    12000    0.002    0.000    0.002    0.000 {built-in method builtins.len}
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:397(_ensure_no_complex_data)
+     1000    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap>:389(parent)
+     2000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\inspect.py:72(isclass)
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:477(__exit__)
+     1000    0.000    0.000    0.001    0.000 c:\Python387_x64\lib\abc.py:100(__subclasscheck__)
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\_config.py:14(get_config)
+     1000    0.001    0.000    0.001    0.000 {method 'remove' of 'list' objects}
+     2000    0.001    0.000    0.001    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:335(_check_n_features)
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:437(__init__)
+     1000    0.001    0.000    0.001    0.000 {built-in method _abc._abc_subclasscheck}
+     2000    0.001    0.000    0.001    0.000 {built-in method builtins.vars}
+     1000    0.001    0.000    0.001    0.000 {method 'rpartition' of 'str' objects}
+     3000    0.001    0.000    0.001    0.000 {built-in method _warnings._filters_mutated}
+     1000    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
+     1000    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     1000    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 1
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxpython_compiled
+method=predict
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         110001 function calls in 0.074 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.074    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.073    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:62(<lambda>)
+     1000    0.002    0.000    0.073    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:41(predict_onnxrt_predict)
+     1000    0.001    0.000    0.070    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.002    0.000    0.069    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:176(_run_sequence_runtime_compiled)
+     1000    0.005    0.000    0.067    0.000 <string>:1(compiled_run)
+     8000    0.006    0.000    0.020    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     1000    0.001    0.000    0.017    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:69(_run)
+     1000    0.001    0.000    0.016    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:42(_run)
+     1000    0.002    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:12(_argmax)
+     1000    0.001    0.000    0.014    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:25(_run)
+     1000    0.005    0.000    0.014    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:12(reshape_reference_implementation)
+     1000    0.001    0.000    0.009    0.000 <__array_function__ internals>:2(expand_dims)
+     1000    0.001    0.000    0.008    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:58(_run)
+     1000    0.003    0.000    0.008    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:512(expand_dims)
+     1000    0.006    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:16(_array_feature_extrator)
+     2000    0.001    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_matmul.py:16(_run)
+     1000    0.002    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:28(_run)
+     2000    0.002    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op_numpy_helper.py:8(numpy_dot_inplace)
+     3000    0.003    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op.py:564(_run)
+     2000    0.001    0.000    0.004    0.000 <__array_function__ internals>:2(dot)
+     4000    0.004    0.000    0.004    0.000 {built-in method numpy.array}
+     1000    0.001    0.000    0.004    0.000 <__array_function__ internals>:2(argmax)
+     2000    0.001    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:45(_run)
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(reshape)
+     2000    0.001    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:52(_wrapfunc)
+     4000    0.003    0.000    0.003    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(copy)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1308(normalize_axis_tuple)
+     1000    0.001    0.000    0.002    0.000 <__array_function__ internals>:2(concatenate)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1114(argmax)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_relu.py:17(_run)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:199(reshape)
+     2000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:43(<lambda>)
+     3000    0.002    0.000    0.002    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     3000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:29(<genexpr>)
+     1000    0.000    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:714(copy)
+     1000    0.001    0.000    0.001    0.000 <__array_function__ internals>:2(where)
+    13000    0.001    0.000    0.001    0.000 {method 'get' of 'dict' objects}
+    10000    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+     2000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:22(_preprocess)
+     1000    0.001    0.000    0.001    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_sigmoid.py:17(_run)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:86(asanyarray)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1358(<listcomp>)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:600(<listcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     1000    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     2000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:706(dot)
+     1000    0.000    0.000    0.000    0.000 {method 'tolist' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:311(where)
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1110(_argmax_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:508(_expand_dims_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:143(concatenate)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:710(_copy_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:194(_reshape_dispatcher)
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.next}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 2
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxonnxruntime1
+method=predict
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         14001 function calls in 0.033 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.033    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.032    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:62(<lambda>)
+     1000    0.002    0.000    0.032    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:41(predict_onnxrt_predict)
+     1000    0.001    0.000    0.029    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.001    0.000    0.028    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:718(_run_whole_runtime)
+     1000    0.001    0.000    0.026    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_whole\session.py:62(run)
+     1000    0.024    0.000    0.026    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:104(run)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:122(<listcomp>)
+     1000    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.001    0.000 {built-in method numpy.array}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:766(<dictcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 3
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=skl
+method=predict_proba
+number=1
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+repeat=10
+skl_nb_base_estimators=1
+--
+         150001 function calls (148001 primitive calls) in 0.085 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.085    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.001    0.000    0.084    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:38(predict_skl_predict_proba)
+     1000    0.004    0.000    0.083    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:1101(predict_proba)
+     4000    0.003    0.000    0.052    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:59(inner_f)
+     1000    0.007    0.000    0.049    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:118(_forward_pass_fast)
+     1000    0.002    0.000    0.028    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:369(_validate_data)
+     1000    0.006    0.000    0.024    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:404(check_array)
+     1000    0.001    0.000    0.017    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:977(check_is_fitted)
+     1000    0.007    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:1037(<listcomp>)
+     1000    0.001    0.000    0.011    0.000 <__array_function__ internals>:2(vstack)
+3000/1000    0.003    0.000    0.010    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     1000    0.001    0.000    0.009    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:223(vstack)
+     2000    0.006    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\extmath.py:118(safe_sparse_dot)
+    40000    0.006    0.000    0.006    0.000 {method 'endswith' of 'str' objects}
+     1000    0.002    0.000    0.005    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:187(_num_samples)
+     1000    0.001    0.000    0.005    0.000 <__array_function__ internals>:2(atleast_2d)
+     1000    0.002    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:83(_assert_all_finite)
+     1000    0.002    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:82(atleast_2d)
+     1000    0.004    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:47(inplace_relu)
+    10000    0.002    0.000    0.003    0.000 {built-in method builtins.isinstance}
+     1000    0.001    0.000    0.003    0.000 c:\Python387_x64\lib\warnings.py:165(simplefilter)
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(concatenate)
+     1000    0.001    0.000    0.002    0.000 c:\Python387_x64\lib\warnings.py:181(_add_filter)
+    11000    0.002    0.000    0.002    0.000 {built-in method builtins.hasattr}
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:25(inplace_logistic)
+    12000    0.002    0.000    0.002    0.000 {method 'startswith' of 'str' objects}
+     1000    0.000    0.000    0.002    0.000 c:\Python387_x64\lib\abc.py:96(__instancecheck__)
+     1000    0.001    0.000    0.001    0.000 {built-in method _abc._abc_instancecheck}
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:458(__enter__)
+     3000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\scipy\sparse\base.py:1205(isspmatrix)
+     2000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:86(asanyarray)
+    10000    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:219(_vhstack_dispatcher)
+     1000    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap>:389(parent)
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:397(_ensure_no_complex_data)
+     3000    0.001    0.000    0.001    0.000 {built-in method numpy.array}
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:477(__exit__)
+     1000    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.001    0.000 c:\Python387_x64\lib\abc.py:100(__subclasscheck__)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\_config.py:14(get_config)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:14(asarray)
+     1000    0.001    0.000    0.001    0.000 {method 'remove' of 'list' objects}
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:335(_check_n_features)
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:437(__init__)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:208(_arrays_for_stack_dispatcher)
+     1000    0.000    0.000    0.000    0.000 {built-in method _abc._abc_subclasscheck}
+     1000    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.000    0.000 c:\Python387_x64\lib\inspect.py:72(isclass)
+     1000    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.vars}
+     3000    0.000    0.000    0.000    0.000 {built-in method _warnings._filters_mutated}
+     1000    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+     2000    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+     1000    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     1000    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:143(concatenate)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:78(_atleast_2d_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 4
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxpython_compiled
+method=predict_proba
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         110001 function calls in 0.073 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.073    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.073    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:83(<lambda>)
+     1000    0.002    0.000    0.073    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:44(predict_onnxrt_predict_proba)
+     1000    0.001    0.000    0.070    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.002    0.000    0.069    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:176(_run_sequence_runtime_compiled)
+     1000    0.006    0.000    0.067    0.000 <string>:1(compiled_run)
+     8000    0.007    0.000    0.020    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     1000    0.001    0.000    0.016    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:69(_run)
+     1000    0.001    0.000    0.016    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:42(_run)
+     1000    0.002    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:12(_argmax)
+     1000    0.001    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:25(_run)
+     1000    0.005    0.000    0.014    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:12(reshape_reference_implementation)
+     1000    0.001    0.000    0.009    0.000 <__array_function__ internals>:2(expand_dims)
+     1000    0.001    0.000    0.008    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:58(_run)
+     1000    0.003    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:512(expand_dims)
+     1000    0.006    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:16(_array_feature_extrator)
+     2000    0.001    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_matmul.py:16(_run)
+     1000    0.002    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:28(_run)
+     2000    0.002    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op_numpy_helper.py:8(numpy_dot_inplace)
+     3000    0.003    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op.py:564(_run)
+     2000    0.001    0.000    0.004    0.000 <__array_function__ internals>:2(dot)
+     2000    0.001    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:45(_run)
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(argmax)
+     3000    0.003    0.000    0.003    0.000 {built-in method numpy.array}
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(reshape)
+     2000    0.001    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:52(_wrapfunc)
+     4000    0.003    0.000    0.003    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(copy)
+     1000    0.001    0.000    0.002    0.000 <__array_function__ internals>:2(concatenate)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1308(normalize_axis_tuple)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1114(argmax)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_relu.py:17(_run)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:199(reshape)
+     2000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:43(<lambda>)
+     3000    0.002    0.000    0.002    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     3000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:29(<genexpr>)
+     1000    0.000    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:714(copy)
+    13000    0.001    0.000    0.001    0.000 {method 'get' of 'dict' objects}
+     1000    0.001    0.000    0.001    0.000 <__array_function__ internals>:2(where)
+    10000    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+     2000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:22(_preprocess)
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_sigmoid.py:17(_run)
+     1000    0.001    0.000    0.001    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:600(<listcomp>)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:86(asanyarray)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1358(<listcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+     1000    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     2000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:706(dot)
+     1000    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
+     1000    0.000    0.000    0.000    0.000 {method 'tolist' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:311(where)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1110(_argmax_dispatcher)
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:143(concatenate)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:194(_reshape_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:710(_copy_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:508(_expand_dims_dispatcher)
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.next}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 5
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxonnxruntime1
+method=predict_proba
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         14001 function calls in 0.034 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.034    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.033    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:83(<lambda>)
+     1000    0.002    0.000    0.033    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:44(predict_onnxrt_predict_proba)
+     1000    0.001    0.000    0.030    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.001    0.000    0.030    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:718(_run_whole_runtime)
+     1000    0.001    0.000    0.028    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_whole\session.py:62(run)
+     1000    0.025    0.000    0.027    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:104(run)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:122(<listcomp>)
+     1000    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:766(<dictcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+
+#########################################
+
+ProfilerCall
+------------------------------------------------------
+profile 0
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=skl
+method=predict
+number=1
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+repeat=10
+skl_nb_base_estimators=1
+--
+         159001 function calls in 0.087 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.087    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.001    0.000    0.086    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:35(predict_skl_predict)
+     1000    0.002    0.000    0.086    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:1020(predict)
+     5000    0.004    0.000    0.057    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:59(inner_f)
+     1000    0.007    0.000    0.049    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:118(_forward_pass_fast)
+     1000    0.002    0.000    0.028    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:369(_validate_data)
+     1000    0.006    0.000    0.024    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:404(check_array)
+     2000    0.003    0.000    0.022    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:977(check_is_fitted)
+     2000    0.009    0.000    0.017    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:1037(<listcomp>)
+     1000    0.002    0.000    0.017    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\preprocessing\_label.py:355(inverse_transform)
+     1000    0.006    0.000    0.009    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\preprocessing\_label.py:616(_inverse_binarize_thresholding)
+    46000    0.007    0.000    0.007    0.000 {method 'endswith' of 'str' objects}
+     2000    0.006    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\extmath.py:118(safe_sparse_dot)
+     1000    0.002    0.000    0.005    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:187(_num_samples)
+     1000    0.002    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:83(_assert_all_finite)
+     1000    0.004    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:47(inplace_relu)
+    13000    0.002    0.000    0.004    0.000 {built-in method builtins.isinstance}
+     1000    0.001    0.000    0.003    0.000 c:\Python387_x64\lib\warnings.py:165(simplefilter)
+     1000    0.001    0.000    0.002    0.000 c:\Python387_x64\lib\warnings.py:181(_add_filter)
+    15000    0.002    0.000    0.002    0.000 {method 'startswith' of 'str' objects}
+    11000    0.002    0.000    0.002    0.000 {built-in method builtins.hasattr}
+     3000    0.002    0.000    0.002    0.000 {built-in method numpy.array}
+     6000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\scipy\sparse\base.py:1205(isspmatrix)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:25(inplace_logistic)
+     1000    0.000    0.000    0.002    0.000 c:\Python387_x64\lib\abc.py:96(__instancecheck__)
+     1000    0.001    0.000    0.001    0.000 {built-in method _abc._abc_instancecheck}
+    12000    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:458(__enter__)
+     2000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:14(asarray)
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:397(_ensure_no_complex_data)
+     1000    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap>:389(parent)
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:477(__exit__)
+     2000    0.000    0.000    0.001    0.000 c:\Python387_x64\lib\inspect.py:72(isclass)
+     1000    0.000    0.000    0.001    0.000 c:\Python387_x64\lib\abc.py:100(__subclasscheck__)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\_config.py:14(get_config)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:335(_check_n_features)
+     1000    0.001    0.000    0.001    0.000 {method 'remove' of 'list' objects}
+     2000    0.001    0.000    0.001    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:437(__init__)
+     1000    0.001    0.000    0.001    0.000 {built-in method _abc._abc_subclasscheck}
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.vars}
+     1000    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+     3000    0.000    0.000    0.000    0.000 {built-in method _warnings._filters_mutated}
+     1000    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+     1000    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     1000    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 1
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxpython_compiled
+method=predict
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         110001 function calls in 0.071 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.071    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.071    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:62(<lambda>)
+     1000    0.002    0.000    0.070    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:41(predict_onnxrt_predict)
+     1000    0.001    0.000    0.068    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.002    0.000    0.067    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:176(_run_sequence_runtime_compiled)
+     1000    0.005    0.000    0.065    0.000 <string>:1(compiled_run)
+     8000    0.006    0.000    0.019    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     1000    0.001    0.000    0.016    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:69(_run)
+     1000    0.001    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:42(_run)
+     1000    0.002    0.000    0.014    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:12(_argmax)
+     1000    0.001    0.000    0.014    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:25(_run)
+     1000    0.005    0.000    0.013    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:12(reshape_reference_implementation)
+     1000    0.001    0.000    0.008    0.000 <__array_function__ internals>:2(expand_dims)
+     1000    0.001    0.000    0.008    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:58(_run)
+     1000    0.003    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:512(expand_dims)
+     1000    0.006    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:16(_array_feature_extrator)
+     2000    0.001    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_matmul.py:16(_run)
+     1000    0.002    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:28(_run)
+     2000    0.001    0.000    0.005    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op_numpy_helper.py:8(numpy_dot_inplace)
+     3000    0.003    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op.py:564(_run)
+     4000    0.004    0.000    0.004    0.000 {built-in method numpy.array}
+     2000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(dot)
+     2000    0.001    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:45(_run)
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(argmax)
+     2000    0.001    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:52(_wrapfunc)
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(reshape)
+     4000    0.003    0.000    0.003    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(copy)
+     1000    0.001    0.000    0.002    0.000 <__array_function__ internals>:2(concatenate)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1308(normalize_axis_tuple)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_relu.py:17(_run)
+     1000    0.000    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:199(reshape)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1114(argmax)
+     2000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:43(<lambda>)
+     3000    0.002    0.000    0.002    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     3000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:29(<genexpr>)
+     1000    0.000    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:714(copy)
+     1000    0.001    0.000    0.001    0.000 <__array_function__ internals>:2(where)
+    13000    0.001    0.000    0.001    0.000 {method 'get' of 'dict' objects}
+    10000    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+     2000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:22(_preprocess)
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_sigmoid.py:17(_run)
+     1000    0.001    0.000    0.001    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:86(asanyarray)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:600(<listcomp>)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1358(<listcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     1000    0.000    0.000    0.000    0.000 {method 'tolist' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     2000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:706(dot)
+     1000    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1110(_argmax_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:311(where)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:143(concatenate)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:194(_reshape_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:710(_copy_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:508(_expand_dims_dispatcher)
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.next}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 2
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxonnxruntime1
+method=predict
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         14001 function calls in 0.032 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.032    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.032    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:62(<lambda>)
+     1000    0.002    0.000    0.032    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:41(predict_onnxrt_predict)
+     1000    0.001    0.000    0.028    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.001    0.000    0.028    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:718(_run_whole_runtime)
+     1000    0.001    0.000    0.026    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_whole\session.py:62(run)
+     1000    0.023    0.000    0.025    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:104(run)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:122(<listcomp>)
+     1000    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.001    0.000 {built-in method numpy.array}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:766(<dictcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 3
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=skl
+method=predict_proba
+number=1
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+repeat=10
+skl_nb_base_estimators=1
+--
+         150001 function calls (148001 primitive calls) in 0.087 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.087    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.001    0.000    0.086    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:38(predict_skl_predict_proba)
+     1000    0.004    0.000    0.084    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:1101(predict_proba)
+     4000    0.003    0.000    0.053    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:59(inner_f)
+     1000    0.007    0.000    0.050    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:118(_forward_pass_fast)
+     1000    0.002    0.000    0.029    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:369(_validate_data)
+     1000    0.006    0.000    0.025    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:404(check_array)
+     1000    0.001    0.000    0.018    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:977(check_is_fitted)
+     1000    0.008    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:1037(<listcomp>)
+     1000    0.001    0.000    0.011    0.000 <__array_function__ internals>:2(vstack)
+3000/1000    0.003    0.000    0.010    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     1000    0.001    0.000    0.009    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:223(vstack)
+     2000    0.006    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\extmath.py:118(safe_sparse_dot)
+    40000    0.006    0.000    0.006    0.000 {method 'endswith' of 'str' objects}
+     1000    0.002    0.000    0.005    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:187(_num_samples)
+     1000    0.001    0.000    0.005    0.000 <__array_function__ internals>:2(atleast_2d)
+     1000    0.002    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:83(_assert_all_finite)
+     1000    0.003    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:82(atleast_2d)
+     1000    0.004    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:47(inplace_relu)
+    10000    0.002    0.000    0.003    0.000 {built-in method builtins.isinstance}
+     1000    0.001    0.000    0.003    0.000 c:\Python387_x64\lib\warnings.py:165(simplefilter)
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(concatenate)
+     1000    0.001    0.000    0.002    0.000 c:\Python387_x64\lib\warnings.py:181(_add_filter)
+    11000    0.002    0.000    0.002    0.000 {built-in method builtins.hasattr}
+    12000    0.002    0.000    0.002    0.000 {method 'startswith' of 'str' objects}
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\neural_network\_base.py:25(inplace_logistic)
+     1000    0.000    0.000    0.002    0.000 c:\Python387_x64\lib\abc.py:96(__instancecheck__)
+     1000    0.001    0.000    0.001    0.000 {built-in method _abc._abc_instancecheck}
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:458(__enter__)
+     3000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\scipy\sparse\base.py:1205(isspmatrix)
+     2000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:86(asanyarray)
+    10000    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+     1000    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap>:389(parent)
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\utils\validation.py:397(_ensure_no_complex_data)
+     3000    0.001    0.000    0.001    0.000 {built-in method numpy.array}
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:219(_vhstack_dispatcher)
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:477(__exit__)
+     1000    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.001    0.000 c:\Python387_x64\lib\abc.py:100(__subclasscheck__)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\_config.py:14(get_config)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:14(asarray)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\sklearn\base.py:335(_check_n_features)
+     1000    0.001    0.000    0.001    0.000 c:\Python387_x64\lib\warnings.py:437(__init__)
+     1000    0.001    0.000    0.001    0.000 {method 'remove' of 'list' objects}
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:208(_arrays_for_stack_dispatcher)
+     1000    0.000    0.000    0.000    0.000 {built-in method _abc._abc_subclasscheck}
+     1000    0.000    0.000    0.000    0.000 c:\Python387_x64\lib\inspect.py:72(isclass)
+     1000    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     3000    0.000    0.000    0.000    0.000 {built-in method _warnings._filters_mutated}
+     1000    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.vars}
+     2000    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+     1000    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+     1000    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:143(concatenate)
+     1000    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\shape_base.py:78(_atleast_2d_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 4
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxpython_compiled
+method=predict_proba
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         110001 function calls in 0.073 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.073    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.072    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:83(<lambda>)
+     1000    0.002    0.000    0.072    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:44(predict_onnxrt_predict_proba)
+     1000    0.001    0.000    0.069    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.002    0.000    0.068    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:176(_run_sequence_runtime_compiled)
+     1000    0.006    0.000    0.067    0.000 <string>:1(compiled_run)
+     8000    0.006    0.000    0.019    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     1000    0.001    0.000    0.016    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:69(_run)
+     1000    0.001    0.000    0.016    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:42(_run)
+     1000    0.002    0.000    0.015    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_argmax.py:12(_argmax)
+     1000    0.001    0.000    0.014    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:25(_run)
+     1000    0.005    0.000    0.014    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_reshape.py:12(reshape_reference_implementation)
+     1000    0.001    0.000    0.009    0.000 <__array_function__ internals>:2(expand_dims)
+     1000    0.001    0.000    0.008    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:58(_run)
+     1000    0.003    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:512(expand_dims)
+     1000    0.006    0.000    0.007    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_array_feature_extractor.py:16(_array_feature_extrator)
+     2000    0.001    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_matmul.py:16(_run)
+     1000    0.002    0.000    0.006    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:28(_run)
+     2000    0.002    0.000    0.005    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op_numpy_helper.py:8(numpy_dot_inplace)
+     3000    0.003    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\_op.py:564(_run)
+     2000    0.001    0.000    0.004    0.000 <__array_function__ internals>:2(dot)
+     2000    0.001    0.000    0.004    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:45(_run)
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(argmax)
+     3000    0.003    0.000    0.003    0.000 {built-in method numpy.array}
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(reshape)
+     2000    0.001    0.000    0.003    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:52(_wrapfunc)
+     4000    0.003    0.000    0.003    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.001    0.000    0.003    0.000 <__array_function__ internals>:2(copy)
+     1000    0.001    0.000    0.002    0.000 <__array_function__ internals>:2(concatenate)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1308(normalize_axis_tuple)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_relu.py:17(_run)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1114(argmax)
+     1000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:199(reshape)
+     2000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_cast.py:43(<lambda>)
+     3000    0.002    0.000    0.002    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     3000    0.001    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:29(<genexpr>)
+     1000    0.000    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:714(copy)
+     1000    0.001    0.000    0.001    0.000 <__array_function__ internals>:2(where)
+    13000    0.001    0.000    0.001    0.000 {method 'get' of 'dict' objects}
+    10000    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+     1000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_sigmoid.py:17(_run)
+     2000    0.001    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_cpu\op_concat.py:22(_preprocess)
+     1000    0.001    0.000    0.001    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\_asarray.py:86(asanyarray)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\numeric.py:1358(<listcomp>)
+     1000    0.000    0.000    0.001    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:600(<listcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+     1000    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     2000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:706(dot)
+     1000    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
+     1000    0.000    0.000    0.000    0.000 {method 'tolist' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:1110(_argmax_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:311(where)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\multiarray.py:143(concatenate)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\function_base.py:710(_copy_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\core\fromnumeric.py:194(_reshape_dispatcher)
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\numpy\lib\shape_base.py:508(_expand_dims_dispatcher)
+     1000    0.000    0.000    0.000    0.000 {built-in method builtins.next}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+------------------------------------------------------
+profile 5
+N=1
+activation=relu
+dim=2
+hidden_layer_sizes=(2,)
+lib=onxonnxruntime1
+method=predict_proba
+number=1
+onnx_nodes=13
+onnx_opset=13
+onnx_options={<class 'sklearn.neural_network._multilayer_perceptron.MLPClassifier'>: {'zipmap': False}}
+ort_size=2766
+repeat=10
+--
+         14001 function calls in 0.032 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1000    0.000    0.000    0.032    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\benchmark\benchmark_perf.py:235(<lambda>)
+     1000    0.000    0.000    0.032    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:83(<lambda>)
+     1000    0.001    0.000    0.031    0.000 C:\xadupre\venv\bench\lib\site-packages\pymlbenchmark\external\onnxruntime_perf_binclass.py:44(predict_onnxrt_predict_proba)
+     1000    0.001    0.000    0.029    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:482(run)
+     1000    0.001    0.000    0.028    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:718(_run_whole_runtime)
+     1000    0.001    0.000    0.026    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\ops_whole\session.py:62(run)
+     1000    0.024    0.000    0.026    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:104(run)
+     1000    0.002    0.000    0.002    0.000 C:\xadupre\venv\bench\lib\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:122(<listcomp>)
+     1000    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     1000    0.000    0.000    0.000    0.000 C:\xadupre\venv\bench\lib\site-packages\mlprodict\onnxrt\onnx_inference.py:766(<dictcomp>)
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+     2000    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+

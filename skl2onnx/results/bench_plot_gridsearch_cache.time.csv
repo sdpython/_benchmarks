@@ -1,0 +1,12 @@
+name,version,value
+date,2021-01-07,
+python,,"3.8.7 (tags/v3.8.7:6503f05, Dec 21 2020, 17:59:51) [MSC v.1928 64 bit (AMD64)]"
+platform,,win32
+OS,,Windows-10-10.0.19041-SP0
+machine,,AMD64
+processor,,"Intel64 Family 6 Model 142 Stepping 10, GenuineIntel"
+release,,10
+architecture,,"('64bit', 'WindowsPE')"
+numpy,1.19.5,"mkl_lapack95_lp64, mkl_blas95_lp64"
+pandas,1.2.0,
+sklearn,0.24.0,

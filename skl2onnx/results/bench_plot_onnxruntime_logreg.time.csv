@@ -1,0 +1,7 @@
+name,version
+date,2021-01-07 18:39:02.148418
+numpy,1.19.5
+scikit-learn,0.24.0
+onnx,1.8.0
+onnxruntime,1.6.0
+skl2onnx,1.7.1
