@@ -59,7 +59,7 @@ pygments_style = 'default'
 
 html_static_path = ['_static']
 html_theme = "pydata_sphinx_theme"
-html_theme_path = [pydata_sphinx_theme.get_path()]
+html_theme_path = pydata_sphinx_theme.get_html_theme_path()
 html_logo = "logo_main.png"
 
 # -- Options for intersphinx extension ---------------------------------------
