@@ -5,7 +5,7 @@ import os
 import sys
 import shutil
 import sphinx_gallery.gen_gallery
-import alabaster
+import pydata_sphinx_theme
 
 this = os.path.abspath(os.path.dirname(__file__))
 new_paths = [os.path.join(this, '..', 'scikit-learn', 'results')]
@@ -58,8 +58,8 @@ pygments_style = 'default'
 # -- Options for HTML output -------------------------------------------------
 
 html_static_path = ['_static']
-html_theme = "alabaster"
-html_theme_path = [alabaster.get_path()]
+html_theme = "pydata_sphinx_theme"
+html_theme_path = [pydata_sphinx_theme.get_path()]
 html_logo = "logo_main.png"
 
 # -- Options for intersphinx extension ---------------------------------------
