@@ -135,7 +135,7 @@ profilings with and without option ``--function``.
 
 ::
 
-    py-spy record --native --function --rate=10 -o bench_DecisionTreeClassifier_default_b_cl_1_20_12_float__fct.svg -- python bench_DecisionTreeClassifier_default_b_cl_1_20_12_float_.pypy-spy record --native --rate=10 -o bench_DecisionTreeClassifier_default_b_cl_1_20_12_float__line.svg -- python bench_DecisionTreeClassifier_default_b_cl_1_20_12_float_.py
+    py-spy record --native --function --rate=10 -o bench_LinReg_default_b_reg_1_4_12_float__fct.svg -- python bench_LinReg_default_b_reg_1_4_12_float__fct.pypy-spy record --native --rate=10 -o bench_DecisionTreeClassifier_default_b_cl_1_20_12_float__line.svg -- python bench_LinReg_default_b_reg_1_4_12_float__fct.py
 
 Results
 +++++++
@@ -148,31 +148,7 @@ and `scenarios <http://www.xavierdupre.fr/app/mlprodict/helpsphinx/
 mlprodict/onnxrt/validate/validate_scenarios.html?highlight=build_custom_scenarios#
 mlprodict.onnxrt.validate.validate_scenarios.build_custom_scenarios>`_.
 
-**classifiers**
-
 .. toctree::
 
-    onnx_profiling_decision_tree
-    onnx_profiling_adaboostclassifier
-    onnx_profiling_gradientboostingclassifier
-    onnx_profiling_randomforestclassifier
-    onnx_profiling_hgb
-    onnx_profiling_bernoulli
-    onnx_profiling_knn
-    onnx_profiling_logisticregression
-    onnx_profiling_svc
-    onnx_profiling_mlp
-
-**regressors**
-
-.. toctree::
-
-    onnx_profiling_reg_decision_tree
-    onnx_profiling_reg_adaboost
     onnx_profiling_reg_randomforest
-    onnx_profiling_reg_gradientboosting
-    onnx_profiling_reg_hgb
-    onnx_profiling_reg_knn
     onnx_profiling_reg_linear
-    onnx_profiling_reg_svr
-    onnx_profiling_reg_mlp
