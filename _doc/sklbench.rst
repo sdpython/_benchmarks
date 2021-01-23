@@ -18,8 +18,8 @@ I followed the steps
 
 ::
 
-    git clone https://github.com/jeremiedbb/scikit-learn_benchmarks.git
-    cd scikit-learn_benchmarks
+    git clone https://github.com/scikit-learn/scikit-learn.git
+    cd asv_benchmarks
 
 Run a benchmark
 ===============
@@ -77,27 +77,27 @@ benchmarks available at `scikit-learn_benchmarks
 <https://github.com/jeremiedbb/scikit-learn_benchmarks>`_.
 The results can be seen at this
 `Scikit-Learn/ONNX benchmark with AirSpeedVelocity
-<http://www.xavierdupre.fr/app/benches/scikit-learn_benchmarks/index.html>`_.
+<../../benches/scikit-learn_benchmarks/index.html>`_.
 
 The second benchmark is produced using an automated way implemented in
 :epkg:`mlprodict`. The sources are available at
 `asv-skl2onnx <https://github.com/sdpython/asv-skl2onnx>`_ and
 displayed at `Prediction with scikit-learn and ONNX benchmark
-<http://www.xavierdupre.fr/app/benches/asv-skl2onnx/index.html>`_.
+<../../benches/asv-skl2onnx/index.html>`_.
 A subset of these models is available at
 `Prediction with scikit-learn and ONNX benchmark (SVM + Trees)
-<http://www.xavierdupre.fr/app/benches/asv-skl2onnx-cpp/index.html>`_.
+<../../benches/asv-skl2onnx-cpp/index.html>`_.
 
 The last benchmark is a standalone benchmark only comparing
 :epkg:`onnxruntime` and :epkg:`scikit-learn`.
 The sources are available at
 `scikit-onnx-benchmark <https://github.com/xadupre/scikit-onnx-benchmark>`_ and
 displayed at `onnxruntime vs scikit-learn for comparison
-<http://www.xavierdupre.fr/app/benches/scikit-onnx-benchmark/index.html>`_.
+<../../benches/scikit-onnx-benchmark/index.html>`_.
 
 I also created two mini benchmark to get a sense of what the previous ones
 look like:
 `mlprodict model of benchmark
-<http://www.xavierdupre.fr/app/benches/mlprodict_bench/index.html>`_,
+<../../benches/mlprodict_bench/index.html>`_,
 `mlprodict model applied to linear models
-<http://www.xavierdupre.fr/app/benches/mlprodict_bench2/index.html>`_.
+<../../benches/mlprodict_bench2/index.html>`_.
