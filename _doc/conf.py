@@ -122,10 +122,3 @@ epkg_dictionary = {
     'sklearn-onnx': 'https://github.com/onnx/sklearn-onnx',
 }
 
-# -- Setup actions -----------------------------------------------------------
-
-
-def setup(app):
-    # Placeholder to initialize the folder before
-    # generating the documentation.
-    return app
