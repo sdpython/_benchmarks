@@ -32,9 +32,9 @@ Others benchmarks with :epkg:`asv` and :epkg:`onnx`:
 Smaller benchmarks:
 
 * `mlprodict model of benchmark
-  <../../benches/mlprodict_bench/index.html>`_
+  <../../mlprodict_bench/helpsphinx//index.html>`_
 * `mlprodict model applied to linear models
-  <../../benches/mlprodict_bench2/index.html>`_
+  <../../mlprodict_bench2/helpsphinx/index.html>`_
 
 *Links:*
 

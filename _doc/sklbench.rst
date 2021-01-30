@@ -98,6 +98,6 @@ displayed at `onnxruntime vs scikit-learn for comparison
 I also created two mini benchmark to get a sense of what the previous ones
 look like:
 `mlprodict model of benchmark
-<../../benches/mlprodict_bench/index.html>`_,
+<../../mlprodict_bench/helpsphinx/index.html>`_,
 `mlprodict model applied to linear models
-<../../benches/mlprodict_bench2/index.html>`_.
+<../../mlprodict_bench2/helpsphinx/index.html>`_.
