@@ -29,9 +29,9 @@ filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 @ignore_warnings(category=FutureWarning)
 def run_bench(repeat=10, verbose=False):
 
-    pbefore = dict(n_neighbors=[1, 2, 5],
+    pbefore = dict(n_neighbors=[2, 5],
                    leaf_size=[10],
-                   dim=[5, 20],
+                   dim=[2, 5],
                    onnx_options=[
                        None, {KNeighborsClassifier: {'optim': 'cdist', 'zipmap': False}}],
                    metric=["euclidean"])
