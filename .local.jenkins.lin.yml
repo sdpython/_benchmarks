@@ -37,8 +37,8 @@ script:
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_hgb.py", SCHEDULER: "0 0 7 * *", NAME: "ORT_HGB", TIMEOUT: 9600 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_knn.py", SCHEDULER: "0 0 8 * *", NAME: "ORT_KNN" }
   - { CMD: "$PYINT -u onnx/bench_plot_skl2onnx_unittest.py", SCHEDULER: "0 0 9 * *", NAME: "ORT_UNIT" }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCADD", TIMEOUT: 1800 }
-  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_scaler.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCSCL", TIMEOUT: 2400 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_add.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCADD", TIMEOUT: 3600 }
+  - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_scaler.py", SCHEDULER: "0 0 10 * *", NAME: "ORT_CASCSCL", TIMEOUT: 3600 }
   - { CMD: "$PYINT -u onnx/bench_plot_onnxruntime_casc_mlp.py", SCHEDULER: "0 0 12 * *", NAME: "ORT_CASCMLP" }
   - { CMD: "$PYINT -u onnx/bench_plot_datasets_num.py", SCHEDULER: "0 0 13 * *", NAME: "ORT_DSNUM", TIMEOUT: 7200 }
   - { CMD: "$PYINT -u onnx/bench_plot_datasets_num_reg.py", NAME: "ORT_DSNUM_REG", SCHEDULER: "0 0 14 * *", TIMEOUT: 4800 }
