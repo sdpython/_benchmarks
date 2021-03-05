@@ -41,7 +41,7 @@ of a logistic regression with python, C++ or C++ optimization
 provided by other libraries.
 
 * `Optimisation de code avec cffi, numba, cython
-  <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/cffi_linear_regression.html>`_
+  <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx/notebooks/cffi_linear_regression.html>`_
 
 The next benchmark compares the gain obtained by
 playing a criterion for decision tree regressor.
