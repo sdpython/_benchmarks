@@ -11,4 +11,3 @@ echo --BENCHMARK-GRAPH--
 cd results
 python -u post_graph.py || exit 1
 cd ../..
-

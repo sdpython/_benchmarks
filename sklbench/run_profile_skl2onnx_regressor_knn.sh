@@ -23,5 +23,3 @@ cd ../../..
 echo --PUBLISH--
 mkdir htmlsvg
 cp -v pyspy/*/*/*.svg htmlsvg
-
-

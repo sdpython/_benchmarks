@@ -45,4 +45,3 @@ asv publish -o ./../dist/html/sklbench_results || exit 1
 
 echo --END--
 cd ..
-

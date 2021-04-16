@@ -14,7 +14,7 @@ echo " "
 echo "Please enter in the box your desired RAPIDS version (ex: '0.10' or '0.11', between 0.9 to 0.11, without the quotes) and hit Enter. "
 read RAPIDS_VERSION
 if [ $RAPIDS_VERSION == "0.11" ] ;then
-  echo "Please COMPARE the \"SCRIPT TO COPY\" with the code in the above cell.  If they are the same, just type any key.  If not, do steps 2-4. 
+  echo "Please COMPARE the \"SCRIPT TO COPY\" with the code in the above cell.  If they are the same, just type any key.  If not, do steps 2-4.
   echo " "
   echo "SCRIPT TO COPY:"
   echo "!wget -nc https://raw.githubusercontent.com/rapidsai/notebooks-contrib/master/utils/rapids-colab.sh"
@@ -32,7 +32,7 @@ if [ $RAPIDS_VERSION == "0.11" ] ;then
     echo "Continuing with RAPIDS install"
   else
     echo "Please do the following:"
-    echo "1. STOP cell execution" 
+    echo "1. STOP cell execution"
     echo "2. CUT and PASTE the script below into the cell you just ran "
     echo "3. RERUN the cell"
     echo " "
@@ -68,7 +68,7 @@ if [ ! -f Miniconda3-4.5.4-Linux-x86_64.sh ]; then
     wget https://repo.continuum.io/miniconda/Miniconda3-4.5.4-Linux-x86_64.sh
     chmod +x Miniconda3-4.5.4-Linux-x86_64.sh
     bash ./Miniconda3-4.5.4-Linux-x86_64.sh -b -f -p /usr/local
-    
+
     if [ $RAPIDS_VERSION == 0.11 ] ;then
     echo "Installing RAPIDS $RAPIDS_VERSION packages from the nightly release channel"
     echo "Please standby, this will take a few minutes..."
@@ -94,7 +94,7 @@ if [ ! -f Miniconda3-4.5.4-Linux-x86_64.sh ]; then
             dask-cudf \
             xgboost
     fi
-      
+
     echo "Copying shared object files to /usr/lib"
     # copy .so files to /usr/lib, where Colab's Python looks for libs
     cp /usr/local/lib/libcudf.so /usr/lib/libcudf.so

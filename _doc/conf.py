@@ -121,4 +121,3 @@ epkg_dictionary = {
     'scikit-learn_benchmarks': 'https://github.com/jeremiedbb/scikit-learn_benchmarks',
     'sklearn-onnx': 'https://github.com/onnx/sklearn-onnx',
 }
-

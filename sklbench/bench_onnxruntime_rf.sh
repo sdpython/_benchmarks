@@ -18,4 +18,3 @@ echo --BENCH1--
 cd onnxruntime/test1-rf
 python -u bench_onnxruntime_rf.py
 cd ../..
-
