@@ -28,7 +28,7 @@ from pymlbenchmark.context import machine_information
 from pymlbenchmark.datasets.artificial import random_binary_classification
 from pymlbenchmark.plotting import plot_bench_results
 from onnxruntime import InferenceSession
-from mlprodict.onnxrt.onnx_inference_manipulations import enumerate_model_node_outputs
+from mlprodict.onnx_tools.onnx_manipulations import enumerate_model_node_outputs
 from mlprodict.sklapi import OnnxTransformer
 from mlprodict.tools import get_ir_version_from_onnx
 
