@@ -99,6 +99,8 @@ def download_model(url, dest, verbose=True):
         os.makedirs(dest)
     fpath = os.path.join(dest, "model.tar.gz")
     if not os.path.exists(fpath):
+        if verbose:
+            print('import tf2onnx')
         from tf2onnx import utils
         if verbose:
             print("Download %r." % fpath)
