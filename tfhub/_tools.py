@@ -204,7 +204,8 @@ def benchmark(url, dest, onnx_name, opset, imgs, verbose=True, threshold=1e-3,
     Goes through every steps (download, convert).
     Skips them if already done.
     """
-    print('[benchmark] %r' % onnx_name)
+    if verbose:
+        print('[benchmark] %r' % onnx_name)
     fpath, tname = download_model(url, dest)
     if verbose:
         print("Created %r, %r." % (fpath, tname))
