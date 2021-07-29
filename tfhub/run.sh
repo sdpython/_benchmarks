@@ -1,4 +1,5 @@
 echo --INSTALL--
+python -m pip install "numpy<1.20" "flatbuffers<2.0" --no-deps
 python -m pip install tensorflow tensorflow_hub --no-deps
 
 echo --RUN--
