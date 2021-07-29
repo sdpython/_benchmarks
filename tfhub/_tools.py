@@ -139,7 +139,7 @@ def convert_model(model_name, output_path, opset=13, tag=None, verbose=True):
     large_model = ext == ".zip"
     if not os.path.exists(output_path):
         begin = datetime.datetime.now()
-        cmdl = ['-m', 'tf2onnx.convert', '--saved-model',
+        cmdl = ['python', '-m', 'tf2onnx.convert', '--saved-model',
                 '"%s"' % os.path.abspath(model_name).replace("\\", "/"),
                 '--output', '"%s"' % os.path.abspath(output_path).replace("\\", "/"),
                 '--opset', "%d" % opset]
@@ -148,17 +148,20 @@ def convert_model(model_name, output_path, opset=13, tag=None, verbose=True):
         if large_model:
             cmdl.append('--large_model')
         if verbose:
-            print("cmd: python %s" % " ".join(cmdl))
+            print("cmd: %s" % " ".join(cmdl))
+        
         pproc = subprocess.Popen(
-            cmdl, shell=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            executable=sys.executable.replace("pythonw", "python"))
-        stdoutdata, stderrdata = pproc.communicate()
-        if verbose:
-            print('--OUT--')
-            print(stdoutdata.decode('ascii'))
-            print('--ERR--')
-            print(stderrdata.decode('ascii'))
-            print("Duration %r." % (datetime.datetime.now() - begin))
+            [c.strip('"') for c in cmdl], shell=False,
+            stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            executable=None)
+        with pproc:
+            stdoutdata, stderrdata = pproc.communicate()
+            if verbose:
+                print('--OUT--')
+                print(stdoutdata.decode('ascii'))
+                print('--ERR--')
+                print(stderrdata.decode('ascii'))
+                print("Duration %r." % (datetime.datetime.now() - begin))
 
 
 def convert_tflite(model_name, output_path, opset=13, verbose=True):
