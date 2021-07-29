@@ -55,6 +55,7 @@ script:
   - { CMD: "bash sklbench/run_bench_skl2onnx_cpp.sh", NAME: "SKLBENCHONNX_CPP", SCHEDULER: "0 0 19 * *", CLEAN: "0" }
   - { CMD: "bash sklbench/run_bench_skl2onnx.sh", NAME: "SKLBENCHONNX", SCHEDULER: "0 0 20 * *", CLEAN: "0" }
   - { CMD: "bash sklbench/bench_onnxruntime_rf.sh", NAME: "ORTRF", SCHEDULER: "0 0 20 * *", CLEAN: "1" }
+  - { CMD: "bash tfhub/run.sh", NAME: "TFHUB", SCHEDULER: "0 0 20 * *", CLEAN: "0" }
   # profile
   - { CMD: "bash sklbench/run_profile_skl2onnx_classifier.sh", NAME: "SKLPROFILEONNX", SCHEDULER: "0 0 21 * *", TIMEOUT: 7200 }
   - { CMD: "bash sklbench/run_profile_skl2onnx_classifier_knn.sh", NAME: "SKLPROFILEONNXKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }

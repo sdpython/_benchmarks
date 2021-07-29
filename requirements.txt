@@ -1,7 +1,9 @@
 onnx
 onnxruntime
-mlprodict>=0.5
+mlprodict>=0.6
 pydata_sphinx_theme
 pymlbenchmark
 py-spy
-git+https://github.com/xadupre/sklearn-onnx.git@jenkins
+skl2onnx
+tf2onnx
+

@@ -38,4 +38,4 @@ sklbench/*.onnx
 sklbench/*.pkl
 sklbench/*.pb
 sklbench/*.png
-
+tfhub/*/**
