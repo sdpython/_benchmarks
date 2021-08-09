@@ -242,6 +242,8 @@ def benchmark(url, dest, onnx_name, opset, imgs, verbose=True, threshold=1e-3,
         ort = onnxruntime.InferenceSession(onnx_name)
 
     oinf = OnnxInference(onnx_name)
+    oinf2 = OnnxInference(onnx_name, runtime='python_compiled')
+    oinf3 = OnnxInference(onnx_name, runtime='onnxruntime1')
 
     if verbose:
         print("ONNX inputs:")
@@ -269,19 +271,39 @@ def benchmark(url, dest, onnx_name, opset, imgs, verbose=True, threshold=1e-3,
         fct_ort = lambda img: ort.run(None, {input_name: img})[index]
     results_ort, duration_ort = measure_time(fct_ort, imgs)
     if verbose:
-        print("ORT", len(imgs), duration_ort)
+        print("ORT0", len(imgs), duration_ort)
+
+    from pyinstrument import Profiler
+
+    # profiling
+    profiler = Profiler()
+    profiler.start()
+    for i in range(10):
+        fct_oinf(imgs[0])
+        fct_oinf3(imgs[0])
+    profiler.stop()
+    print(profiler.output_text(unicode=False, color=False))
 
     # mlprodict
     if isinstance(imgs[0], dict):
         output_name = ort.get_outputs()[0].name
         fct_oinf = lambda img: oinf.run(img)[output_name]
+        fct_oinf2 = lambda img: oinf2.run(img)[output_name]
+        fct_oinf3 = lambda img: oinf3.run(img)[output_name]
     else:
         input_name = ort.get_inputs()[0].name
         output_name = ort.get_outputs()[0].name
         fct_oinf = lambda img: oinf.run({input_name: img})[output_name]
+        fct_oinf2 = lambda img: oinf2.run({input_name: img})[output_name]
+        fct_oinf3 = lambda img: oinf3.run({input_name: img})[output_name]
     results_oinf, duration_oinf = measure_time(fct_oinf, imgs)
     if verbose:
-        print("MLP", len(imgs), duration_oinf)
+        print("MLP1", len(imgs), duration_oinf)
+        
+    # mlprodict2
+    results_oinf2, duration_oinf2 = measure_time(fct_oinf2, imgs)
+    if verbose:
+        print("MLP2", len(imgs), duration_oinf2)
 
     # tensorflow
     import tensorflow_hub as hub
@@ -300,10 +322,12 @@ def benchmark(url, dest, onnx_name, opset, imgs, verbose=True, threshold=1e-3,
     if verbose:
         print("TF", len(imgs), duration_tf)
         mean_mlp = sum(duration_oinf) / len(duration_oinf)
+        mean_mlp2 = sum(duration_oinf2) / len(duration_oinf2)
         mean_ort = sum(duration_ort) / len(duration_ort)
         mean_tf = sum(duration_tf) / len(duration_tf)
-        print("ratio ORT=%r / TF=%r = %r" % (mean_ort, mean_tf, mean_ort / mean_tf))
-        print("ratio MLP=%r / TF=%r = %r" % (mean_mlp, mean_tf, mean_mlp / mean_tf))
+        print("ratio ORT0=%r / TF=%r = %r" % (mean_ort, mean_tf, mean_ort / mean_tf))
+        print("ratio MLP1=%r / TF=%r = %r" % (mean_mlp, mean_tf, mean_mlp / mean_tf))
+        print("ratio MLP2=%r / TF=%r = %r" % (mean_mlp2, mean_tf, mean_mlp2 / mean_tf))
 
     # checks discrepencies
     res = model(imgs_tf[0])
@@ -346,7 +370,7 @@ def benchmark(url, dest, onnx_name, opset, imgs, verbose=True, threshold=1e-3,
         raise e
 
     # final
-    return duration_ort, duration_mlp, duration_tf
+    return duration_tf, duration_ort, duration_oinf, duration_oinf2
 
 
 def benchmark_tflite(url, dest, onnx_name, opset, imgs, verbose=True, threshold=1e-3):
