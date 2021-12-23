@@ -57,10 +57,10 @@ script:
   - { CMD: "bash sklbench/bench_onnxruntime_rf.sh", NAME: "ORTRF", SCHEDULER: "0 0 20 * *", CLEAN: "1" }
   - { CMD: "bash tfhub/run.sh", NAME: "TFHUB", SCHEDULER: "0 0 20 * *", CLEAN: "0" }
   # profile
-  - { CMD: "bash sklbench/run_profile_skl2onnx_classifier.sh", NAME: "SKLPROFILEONNX", SCHEDULER: "0 0 21 * *", TIMEOUT: 7200 }
-  - { CMD: "bash sklbench/run_profile_skl2onnx_classifier_knn.sh", NAME: "SKLPROFILEONNXKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
-  - { CMD: "bash sklbench/run_profile_skl2onnx_regressor.sh", NAME: "SKLPROFILEONNXREG", SCHEDULER: "0 0 22 * *", TIMEOUT: 7200 }
-  - { CMD: "bash sklbench/run_profile_skl2onnx_regressor_knn.sh", NAME: "SKLPROFILEONNXREGKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
+  #- { CMD: "bash sklbench/run_profile_skl2onnx_classifier.sh", NAME: "SKLPROFILEONNX", SCHEDULER: "0 0 21 * *", TIMEOUT: 7200 }
+  #- { CMD: "bash sklbench/run_profile_skl2onnx_classifier_knn.sh", NAME: "SKLPROFILEONNXKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
+  #- { CMD: "bash sklbench/run_profile_skl2onnx_regressor.sh", NAME: "SKLPROFILEONNXREG", SCHEDULER: "0 0 22 * *", TIMEOUT: 7200 }
+  #- { CMD: "bash sklbench/run_profile_skl2onnx_regressor_knn.sh", NAME: "SKLPROFILEONNXREGKNN", SCHEDULER: "0 0 23 * *", TIMEOUT: 7200 }
   # benchmark skl2onnx
   - { CMD: "bash skl2onnx/run.sh", NAME: "SKL2ONNX", SCHEDULER: "0 0 4 * *", TIMEOUT: 3600 }
 
