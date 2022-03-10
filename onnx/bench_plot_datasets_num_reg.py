@@ -40,7 +40,7 @@ from skl2onnx import to_onnx
 from onnxruntime import InferenceSession
 from mlprodict.onnx_conv import register_converters, register_rewritten_operators
 from mlprodict.tools.model_info import analyze_model
-from mlprodict.tools.asv_options_helper import get_opset_number_from_onnx, get_ir_version_from_onnx
+from mlprodict import __max_supported_opset__, get_ir_version
 
 register_converters()
 register_rewritten_operators()
@@ -116,8 +116,8 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
             options = None
         self.onx = to_onnx(self.model, self.datas[0].astype(
             numpy.float32), options=options,
-            target_opset=get_opset_number_from_onnx())
-        self.onx.ir_version = get_ir_version_from_onnx()
+            target_opset=__max_supported_opset__)
+        self.onx.ir_version = get_ir_version(__max_supported_opset__)
         logger = getLogger("skl2onnx")
         logger.propagate = False
         logger.disabled = True

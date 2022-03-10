@@ -29,9 +29,7 @@ from skl2onnx.algebra.onnx_ops import OnnxReduceSumApi11
 from onnxruntime import InferenceSession
 from onnxruntime.capi.onnxruntime_pybind11_state import Fail
 from mlprodict.onnxrt import OnnxInference
-from mlprodict.tools.asv_options_helper import (
-    get_opset_number_from_onnx, get_ir_version_from_onnx)
-
+from mlprodict import __max_supported_opset__, get_ir_version
 
 TARGET_OPSET = 13
 
