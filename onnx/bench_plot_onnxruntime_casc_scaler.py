@@ -27,6 +27,7 @@ from pymlbenchmark.plotting import plot_bench_results
 from skl2onnx.common.data_types import FloatTensorType
 from skl2onnx.algebra.onnx_ops import OnnxScaler
 from onnxruntime import InferenceSession
+from mlprodict import get_ir_version, __max_supported_opset__
 
 ################################
 # Benchmark
