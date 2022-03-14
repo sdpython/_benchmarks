@@ -41,7 +41,8 @@ from onnxruntime import InferenceSession
 from onnxruntime.capi.onnxruntime_pybind11_state import Fail as OrtFail
 from mlprodict.onnx_conv import register_converters, register_rewritten_operators
 from mlprodict.tools.model_info import analyze_model
-from mlprodict import __max_supported_opset__, get_ir_version
+from mlprodict import (
+    __max_supported_opsets__, get_ir_version, __max_supported_opset__)
 
 register_converters()
 register_rewritten_operators()
@@ -125,7 +126,7 @@ class DatasetsOrtBenchPerfTest(BenchPerfTest):
         try:
             self.onx = to_onnx(self.model, self.datas[0].astype(
                 numpy.float32), options=options,
-                target_opset=__max_supported_opset__)
+                target_opset=__max_supported_opsets__)
             self.onx.ir_version = get_ir_version(__max_supported_opset__)
         except (RuntimeError, NameError) as e:
             raise RuntimeError(
