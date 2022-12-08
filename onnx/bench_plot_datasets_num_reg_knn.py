@@ -15,7 +15,7 @@ import numpy
 import pandas
 import matplotlib.pyplot as plt
 import sklearn
-from sklearn.datasets import load_boston, load_diabetes, make_regression
+from sklearn.datasets import load_diabetes, make_regression
 from sklearn.experimental import enable_hist_gradient_boosting
 from sklearn.ensemble import (
     RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor,
@@ -51,10 +51,6 @@ filename = os.path.splitext(os.path.split(__file__)[-1])[0]
 
 def create_datasets():
     results = {}
-    X, y = load_boston(return_X_y=True)
-    X_train, X_test, y_train, y_test = train_test_split(X, y)
-
-    results['boston'] = [X_train, X_test, y_train, y_test]
     X, y = load_diabetes(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     results['diabetes'] = [X_train, X_test, y_train, y_test]
@@ -218,7 +214,7 @@ def run_bench(repeat=5, verbose=False):
                                       'LR', 'GBT', 'KNN',
                                       'KNN-cdist', 'HGB'])),
                    norm=[False, True],
-                   dataset=["boston", "diabetes", "rndbin100"])
+                   dataset=["diabetes", "rndbin100"])
     pafter = dict(N=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000,
                      2000, 5000, 10000, 20000, 50000])
 

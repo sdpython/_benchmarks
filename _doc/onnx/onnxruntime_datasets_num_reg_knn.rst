@@ -7,15 +7,14 @@ Benchmark (ONNX) for common datasets (regression) with k-NN
 .. contents::
     :local:
 
-.. index:: onnxruntime, datasets, boston, diabetes
+.. index:: onnxruntime, datasets, diabetes
 
 Overview
 ++++++++
 
 The following graph plots the ratio between :epkg:`onnxruntime`
 and :epkg:`scikit-learn`. It looks into multiple models for
-a couple of datasets :
-`boston <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html>`_,
+a couple of datasets:
 `diabetes <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html>`_.
 It computes the prediction time for the following models:
 
