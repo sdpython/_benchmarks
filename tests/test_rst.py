@@ -46,7 +46,7 @@ class TestRst(ExtTestCase):
         text = rst2html(content, outdir=temp, writer="rst",
                         imgmath_latex_preamble=preamble, layout="docutils",
                         extlinks=dict(issue=('https://link/%s',
-                                             'issue {0} on GitHub')),
+                                             'issue %s on GitHub')),
                         epkg_dictionary=links,
                         document_name=doc, destination_path=temp,
                         fLOG=noLOG)
